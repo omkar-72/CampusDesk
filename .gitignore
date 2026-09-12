@@ -1,0 +1,18 @@
+# PostgreSQL / local configuration
+config/database.php
+
+# Uploaded files
+uploads/*
+!uploads/.gitkeep
+
+# VS Code
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.log
