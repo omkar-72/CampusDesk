@@ -1,0 +1,89 @@
+/* =========================================================
+   CAMPUSDESK - LOGIN
+   ========================================================= */
+
+.login-container{
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+.login-box{
+width:420px;
+background:#f7f7f7;
+border:2px solid #666;
+padding:25px;
+}
+
+.login-box h1,
+.login-box p{
+text-align:center;
+}
+
+.login-box hr{
+margin:20px 0;
+border:1px dashed #888;
+}
+
+.login-field{
+margin-bottom:18px;
+}
+
+.login-field label{
+display:block;
+margin-bottom:6px;
+font-weight:bold;
+}
+
+.login-field input{
+width:100%;
+padding:10px;
+border:1px solid #666;
+}
+
+.login-password-box{
+display:flex;
+gap:8px;
+}
+
+.login-password-box input{
+flex:1;
+}
+
+.login-password-box button{
+width:70px;
+border:1px solid #666;
+background:#ddd;
+}
+
+.login-btn{
+width:100%;
+padding:10px;
+border:2px solid #555;
+background:#d9d9d9;
+font-weight:bold;
+cursor:pointer;
+}
+
+.login-links{
+margin-top:20px;
+text-align:center;
+}
+
+.login-links a{
+text-decoration:none;
+color:#333;
+}
+
+.login-links span{
+margin:0 8px;
+}
+
+.login-message{
+border:1px solid #666;
+background:#e5e5e5;
+padding:10px;
+margin-bottom:15px;
+text-align:center;
+}
