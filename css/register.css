@@ -1,0 +1,96 @@
+/* =========================================================
+   CAMPUSDESK - STUDENT REGISTER
+   ========================================================= */
+
+.register-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:30px;
+}
+
+.register-box{
+    width:550px;
+    background:#f7f7f7;
+    border:2px solid #666;
+    padding:25px;
+}
+
+.register-header{
+    text-align:center;
+}
+
+.register-box hr{
+    border:1px dashed #888;
+    margin:20px 0;
+}
+
+.register-message{
+    border:1px solid #666;
+    background:#e5e5e5;
+    padding:10px;
+    margin-bottom:15px;
+    text-align:center;
+}
+
+.register-field{
+    margin-bottom:15px;
+}
+
+.register-field label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+.register-field input,
+.register-field select,
+.register-field textarea{
+    width:100%;
+    padding:10px;
+    border:1px solid #666;
+}
+
+.register-row{
+    display:flex;
+    gap:15px;
+}
+
+.register-row .register-field{
+    flex:1;
+}
+
+.register-checkbox{
+    display:flex;
+    gap:8px;
+    margin:20px 0;
+    align-items:center;
+}
+
+.register-checkbox input{
+    width:auto;
+}
+
+.register-btn{
+    width:100%;
+    padding:10px;
+    border:2px solid #555;
+    background:#d9d9d9;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.register-btn:hover{
+    background:#cfcfcf;
+}
+
+.register-links{
+    text-align:center;
+    margin-top:20px;
+}
+
+.register-links a{
+    text-decoration:none;
+    color:#333;
+}
