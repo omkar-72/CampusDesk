@@ -1,0 +1,61 @@
+/* =========================================================
+   CAMPUSDESK - ROLE SELECTION
+   ========================================================= */
+
+.home-container{
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:30px;
+}
+
+.home-box{
+width:850px;
+background:#f7f7f7;
+border:2px solid #666;
+padding:30px;
+text-align:center;
+}
+
+.home-box hr{
+margin:20px 0;
+border:1px dashed #888;
+}
+
+.role-cards{
+display:flex;
+justify-content:space-between;
+gap:20px;
+margin-top:25px;
+}
+
+.role-card{
+flex:1;
+border:2px solid #777;
+padding:20px;
+background:#f0f0f0;
+}
+
+.role-card h2{
+margin-bottom:10px;
+}
+
+.role-card p{
+margin-bottom:20px;
+font-size:14px;
+}
+
+.role-card a{
+display:block;
+padding:10px;
+border:2px solid #666;
+background:#ddd;
+text-decoration:none;
+color:#333;
+font-weight:bold;
+}
+
+.role-card a:hover{
+background:#cfcfcf;
+}
