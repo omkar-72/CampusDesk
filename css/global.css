@@ -1,0 +1,21 @@
+/* =========================================================
+   CAMPUSDESK - GLOBAL STYLES
+   ========================================================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#efefef;
+color:#333;
+}
+
+button,
+input,
+select{
+font-family:inherit;
+}
