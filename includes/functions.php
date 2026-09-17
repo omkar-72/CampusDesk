@@ -67,7 +67,7 @@ function getSuggestionCategories($conn)
             FROM suggestion_categories
             WHERE status = TRUE
             ORDER BY category_name";
-            
+
     return pg_query($conn, $sql);
 }
 
@@ -127,6 +127,16 @@ function formatSuggestionId($suggestion_id)
 {
     return "SUG-" . str_pad(
         $suggestion_id,
+        3,
+        "0",
+        STR_PAD_LEFT
+    );
+}
+
+function formatApplicationId($application_id)
+{
+    return "APP-" . str_pad(
+        $application_id,
         3,
         "0",
         STR_PAD_LEFT

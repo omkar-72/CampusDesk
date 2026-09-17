@@ -112,7 +112,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (function_exists("finfo_open")) {
 
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $finfo = finfo_open(
+            FILEINFO_MIME_TYPE
+        );
 
         $file_type = finfo_file(
             $finfo,

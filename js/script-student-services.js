@@ -234,6 +234,105 @@ function closeSuggestionDeleteNotPossible()
 
 
 /* =========================
+   APPLICATION
+   ========================= */
+
+function showApplicationConfirmationPopup()
+{
+    const form = document.getElementById(
+        "applicationForm"
+    );
+
+    if (!form) {
+        return;
+    }
+
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    const modal = document.getElementById(
+        "applicationConfirmationModal"
+    );
+
+    if (modal) {
+        modal.style.display = "flex";
+    }
+}
+
+
+function closeApplicationConfirmationPopup()
+{
+    const modal = document.getElementById(
+        "applicationConfirmationModal"
+    );
+
+    if (modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+function submitApplication()
+{
+    const form = document.getElementById(
+        "applicationForm"
+    );
+
+    if (form) {
+        form.submit();
+    }
+}
+
+
+function confirmApplicationDelete()
+{
+    return confirm(
+        "Are you sure you want to delete this application?"
+    );
+}
+
+
+function showApplicationDeleteNotPossible(status)
+{
+    const modal = document.getElementById(
+        "applicationDeleteNotPossibleModal"
+    );
+
+    const message = document.getElementById(
+        "applicationDeleteNotPossibleMessage"
+    );
+
+    if (!modal) {
+        return;
+    }
+
+    if (message) {
+
+        message.textContent =
+            "This application cannot be deleted because its current status is " +
+            status +
+            ".";
+    }
+
+    modal.style.display = "flex";
+}
+
+
+function closeApplicationDeleteNotPossible()
+{
+    const modal = document.getElementById(
+        "applicationDeleteNotPossibleModal"
+    );
+
+    if (modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+/* =========================
    FILE VALIDATION
    ========================= */
 
