@@ -13,7 +13,16 @@
         <button class="header-btn">🔔</button>
 
         <div class="user-box">
-            <span><?php echo $_SESSION["role_name"] ?? "User"; ?></span>
+
+            <div class="user-avatar">
+                <?php echo strtoupper(substr($_SESSION["role_name"] ?? "U",0,1)); ?>
+            </div>
+
+            <div class="user-info">
+                <small>Logged in as</small>
+                <span><?php echo $_SESSION["role_name"] ?? "User"; ?></span>
+            </div>
+
         </div>
 
     </div>
