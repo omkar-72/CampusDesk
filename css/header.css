@@ -1,0 +1,86 @@
+/* ================= TOP HEADER ================= */
+
+.top-header{
+    position: fixed;
+    top: 0;
+    left: 260px;
+    width: calc(100% - 260px);
+    height: 75px;
+    background: white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    border-bottom:1px solid #E2E8F0;
+    box-shadow:0 4px 12px rgba(0,0,0,.06);
+    z-index:999;
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.header-left h2{
+    margin:0;
+    font-size:28px;
+    color:#0F172A;
+}
+
+.header-center{
+    flex:1;
+    display:flex;
+    justify-content:center;
+}
+
+.search-box{
+    width:420px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#F8FAFC;
+    border:1px solid #E2E8F0;
+    border-radius:30px;
+    padding:10px 16px;
+}
+
+.search-box input{
+    width:100%;
+    border:none;
+    outline:none;
+    background:transparent;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.notification-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:50%;
+    background:#F1F5F9;
+    cursor:pointer;
+}
+
+.profile-box{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.profile-avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#2563EB;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}

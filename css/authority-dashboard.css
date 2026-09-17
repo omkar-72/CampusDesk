@@ -1,0 +1,256 @@
+/* =========================================================
+   CAMPUSDESK - AUTHORITY DASHBOARD
+   ========================================================= */
+
+.dashboard-layout{
+    margin-left:260px;
+    min-height:100vh;
+}
+
+.dashboard-content{
+    padding:100px 30px 30px;
+    background:#F4F7FC;
+    min-height:100vh;
+}
+
+/* ================= Welcome Banner ================= */
+
+.welcome-banner{
+    background:linear-gradient(135deg,#2563EB,#1D4ED8);
+    color:#fff;
+    border-radius:20px;
+    padding:28px 32px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    box-shadow:0 12px 30px rgba(37,99,235,.25);
+}
+
+.welcome-banner h2{
+    margin:0;
+    font-size:32px;
+}
+
+.welcome-banner p{
+    margin-top:6px;
+    opacity:.9;
+}
+
+.welcome-date{
+    background:rgba(255,255,255,.18);
+    padding:14px 22px;
+    border-radius:12px;
+    font-weight:600;
+}
+
+/* ================= KPI CARDS ================= */
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.stat-box{
+    position:relative;
+    overflow:hidden;
+    border-radius:16px;
+    padding:16px;
+    min-height:110px;
+    color:#fff;
+    box-shadow:0 10px 24px rgba(0,0,0,.15);
+    transition:.25s;
+}
+
+.stat-box:hover{
+    transform:translateY(-5px);
+}
+
+.stat-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.stat-header span{
+    font-size:13px;
+    font-weight:500;
+}
+
+.stat-header i{
+    font-size:20px;
+}
+
+.stat-box h2{
+    margin-top:18px;
+    font-size:34px;
+    font-weight:700;
+}
+
+.stat-box::after{
+    content:"";
+    position:absolute;
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:rgba(255,255,255,.12);
+    right:-20px;
+    bottom:-20px;
+}
+
+/* Card Colors */
+
+.stat-box.blue{
+    background:linear-gradient(135deg,#2563EB,#1D4ED8);
+}
+
+.stat-box.purple{
+    background:linear-gradient(135deg,#7C3AED,#6D28D9);
+}
+
+.stat-box.orange{
+    background:linear-gradient(135deg,#F59E0B,#EA580C);
+}
+
+.stat-box.red{
+    background:linear-gradient(135deg,#EF4444,#DC2626);
+}
+
+.stat-box.teal{
+    background:linear-gradient(135deg,#0EA5A4,#0F766E);
+}
+
+.stat-box.green{
+    background:linear-gradient(135deg,#22C55E,#15803D);
+}
+
+.stat-box.cyan{
+    background:linear-gradient(135deg,#06B6D4,#0284C7);
+}
+
+.stat-box.success{
+    background:linear-gradient(135deg,#16A34A,#166534);
+}
+
+/* ================= Bottom Section ================= */
+
+.bottom-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+}
+
+.panel{
+    background:#fff;
+    border-radius:18px;
+    padding:24px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+}
+
+.panel-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.panel-header h3{
+    margin:0;
+    color:#0F172A;
+}
+
+.panel-header a{
+    color:#2563EB;
+    text-decoration:none;
+    font-weight:600;
+}
+
+/* Activity */
+
+.activity-item{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:16px 0;
+    border-bottom:1px solid #E5E7EB;
+}
+
+.activity-item:last-child{
+    border-bottom:none;
+}
+
+.activity-icon{
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    background:#EFF6FF;
+    color:#2563EB;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+}
+
+.activity-item strong{
+    color:#0F172A;
+}
+
+.activity-item p{
+    color:#64748B;
+    margin:4px 0 0;
+}
+
+/* Quick Actions */
+
+.quick-actions{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.quick-btn{
+    background:#2563EB;
+    color:#fff;
+    text-decoration:none;
+    padding:14px 16px;
+    border-radius:10px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    transition:.25s;
+}
+
+.quick-btn:hover{
+    background:#1D4ED8;
+}
+
+/* ================= Responsive ================= */
+
+@media(max-width:992px){
+
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .bottom-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    .dashboard-layout{
+        margin-left:0;
+    }
+
+    .dashboard-content{
+        padding:90px 20px 20px;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+}

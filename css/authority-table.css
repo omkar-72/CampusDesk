@@ -1,0 +1,129 @@
+/* =========================================================
+   MODERN TABLE DESIGN
+   ========================================================= */
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.page-header h2{
+    font-size:28px;
+    color:#0F172A;
+}
+
+.page-header p{
+    color:#64748B;
+    margin-top:5px;
+}
+
+/* Filter */
+
+.filter-bar{
+    display:flex;
+    gap:15px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+}
+
+.filter-bar input{
+    flex:1;
+    min-width:220px;
+}
+
+.filter-bar select{
+    min-width:180px;
+}
+
+/* Table Card */
+
+.table-card{
+    background:white;
+    border-radius:18px;
+    box-shadow:0 8px 24px rgba(15,23,42,.08);
+    overflow:hidden;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:#F8FAFC;
+}
+
+thead th{
+    padding:18px;
+    text-align:left;
+    color:#475569;
+    font-size:14px;
+    border-bottom:1px solid #E2E8F0;
+}
+
+tbody td{
+    padding:18px;
+    border-bottom:1px solid #E2E8F0;
+}
+
+tbody tr:hover{
+    background:#F8FAFC;
+}
+
+/* Action Button */
+
+.action-btn{
+    background:#2563EB;
+    color:white;
+    border:none;
+    padding:9px 18px;
+    border-radius:8px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.action-btn:hover{
+    background:#1D4ED8;
+}
+
+/* =========================================================
+   SUGGESTION ACTION BUTTONS
+   ========================================================= */
+
+.action-group{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.accept-btn,
+.reject-btn{
+
+    border:none;
+    padding:8px 14px;
+    border-radius:8px;
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:.25s;
+
+}
+
+.accept-btn{
+    background:#22C55E;
+}
+
+.accept-btn:hover{
+    background:#16A34A;
+}
+
+.reject-btn{
+    background:#EF4444;
+}
+
+.reject-btn:hover{
+    background:#DC2626;
+}

@@ -9,7 +9,7 @@ INSERT INTO departments (department_name, status)
 VALUES
 ('Computer Science', TRUE),
 ('Mathematics', TRUE),
-('Statistics', TRUE),
+('Statistics', TRUE), 
 ('Physics', TRUE),
 ('Chemistry', TRUE),
 ('Electronics', TRUE),
@@ -91,3 +91,27 @@ VALUES
     ('Exam Related', TRUE),
     ('Document Verification', TRUE),
     ('Other', TRUE);
+
+
+
+INSERT INTO statuses
+    (status_name, module_type, description, status)
+VALUES
+    ('New', 'GRIEVANCE', 'Grievance has been newly submitted', TRUE),
+    ('Under Review', 'GRIEVANCE', 'Grievance is being reviewed', TRUE),
+    ('In Progress', 'GRIEVANCE', 'Grievance is being processed', TRUE),
+    ('Resolved', 'GRIEVANCE', 'Grievance has been resolved', TRUE),
+    ('Rejected', 'GRIEVANCE', 'Grievance has been rejected', TRUE),
+
+    ('New', 'SUGGESTION', 'Suggestion has been newly submitted', TRUE),
+    ('Under Review', 'SUGGESTION', 'Suggestion is being reviewed', TRUE),
+    ('Accepted', 'SUGGESTION', 'Suggestion has been accepted', TRUE),
+    ('Rejected', 'SUGGESTION', 'Suggestion has been rejected', TRUE),
+    ('Implemented', 'SUGGESTION', 'Suggestion has been implemented', TRUE),
+
+    ('New', 'APPLICATION', 'Application has been newly submitted', TRUE),
+    ('Processing', 'APPLICATION', 'Application is being processed', TRUE),
+    ('Under Review', 'APPLICATION', 'Application is under review', TRUE),
+    ('Approved', 'APPLICATION', 'Application has been approved', TRUE),
+    ('Rejected', 'APPLICATION', 'Application has been rejected', TRUE);
+
