@@ -5,12 +5,18 @@
     </div>
 
     <div class="header-center">
-        <input type="text" placeholder="Search...">
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search...">
+        </div>
     </div>
 
     <div class="header-right">
 
-        <button class="header-btn">🔔</button>
+        <button class="notification-btn">
+            <i class="fa-regular fa-bell"></i>
+            <span class="notification-dot"></span>
+        </button>
 
         <div class="user-box">
 
