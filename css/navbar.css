@@ -1,51 +1,95 @@
 /* =========================================================
-   CAMPUSDESK - COMMON NAVBAR
+   CAMPUSDESK - MODERN LEFT SIDEBAR
    ========================================================= */
 
 .navbar{
-    width:240px;
-    min-height:100vh;
-    background:#2c3e50;
+    position:fixed;
+    top:0;
+    left:0;
+    width:260px;
+    height:100vh;
+    background:#0F172A;
     color:#ffffff;
-    padding:20px 0;
+    display:flex;
+    flex-direction:column;
+    padding:24px 16px;
+    box-shadow:4px 0 20px rgba(15,23,42,.15);
+    z-index:1000;
 }
 
+/* Logo */
+
 .navbar-title{
-    text-align:center;
-    padding-bottom:20px;
-    border-bottom:1px solid #44576d;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:35px;
 }
 
 .navbar-title h2{
-    font-size:24px;
-    margin:0;
+    font-size:26px;
+    font-weight:700;
+    color:#ffffff;
 }
+
+/* Menu */
 
 .navbar-menu{
     list-style:none;
-    padding:20px 0 0;
-    margin:0;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    flex:1;
 }
 
-.navbar-menu li{
-    margin:6px 12px;
+.navbar-menu li a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    border-radius:12px;
+    color:#CBD5E1;
+    font-weight:500;
+    transition:all .25s ease;
 }
 
-.navbar-menu a{
-    display:block;
-    padding:12px 18px;
+/* Hover */
+
+.navbar-menu li a:hover{
+    background:#1E293B;
     color:#ffffff;
-    text-decoration:none;
-    border-radius:8px;
-    transition:0.2s;
+    transform:translateX(5px);
 }
 
-.navbar-menu a:hover{
-    background:#34495e;
-}
+/* Active */
 
-.navbar-menu .active a{
-    background:#1abc9c;
+.navbar-menu li.active a{
+    background:#2563EB;
     color:#ffffff;
-    font-weight:bold;
+    box-shadow:0 8px 18px rgba(37,99,235,.35);
+}
+
+/* Logout */
+
+.navbar-menu li:last-child{
+    margin-top:auto;
+}
+
+.navbar-menu li:last-child a{
+    color:#FCA5A5;
+}
+
+.navbar-menu li:last-child a:hover{
+    background:#7F1D1D;
+    color:white;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+    .navbar{
+        width:220px;
+    }
+
 }
