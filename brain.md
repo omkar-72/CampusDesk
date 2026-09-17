@@ -8,9 +8,14 @@ psql -U postgres -d campusdesk
 
 // login for student
 omkar.gavane@campusdesk.com
-Omkar@123
+omkar@1234
+
+amod.naikare@campusdesk.com
+amod@1234
 
 
+
+// done by ganesh
 login@gmail.com
 
 Login@123
