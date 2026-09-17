@@ -5,12 +5,17 @@
     </div>
 
     <div class="header-center">
-        <input type="text" placeholder="Search">
+        <input type="text" placeholder="Search...">
     </div>
 
     <div class="header-right">
-        <span>Notifications</span>
-        <span><?php echo $_SESSION["role_name"] ?? "User"; ?></span>
+
+        <button class="header-btn">🔔</button>
+
+        <div class="user-box">
+            <span><?php echo $_SESSION["role_name"] ?? "User"; ?></span>
+        </div>
+
     </div>
 
 </header>
