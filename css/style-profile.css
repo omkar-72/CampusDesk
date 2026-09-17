@@ -1,0 +1,587 @@
+/*
+ * CampusDesk
+ * Student Profile Styles
+ */
+
+
+/* =========================
+   BASIC RESET
+   ========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   BODY
+   ========================= */
+
+body {
+    margin: 0;
+    padding: 0;
+
+    font-family: Arial, sans-serif;
+
+    background-color: #f5f6f8;
+
+    color: #222;
+}
+
+
+/* =========================
+   PROFILE CONTAINER
+   ========================= */
+
+.profile-container {
+    width: 90%;
+    max-width: 1000px;
+
+    margin: 30px auto;
+}
+
+
+/* =========================
+   PROFILE HEADER
+   ========================= */
+
+.profile-header {
+    background-color: #ffffff;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    padding: 25px;
+
+    margin-bottom: 20px;
+
+    text-align: center;
+}
+
+.profile-header h1 {
+    margin: 0;
+
+    font-size: 30px;
+}
+
+.profile-header p {
+    margin: 8px 0 0;
+
+    color: #666;
+
+    font-size: 16px;
+}
+
+
+/* =========================
+   BACK LINK
+   ========================= */
+
+.back-link {
+    display: block;
+
+    text-align: left;
+
+    margin-bottom: 15px;
+
+    color: #333;
+
+    text-decoration: none;
+
+    font-size: 15px;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   MESSAGES
+   ========================= */
+
+.profile-message {
+    padding: 12px 15px;
+
+    border-radius: 6px;
+
+    margin-bottom: 20px;
+
+    font-size: 14px;
+}
+
+.success-message {
+    background-color: #e8f5e9;
+
+    border: 1px solid #a5d6a7;
+
+    color: #2e7d32;
+}
+
+.error-message {
+    background-color: #ffebee;
+
+    border: 1px solid #ef9a9a;
+
+    color: #c62828;
+}
+
+
+/* =========================
+   PROFILE SECTIONS
+   ========================= */
+
+.profile-section {
+    background-color: #ffffff;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    padding: 25px;
+
+    margin-bottom: 20px;
+}
+
+.profile-section h2 {
+    margin: 0 0 20px;
+
+    font-size: 21px;
+
+    border-bottom: 1px solid #ddd;
+
+    padding-bottom: 10px;
+}
+
+
+/* =========================
+   PROFILE PHOTO
+   ========================= */
+
+.profile-photo-area {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 3px solid #ddd;
+
+    display: block;
+}
+
+.default-profile-icon {
+    width: 150px;
+    height: 150px;
+
+    border-radius: 50%;
+
+    background-color: #eee;
+
+    border: 3px solid #ddd;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 70px;
+}
+
+
+/* =========================
+   HIDDEN
+   ========================= */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================
+   PROFILE PHOTO FORM
+   ========================= */
+
+.profile-photo-form {
+    max-width: 500px;
+
+    margin: 0 auto;
+}
+
+.remove-photo-form {
+    max-width: 500px;
+
+    margin: 12px auto 0;
+}
+
+
+/* =========================
+   PROFILE GRID
+   ========================= */
+
+.profile-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 18px 20px;
+}
+
+
+/* =========================
+   FULL WIDTH FIELD
+   ========================= */
+
+.profile-full-width {
+    grid-column: 1 / -1;
+}
+
+
+/* =========================
+   PROFILE FIELD
+   ========================= */
+
+.profile-field {
+    margin-bottom: 18px;
+}
+
+.profile-field label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-weight: bold;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   INPUTS
+   ========================= */
+
+.profile-field input,
+.profile-field textarea,
+.profile-field select {
+    width: 100%;
+
+    padding: 11px 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 5px;
+
+    font-size: 14px;
+
+    font-family: Arial, sans-serif;
+
+    background-color: #ffffff;
+}
+
+
+/* =========================
+   INPUT FOCUS
+   ========================= */
+
+.profile-field input:focus,
+.profile-field textarea:focus,
+.profile-field select:focus {
+    outline: none;
+
+    border-color: #777;
+}
+
+
+/* =========================
+   READONLY FIELDS
+   ========================= */
+
+.profile-field input[readonly],
+.profile-field textarea[readonly] {
+    background-color: #f1f1f1;
+
+    color: #555;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================
+   EDITABLE FIELDS
+   ========================= */
+
+.profile-field input.editable-field,
+.profile-field textarea.editable-field {
+    background-color: #ffffff;
+
+    color: #222;
+
+    border-color: #777;
+
+    cursor: text;
+}
+
+
+/* =========================
+   TEXTAREA
+   ========================= */
+
+.profile-field textarea {
+    resize: vertical;
+
+    min-height: 100px;
+}
+
+
+/* =========================
+   FILE INPUT
+   ========================= */
+
+.profile-field input[type="file"] {
+    padding: 9px;
+
+    background-color: #ffffff;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   HELP TEXT
+   ========================= */
+
+.form-help {
+    margin: -5px 0 15px;
+
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   PASSWORD BOX
+   ========================= */
+
+.password-box {
+    position: relative;
+
+    width: 100%;
+}
+
+.password-box input {
+    padding-right: 50px;
+}
+
+
+/* =========================
+   PASSWORD TOGGLE
+   ========================= */
+
+.password-toggle {
+    position: absolute;
+
+    right: 8px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 35px;
+    height: 35px;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+.password-toggle:hover {
+    background-color: #f1f1f1;
+
+    border-radius: 5px;
+}
+
+
+/* =========================
+   BUTTONS
+   ========================= */
+
+.profile-button {
+    display: inline-block;
+
+    padding: 10px 18px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    font-size: 14px;
+
+    font-family: Arial, sans-serif;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    margin-right: 8px;
+}
+
+
+/* =========================
+   PRIMARY BUTTON
+   ========================= */
+
+.primary-button {
+    background-color: #333;
+
+    color: #ffffff;
+}
+
+.primary-button:hover {
+    background-color: #222;
+}
+
+
+/* =========================
+   SECONDARY BUTTON
+   ========================= */
+
+.secondary-button {
+    background-color: #e0e0e0;
+
+    color: #333;
+
+    border: 1px solid #ccc;
+}
+
+.secondary-button:hover {
+    background-color: #d5d5d5;
+}
+
+
+/* =========================
+   DANGER BUTTON
+   ========================= */
+
+.danger-button {
+    background-color: #c62828;
+
+    color: #ffffff;
+}
+
+.danger-button:hover {
+    background-color: #a61f1f;
+}
+
+
+/* =========================
+   BUTTON GROUP
+   ========================= */
+
+.button-group {
+    margin-top: 10px;
+}
+
+
+/* =========================
+   LOGOUT SECTION
+   ========================= */
+
+.profile-logout-section {
+    background-color: #ffffff;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    padding: 20px;
+
+    margin-bottom: 30px;
+
+    text-align: center;
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE
+   ========================= */
+
+@media (max-width: 700px) {
+
+    .profile-container {
+        width: 94%;
+
+        margin: 20px auto;
+    }
+
+
+    .profile-section {
+        padding: 20px;
+    }
+
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+
+    .profile-full-width {
+        grid-column: auto;
+    }
+
+
+    .profile-header h1 {
+        font-size: 25px;
+    }
+
+
+    .profile-photo {
+        width: 130px;
+        height: 130px;
+    }
+
+
+    .default-profile-icon {
+        width: 130px;
+        height: 130px;
+
+        font-size: 60px;
+    }
+
+
+    .profile-button {
+        width: 100%;
+
+        margin: 5px 0;
+    }
+
+
+    .password-toggle {
+        width: 38px;
+    }
+
+}

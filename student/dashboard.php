@@ -37,11 +37,16 @@ $result = pg_query_params(
     [$student_id]
 );
 
-if (!$result || pg_num_rows($result) === 0) {
+if (
+    !$result ||
+    pg_num_rows($result) === 0
+) {
     die("Student information not found.");
 }
 
-$student = pg_fetch_assoc($result);
+$student = pg_fetch_assoc(
+    $result
+);
 
 
 /* =========================
@@ -53,7 +58,9 @@ $suggestion_count = 0;
 $application_count = 0;
 
 
-/* Grievances */
+/* =========================
+   GRIEVANCES
+   ========================= */
 
 $result = pg_query_params(
     $conn,
@@ -64,12 +71,19 @@ $result = pg_query_params(
 );
 
 if ($result) {
-    $row = pg_fetch_assoc($result);
-    $grievance_count = $row["total"];
+
+    $row = pg_fetch_assoc(
+        $result
+    );
+
+    $grievance_count =
+        $row["total"];
 }
 
 
-/* Suggestions */
+/* =========================
+   SUGGESTIONS
+   ========================= */
 
 $result = pg_query_params(
     $conn,
@@ -80,12 +94,19 @@ $result = pg_query_params(
 );
 
 if ($result) {
-    $row = pg_fetch_assoc($result);
-    $suggestion_count = $row["total"];
+
+    $row = pg_fetch_assoc(
+        $result
+    );
+
+    $suggestion_count =
+        $row["total"];
 }
 
 
-/* Applications */
+/* =========================
+   APPLICATIONS
+   ========================= */
 
 $result = pg_query_params(
     $conn,
@@ -96,8 +117,13 @@ $result = pg_query_params(
 );
 
 if ($result) {
-    $row = pg_fetch_assoc($result);
-    $application_count = $row["total"];
+
+    $row = pg_fetch_assoc(
+        $result
+    );
+
+    $application_count =
+        $row["total"];
 }
 
 ?>
@@ -114,7 +140,9 @@ if ($result) {
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Student Dashboard - CampusDesk</title>
+    <title>
+        Student Dashboard - CampusDesk
+    </title>
 
     <link
         rel="stylesheet"
@@ -128,7 +156,9 @@ if ($result) {
 <div class="page-container">
 
 
-    <!-- Header -->
+    <!-- =========================
+         HEADER
+         ========================= -->
 
     <div class="page-header">
 
@@ -138,13 +168,19 @@ if ($result) {
 
         <p>
             Welcome,
-            <?php echo escape($student["full_name"]); ?>.
+            <?php
+            echo escape(
+                $student["full_name"]
+            );
+            ?>.
         </p>
 
     </div>
 
 
-    <!-- Student Information -->
+    <!-- =========================
+         STUDENT INFORMATION
+         ========================= -->
 
     <div class="section-box">
 
@@ -154,6 +190,9 @@ if ($result) {
 
         <div class="details">
 
+
+            <!-- Name -->
+
             <div class="detail-row">
 
                 <div class="detail-label">
@@ -161,15 +200,19 @@ if ($result) {
                 </div>
 
                 <div class="detail-value">
+
                     <?php
                     echo escape(
                         $student["full_name"]
                     );
                     ?>
+
                 </div>
 
             </div>
 
+
+            <!-- Course -->
 
             <div class="detail-row">
 
@@ -178,15 +221,19 @@ if ($result) {
                 </div>
 
                 <div class="detail-value">
+
                     <?php
                     echo escape(
                         $student["course"]
                     );
                     ?>
+
                 </div>
 
             </div>
 
+
+            <!-- Year -->
 
             <div class="detail-row">
 
@@ -195,15 +242,19 @@ if ($result) {
                 </div>
 
                 <div class="detail-value">
+
                     <?php
                     echo escape(
                         $student["year"]
                     );
                     ?>
+
                 </div>
 
             </div>
 
+
+            <!-- Semester -->
 
             <div class="detail-row">
 
@@ -212,15 +263,19 @@ if ($result) {
                 </div>
 
                 <div class="detail-value">
+
                     <?php
                     echo escape(
                         $student["semester"]
                     );
                     ?>
+
                 </div>
 
             </div>
 
+
+            <!-- Division -->
 
             <div class="detail-row">
 
@@ -229,11 +284,13 @@ if ($result) {
                 </div>
 
                 <div class="detail-value">
+
                     <?php
                     echo escape(
                         $student["division"]
                     );
                     ?>
+
                 </div>
 
             </div>
@@ -243,7 +300,9 @@ if ($result) {
     </div>
 
 
-    <!-- Student Services -->
+    <!-- =========================
+         STUDENT SERVICES
+         ========================= -->
 
     <div class="section-box">
 
@@ -271,7 +330,11 @@ if ($result) {
 
                 <p>
                     Total:
-                    <?php echo escape($grievance_count); ?>
+                    <?php
+                    echo escape(
+                        $grievance_count
+                    );
+                    ?>
                 </p>
 
             </a>
@@ -294,7 +357,11 @@ if ($result) {
 
                 <p>
                     Total:
-                    <?php echo escape($suggestion_count); ?>
+                    <?php
+                    echo escape(
+                        $suggestion_count
+                    );
+                    ?>
                 </p>
 
             </a>
@@ -317,7 +384,11 @@ if ($result) {
 
                 <p>
                     Total:
-                    <?php echo escape($application_count); ?>
+                    <?php
+                    echo escape(
+                        $application_count
+                    );
+                    ?>
                 </p>
 
             </a>
@@ -328,7 +399,9 @@ if ($result) {
     </div>
 
 
-    <!-- Quick Links -->
+    <!-- =========================
+         QUICK LINKS
+         ========================= -->
 
     <div class="section-box">
 
@@ -338,12 +411,18 @@ if ($result) {
 
         <div class="button-group">
 
+
+            <!-- Raise Grievance -->
+
             <a
                 href="grievances.php?section=raise"
                 class="button primary-button"
             >
                 Raise Grievance
             </a>
+
+
+            <!-- Submit Suggestion -->
 
             <a
                 href="suggestions.php?section=raise"
@@ -352,12 +431,26 @@ if ($result) {
                 Submit Suggestion
             </a>
 
+
+            <!-- Submit Application -->
+
             <a
                 href="applications.php?section=submit"
                 class="button primary-button"
             >
                 Submit Application
             </a>
+
+
+            <!-- My Profile -->
+
+            <a
+                href="profile.php"
+                class="button primary-button"
+            >
+                My Profile
+            </a>
+
 
         </div>
 

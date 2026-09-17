@@ -5,33 +5,113 @@
  * Common Functions
  */
 
+
+/* =========================
+   CLEAN INPUT
+   ========================= */
+
 function cleanInput($data)
 {
-    return trim($data);
+    $data = trim($data);
+    $data = stripslashes($data);
+
+    return $data;
 }
+
+
+/* =========================
+   VALIDATE ID
+   ========================= */
 
 function isValidId($id)
 {
-    return is_numeric($id) && $id > 0;
+    return filter_var(
+        $id,
+        FILTER_VALIDATE_INT
+    ) !== false && $id > 0;
 }
+
+
+/* =========================
+   ESCAPE OUTPUT
+   ========================= */
 
 function escape($data)
 {
     return htmlspecialchars(
-        $data,
+        $data ?? "",
         ENT_QUOTES,
         "UTF-8"
     );
 }
 
 
-/* Student */
+/* =========================
+   GET STUDENT ID
+   ========================= */
 
 function getStudentId($conn, $user_id)
 {
-    $sql = "SELECT student_id
-            FROM students
-            WHERE user_id = $1";
+    if (!isValidId($user_id)) {
+        return false;
+    }
+
+    $result = pg_query_params(
+        $conn,
+        "SELECT student_id
+         FROM students
+         WHERE user_id = $1",
+        [$user_id]
+    );
+
+    if (
+        !$result ||
+        pg_num_rows($result) === 0
+    ) {
+        return false;
+    }
+
+    $student = pg_fetch_assoc($result);
+
+    return (int) $student["student_id"];
+}
+
+
+/* =========================
+   GET STUDENT PROFILE
+   ========================= */
+
+function getStudentProfile($conn, $user_id)
+{
+    if (!isValidId($user_id)) {
+        return false;
+    }
+
+    $sql = "SELECT
+                u.user_id,
+                u.email,
+                u.mobile_number,
+                u.account_status,
+                u.last_login,
+                u.created_at,
+                u.updated_at,
+                s.student_id,
+                s.full_name,
+                s.prn,
+                s.roll_no,
+                s.course,
+                s.year,
+                s.semester,
+                s.division,
+                s.address,
+                s.department_id,
+                d.department_name
+            FROM users u
+            INNER JOIN students s
+                ON u.user_id = s.user_id
+            LEFT JOIN departments d
+                ON s.department_id = d.department_id
+            WHERE u.user_id = $1";
 
     $result = pg_query_params(
         $conn,
@@ -39,126 +119,284 @@ function getStudentId($conn, $user_id)
         [$user_id]
     );
 
-    if (!$result || pg_num_rows($result) === 0) {
+    if (
+        !$result ||
+        pg_num_rows($result) === 0
+    ) {
         return false;
     }
 
-    $student = pg_fetch_assoc($result);
-
-    return $student["student_id"];
+    return pg_fetch_assoc($result);
 }
 
 
-/* Categories and Types */
+/* =========================
+   GET PROFILE PHOTO
+   ========================= */
 
-function getGrievanceCategories($conn)
+function getProfilePhoto($conn, $user_id)
 {
-    $sql = "SELECT category_id, category_name
-            FROM grievance_categories
-            WHERE status = TRUE
-            ORDER BY category_name";
-
-    return pg_query($conn, $sql);
-}
-
-function getSuggestionCategories($conn)
-{
-    $sql = "SELECT category_id, category_name
-            FROM suggestion_categories
-            WHERE status = TRUE
-            ORDER BY category_name";
-
-    return pg_query($conn, $sql);
-}
-
-function getApplicationTypes($conn)
-{
-    $sql = "SELECT application_type_id, type_name
-            FROM application_types
-            WHERE status = TRUE
-            ORDER BY type_name";
-
-    return pg_query($conn, $sql);
-}
-
-
-/* Status */
-
-function getStatusId($conn, $status_name, $module_type)
-{
-    $sql = "SELECT status_id
-            FROM statuses
-            WHERE status_name = $1
-            AND module_type = $2
-            AND status = TRUE";
+    if (!isValidId($user_id)) {
+        return false;
+    }
 
     $result = pg_query_params(
         $conn,
-        $sql,
+        "SELECT profile_photo
+         FROM users
+         WHERE user_id = $1",
+        [$user_id]
+    );
+
+    if (
+        !$result ||
+        pg_num_rows($result) === 0
+    ) {
+        return false;
+    }
+
+    $row = pg_fetch_assoc($result);
+
+    return $row["profile_photo"] ?? false;
+}
+
+
+/* =========================
+   PROFILE PHOTO TYPE
+   ========================= */
+
+function isAllowedProfilePhotoType($file_type)
+{
+    $allowed_types = [
+        "image/jpeg",
+        "image/png"
+    ];
+
+    return in_array(
+        strtolower($file_type),
+        $allowed_types,
+        true
+    );
+}
+
+
+/* =========================
+   PROFILE PHOTO SIZE
+   ========================= */
+
+function isAllowedProfilePhotoSize($file_size)
+{
+    $max_size = 5 * 1024 * 1024;
+
+    return $file_size > 0 &&
+           $file_size <= $max_size;
+}
+
+
+/* =========================
+   VALIDATE MOBILE NUMBER
+   ========================= */
+
+function isValidMobileNumber($mobile)
+{
+    if ($mobile === "") {
+        return true;
+    }
+
+    return preg_match(
+        "/^[0-9]{10,15}$/",
+        $mobile
+    );
+}
+
+
+/* =========================
+   VALIDATE PASSWORD
+   ========================= */
+
+function isValidPassword($password)
+{
+    return strlen($password) >= 8;
+}
+
+
+/* =========================
+   GET GRIEVANCE CATEGORIES
+   ========================= */
+
+function getGrievanceCategories($conn)
+{
+    $result = pg_query(
+        $conn,
+        "SELECT
+            category_id,
+            category_name
+         FROM grievance_categories
+         WHERE status = TRUE
+         ORDER BY category_name"
+    );
+
+    if (!$result) {
+        return [];
+    }
+
+    return pg_fetch_all($result) ?: [];
+}
+
+
+/* =========================
+   GET SUGGESTION CATEGORIES
+   ========================= */
+
+function getSuggestionCategories($conn)
+{
+    $result = pg_query(
+        $conn,
+        "SELECT
+            category_id,
+            category_name
+         FROM suggestion_categories
+         WHERE status = TRUE
+         ORDER BY category_name"
+    );
+
+    if (!$result) {
+        return [];
+    }
+
+    return pg_fetch_all($result) ?: [];
+}
+
+
+/* =========================
+   GET APPLICATION TYPES
+   ========================= */
+
+function getApplicationTypes($conn)
+{
+    $result = pg_query(
+        $conn,
+        "SELECT
+            application_type_id,
+            type_name
+         FROM application_types
+         WHERE status = TRUE
+         ORDER BY type_name"
+    );
+
+    if (!$result) {
+        return [];
+    }
+
+    return pg_fetch_all($result) ?: [];
+}
+
+
+/* =========================
+   GET STATUS
+   ========================= */
+
+function getStatusId(
+    $conn,
+    $status_name,
+    $module_type
+) {
+    $result = pg_query_params(
+        $conn,
+        "SELECT status_id
+         FROM statuses
+         WHERE status_name = $1
+         AND module_type = $2
+         AND status = TRUE",
         [
             $status_name,
             $module_type
         ]
     );
 
-    if (!$result || pg_num_rows($result) === 0) {
+    if (
+        !$result ||
+        pg_num_rows($result) === 0
+    ) {
         return false;
     }
 
-    $status = pg_fetch_assoc($result);
+    $row = pg_fetch_assoc($result);
 
-    return $status["status_id"];
+    return (int) $row["status_id"];
 }
 
 
-/* Formatting */
+/* =========================
+   FORMAT GRIEVANCE ID
+   ========================= */
 
-function formatGrievanceId($grievance_id)
+function formatGrievanceId($id)
 {
-    return "GRV-" . str_pad(
-        $grievance_id,
-        3,
-        "0",
-        STR_PAD_LEFT
-    );
+    return "GRV-" .
+        str_pad(
+            $id,
+            5,
+            "0",
+            STR_PAD_LEFT
+        );
 }
 
-function formatSuggestionId($suggestion_id)
+
+/* =========================
+   FORMAT SUGGESTION ID
+   ========================= */
+
+function formatSuggestionId($id)
 {
-    return "SUG-" . str_pad(
-        $suggestion_id,
-        3,
-        "0",
-        STR_PAD_LEFT
-    );
+    return "SGT-" .
+        str_pad(
+            $id,
+            5,
+            "0",
+            STR_PAD_LEFT
+        );
 }
 
-function formatApplicationId($application_id)
+
+/* =========================
+   FORMAT APPLICATION ID
+   ========================= */
+
+function formatApplicationId($id)
 {
-    return "APP-" . str_pad(
-        $application_id,
-        3,
-        "0",
-        STR_PAD_LEFT
-    );
+    return "APP-" .
+        str_pad(
+            $id,
+            5,
+            "0",
+            STR_PAD_LEFT
+        );
 }
 
-function formatDateTime($date)
+
+/* =========================
+   FORMAT DATE TIME
+   ========================= */
+
+function formatDateTime($datetime)
 {
-    if (empty($date)) {
-        return "";
+    if (empty($datetime)) {
+        return "-";
     }
 
     return date(
-        "d-m-Y h:i A",
-        strtotime($date)
+        "d M Y, h:i A",
+        strtotime($datetime)
     );
 }
 
 
-/* Attachment */
+/* =========================
+   ATTACHMENT VALIDATION
+   ========================= */
 
-function isAllowedFileType($file_type)
+function isAllowedAttachmentType($file_type)
 {
     $allowed_types = [
         "image/jpeg",
@@ -167,49 +405,59 @@ function isAllowedFileType($file_type)
     ];
 
     return in_array(
-        $file_type,
+        strtolower($file_type),
         $allowed_types,
         true
     );
 }
 
-function isAllowedFileSize($file_size)
+
+/* =========================
+   ATTACHMENT SIZE
+   ========================= */
+
+function isAllowedAttachmentSize($file_size)
 {
     $max_size = 5 * 1024 * 1024;
 
-    return $file_size <= $max_size;
+    return $file_size > 0 &&
+           $file_size <= $max_size;
 }
+
+
+/* =========================
+   GET ATTACHMENT
+   ========================= */
 
 function getAttachment(
     $conn,
-    $user_id,
-    $module_type,
-    $reference_id
+    $attachment_id
 ) {
-    $sql = "SELECT
-                attachment_id,
-                file_name,
-                file_type,
-                file_size,
-                uploaded_at
-            FROM attachments
-            WHERE user_id = $1
-            AND module_type = $2
-            AND reference_id = $3
-            ORDER BY uploaded_at DESC
-            LIMIT 1";
+    if (!isValidId($attachment_id)) {
+        return false;
+    }
 
     $result = pg_query_params(
         $conn,
-        $sql,
-        [
-            $user_id,
-            $module_type,
-            $reference_id
-        ]
+        "SELECT
+            attachment_id,
+            user_id,
+            module_type,
+            reference_id,
+            file_name,
+            file_type,
+            file_size,
+            file_data,
+            uploaded_at
+         FROM attachments
+         WHERE attachment_id = $1",
+        [$attachment_id]
     );
 
-    if (!$result || pg_num_rows($result) === 0) {
+    if (
+        !$result ||
+        pg_num_rows($result) === 0
+    ) {
         return false;
     }
 
