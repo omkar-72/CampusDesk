@@ -208,6 +208,13 @@ if ($section === "submit") {
 
         <div class="page-header">
 
+            <a
+                href="dashboard.php"
+                class="back-link"
+            >
+                ← Back to Dashboard
+            </a>
+
             <h1 class="page-title">
                 Applications
             </h1>
@@ -1075,15 +1082,7 @@ if ($section === "submit") {
 
 
                     <a
-                        href="
-                        ../actions/attachment.php?attachment_id=<?php
-                        echo escape(
-                            $attachment[
-                                "attachment_id"
-                            ]
-                        );
-                        ?>"
-                        target="_blank"
+                        href="view-attachment.php?attachment_id=<?php echo escape($attachment["attachment_id"]); ?>"
                         class="button secondary-button"
                     >
                         View Attachment
@@ -1109,6 +1108,14 @@ if ($section === "submit") {
             <div class="success-card">
 
 
+                <a
+                    href="applications.php?section=my"
+                    class="back-link"
+                >
+                    ← Back to My Applications
+                </a>
+
+
                 <div class="success-icon">
                     ✓
                 </div>
@@ -1127,7 +1134,7 @@ if ($section === "submit") {
                 </p>
 
 
-                <div class="grievance-id-box">
+                <div class="reference-id-box">
 
                     <span>
                         Application ID

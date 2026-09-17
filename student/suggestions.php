@@ -58,7 +58,10 @@ if (
 $suggestion = null;
 $attachment = false;
 
-if ($section === "view" || $section === "success") {
+if (
+    $section === "view" ||
+    $section === "success"
+) {
 
     $sql = "SELECT
                 s.suggestion_id,
@@ -70,10 +73,13 @@ if ($section === "view" || $section === "success") {
                 sc.category_name,
                 st.status_name
             FROM suggestions s
+
             INNER JOIN suggestion_categories sc
                 ON s.category_id = sc.category_id
+
             INNER JOIN statuses st
                 ON s.status_id = st.status_id
+
             WHERE s.suggestion_id = $1
             AND s.student_id = $2";
 
@@ -86,11 +92,16 @@ if ($section === "view" || $section === "success") {
         ]
     );
 
-    if (!$result || pg_num_rows($result) === 0) {
+    if (
+        !$result ||
+        pg_num_rows($result) === 0
+    ) {
         die("Suggestion not found.");
     }
 
-    $suggestion = pg_fetch_assoc($result);
+    $suggestion = pg_fetch_assoc(
+        $result
+    );
 
 
     /* Attachment */
@@ -119,11 +130,15 @@ if ($section === "my") {
                 st.status_name,
                 s.submission_date
             FROM suggestions s
+
             INNER JOIN suggestion_categories sc
                 ON s.category_id = sc.category_id
+
             INNER JOIN statuses st
                 ON s.status_id = st.status_id
+
             WHERE s.student_id = $1
+
             ORDER BY s.submission_date DESC";
 
     $suggestions = pg_query_params(
@@ -165,7 +180,9 @@ if ($section === "raise") {
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Suggestions - CampusDesk</title>
+    <title>
+        Suggestions - CampusDesk
+    </title>
 
     <link
         rel="stylesheet"
@@ -182,7 +199,19 @@ if ($section === "raise") {
 
     <?php if ($section === "home"): ?>
 
+
+        <!-- =========================
+             HOME
+             ========================= -->
+
         <div class="page-header">
+
+            <a
+                href="dashboard.php"
+                class="back-link"
+            >
+                ← Back to Dashboard
+            </a>
 
             <h1 class="page-title">
                 Suggestions
@@ -198,6 +227,7 @@ if ($section === "raise") {
         <div class="section-box">
 
             <div class="module-options">
+
 
                 <a
                     href="suggestions.php?section=raise"
@@ -230,6 +260,7 @@ if ($section === "raise") {
 
                 </a>
 
+
             </div>
 
         </div>
@@ -237,6 +268,10 @@ if ($section === "raise") {
 
     <?php elseif ($section === "raise"): ?>
 
+
+        <!-- =========================
+             RAISE SUGGESTION
+             ========================= -->
 
         <div class="page-header">
 
@@ -270,6 +305,8 @@ if ($section === "raise") {
                 >
 
 
+                <!-- Title -->
+
                 <div class="form-group">
 
                     <label for="title">
@@ -287,6 +324,8 @@ if ($section === "raise") {
                 </div>
 
 
+                <!-- Category -->
+
                 <div class="form-group">
 
                     <label for="category_id">
@@ -303,12 +342,31 @@ if ($section === "raise") {
                             Select Category
                         </option>
 
-                        <?php while ($category = pg_fetch_assoc($categories)): ?>
+                        <?php
+                        while (
+                            $category =
+                            pg_fetch_assoc($categories)
+                        ):
+                        ?>
 
                             <option
-                                value="<?php echo escape($category["category_id"]); ?>"
+                                value="<?php
+                                echo escape(
+                                    $category[
+                                        "category_id"
+                                    ]
+                                );
+                                ?>"
                             >
-                                <?php echo escape($category["category_name"]); ?>
+
+                                <?php
+                                echo escape(
+                                    $category[
+                                        "category_name"
+                                    ]
+                                );
+                                ?>
+
                             </option>
 
                         <?php endwhile; ?>
@@ -317,6 +375,8 @@ if ($section === "raise") {
 
                 </div>
 
+
+                <!-- Description -->
 
                 <div class="form-group">
 
@@ -333,6 +393,8 @@ if ($section === "raise") {
                 </div>
 
 
+                <!-- Attachment -->
+
                 <div class="form-group">
 
                     <label for="attachment">
@@ -348,11 +410,14 @@ if ($section === "raise") {
                     >
 
                     <small>
-                        Optional. JPG, PNG or PDF. Maximum 5 MB.
+                        Optional. JPG, PNG or PDF.
+                        Maximum 5 MB.
                     </small>
 
                 </div>
 
+
+                <!-- Declaration -->
 
                 <div class="declaration">
 
@@ -365,22 +430,29 @@ if ($section === "raise") {
                     >
 
                     <label for="declaration">
-                        I confirm that the information provided
-                        is correct.
+
+                        I confirm that the information
+                        provided is correct.
+
                     </label>
 
                 </div>
 
+
+                <!-- Buttons -->
 
                 <div class="button-group">
 
                     <button
                         type="button"
                         class="button primary-button"
-                        onclick="showSuggestionConfirmationPopup()"
+                        onclick="
+                            showSuggestionConfirmationPopup()
+                        "
                     >
                         Submit Suggestion
                     </button>
+
 
                     <a
                         href="suggestions.php"
@@ -410,8 +482,10 @@ if ($section === "raise") {
                 </h2>
 
                 <p>
-                    Are you sure you want to submit this suggestion?
+                    Are you sure you want to submit
+                    this suggestion?
                 </p>
+
 
                 <div class="modal-buttons">
 
@@ -423,10 +497,13 @@ if ($section === "raise") {
                         Confirm
                     </button>
 
+
                     <button
                         type="button"
                         class="button secondary-button"
-                        onclick="closeSuggestionConfirmationPopup()"
+                        onclick="
+                            closeSuggestionConfirmationPopup()
+                        "
                     >
                         Cancel
                     </button>
@@ -440,6 +517,10 @@ if ($section === "raise") {
 
     <?php elseif ($section === "my"): ?>
 
+
+        <!-- =========================
+             MY SUGGESTIONS
+             ========================= -->
 
         <div class="page-header">
 
@@ -459,7 +540,13 @@ if ($section === "raise") {
 
         <div class="section-box">
 
-            <?php if ($suggestions && pg_num_rows($suggestions) > 0): ?>
+            <?php
+            if (
+                $suggestions &&
+                pg_num_rows($suggestions) > 0
+            ):
+            ?>
+
 
                 <div class="table-container">
 
@@ -497,37 +584,55 @@ if ($section === "raise") {
 
                         </thead>
 
+
                         <tbody>
 
-                            <?php while ($row = pg_fetch_assoc($suggestions)): ?>
+
+                            <?php
+                            while (
+                                $row =
+                                pg_fetch_assoc($suggestions)
+                            ):
+                            ?>
 
                                 <tr>
 
                                     <td>
+
                                         <?php
                                         echo escape(
                                             formatSuggestionId(
-                                                $row["suggestion_id"]
+                                                $row[
+                                                    "suggestion_id"
+                                                ]
                                             )
                                         );
                                         ?>
+
                                     </td>
 
+
                                     <td>
+
                                         <?php
                                         echo escape(
                                             $row["title"]
                                         );
                                         ?>
+
                                     </td>
 
+
                                     <td>
+
                                         <?php
                                         echo escape(
                                             $row["category_name"]
                                         );
                                         ?>
+
                                     </td>
+
 
                                     <td>
 
@@ -543,34 +648,62 @@ if ($section === "raise") {
 
                                     </td>
 
+
                                     <td>
+
                                         <?php
                                         echo escape(
                                             formatDateTime(
-                                                $row["submission_date"]
+                                                $row[
+                                                    "submission_date"
+                                                ]
                                             )
                                         );
                                         ?>
+
                                     </td>
+
 
                                     <td>
 
-                                        <div class="action-buttons">
+                                        <div
+                                            class="action-buttons"
+                                        >
+
+
+                                            <!-- View -->
 
                                             <a
-                                                href="suggestions.php?section=view&id=<?php echo escape($row["suggestion_id"]); ?>"
+                                                href="
+                                                suggestions.php?section=view&id=<?php
+                                                echo escape(
+                                                    $row[
+                                                        "suggestion_id"
+                                                    ]
+                                                );
+                                                ?>"
                                                 class="view-button"
                                             >
                                                 View
                                             </a>
 
 
-                                            <?php if ($row["status_name"] === "New"): ?>
+                                            <!-- Delete -->
+
+                                            <?php
+                                            if (
+                                                $row[
+                                                    "status_name"
+                                                ] === "New"
+                                            ):
+                                            ?>
 
                                                 <form
                                                     action="../actions/suggestion.php"
                                                     method="POST"
-                                                    onsubmit="return confirmSuggestionDelete();"
+                                                    onsubmit="
+                                                        return confirmSuggestionDelete();
+                                                    "
                                                 >
 
                                                     <input
@@ -582,7 +715,13 @@ if ($section === "raise") {
                                                     <input
                                                         type="hidden"
                                                         name="suggestion_id"
-                                                        value="<?php echo escape($row["suggestion_id"]); ?>"
+                                                        value="<?php
+                                                        echo escape(
+                                                            $row[
+                                                                "suggestion_id"
+                                                            ]
+                                                        );
+                                                        ?>"
                                                     >
 
                                                     <button
@@ -599,12 +738,23 @@ if ($section === "raise") {
                                                 <button
                                                     type="button"
                                                     class="delete-button"
-                                                    onclick="showSuggestionDeleteNotPossible('<?php echo escape($row["status_name"]); ?>')"
+                                                    onclick="
+                                                        showSuggestionDeleteNotPossible(
+                                                            '<?php
+                                                            echo escape(
+                                                                $row[
+                                                                    "status_name"
+                                                                ]
+                                                            );
+                                                            ?>'
+                                                        )
+                                                    "
                                                 >
                                                     Delete
                                                 </button>
 
                                             <?php endif; ?>
+
 
                                         </div>
 
@@ -612,7 +762,9 @@ if ($section === "raise") {
 
                                 </tr>
 
+
                             <?php endwhile; ?>
+
 
                         </tbody>
 
@@ -620,13 +772,16 @@ if ($section === "raise") {
 
                 </div>
 
+
             <?php else: ?>
+
 
                 <div class="no-data">
 
                     No suggestions found.
 
                 </div>
+
 
             <?php endif; ?>
 
@@ -635,6 +790,10 @@ if ($section === "raise") {
 
     <?php elseif ($section === "view"): ?>
 
+
+        <!-- =========================
+             VIEW SUGGESTION
+             ========================= -->
 
         <div class="page-header">
 
@@ -657,6 +816,8 @@ if ($section === "raise") {
             <div class="details">
 
 
+                <!-- Suggestion ID -->
+
                 <div class="detail-row">
 
                     <div class="detail-label">
@@ -668,7 +829,9 @@ if ($section === "raise") {
                         <?php
                         echo escape(
                             formatSuggestionId(
-                                $suggestion["suggestion_id"]
+                                $suggestion[
+                                    "suggestion_id"
+                                ]
                             )
                         );
                         ?>
@@ -677,6 +840,8 @@ if ($section === "raise") {
 
                 </div>
 
+
+                <!-- Title -->
 
                 <div class="detail-row">
 
@@ -697,6 +862,8 @@ if ($section === "raise") {
                 </div>
 
 
+                <!-- Category -->
+
                 <div class="detail-row">
 
                     <div class="detail-label">
@@ -707,7 +874,9 @@ if ($section === "raise") {
 
                         <?php
                         echo escape(
-                            $suggestion["category_name"]
+                            $suggestion[
+                                "category_name"
+                            ]
                         );
                         ?>
 
@@ -715,6 +884,8 @@ if ($section === "raise") {
 
                 </div>
 
+
+                <!-- Description -->
 
                 <div class="detail-row">
 
@@ -727,7 +898,9 @@ if ($section === "raise") {
                         <?php
                         echo nl2br(
                             escape(
-                                $suggestion["description"]
+                                $suggestion[
+                                    "description"
+                                ]
                             )
                         );
                         ?>
@@ -736,6 +909,8 @@ if ($section === "raise") {
 
                 </div>
 
+
+                <!-- Status -->
 
                 <div class="detail-row">
 
@@ -749,7 +924,9 @@ if ($section === "raise") {
 
                             <?php
                             echo escape(
-                                $suggestion["status_name"]
+                                $suggestion[
+                                    "status_name"
+                                ]
                             );
                             ?>
 
@@ -759,6 +936,8 @@ if ($section === "raise") {
 
                 </div>
 
+
+                <!-- Submission Date -->
 
                 <div class="detail-row">
 
@@ -771,7 +950,9 @@ if ($section === "raise") {
                         <?php
                         echo escape(
                             formatDateTime(
-                                $suggestion["submission_date"]
+                                $suggestion[
+                                    "submission_date"
+                                ]
                             )
                         );
                         ?>
@@ -781,7 +962,17 @@ if ($section === "raise") {
                 </div>
 
 
-                <?php if (!empty($suggestion["decision_date"])): ?>
+                <!-- Decision Date -->
+
+                <?php
+                if (
+                    !empty(
+                        $suggestion[
+                            "decision_date"
+                        ]
+                    )
+                ):
+                ?>
 
                     <div class="detail-row">
 
@@ -794,7 +985,9 @@ if ($section === "raise") {
                             <?php
                             echo escape(
                                 formatDateTime(
-                                    $suggestion["decision_date"]
+                                    $suggestion[
+                                        "decision_date"
+                                    ]
                                 )
                             );
                             ?>
@@ -806,7 +999,17 @@ if ($section === "raise") {
                 <?php endif; ?>
 
 
-                <?php if (!empty($suggestion["remarks"])): ?>
+                <!-- Remarks -->
+
+                <?php
+                if (
+                    !empty(
+                        $suggestion[
+                            "remarks"
+                        ]
+                    )
+                ):
+                ?>
 
                     <div class="detail-row">
 
@@ -819,7 +1022,9 @@ if ($section === "raise") {
                             <?php
                             echo nl2br(
                                 escape(
-                                    $suggestion["remarks"]
+                                    $suggestion[
+                                        "remarks"
+                                    ]
                                 )
                             );
                             ?>
@@ -834,6 +1039,8 @@ if ($section === "raise") {
             </div>
 
 
+            <!-- Attachment -->
+
             <?php if ($attachment): ?>
 
                 <div class="attachment-box">
@@ -846,15 +1053,17 @@ if ($section === "raise") {
 
                         <?php
                         echo escape(
-                            $attachment["file_name"]
+                            $attachment[
+                                "file_name"
+                            ]
                         );
                         ?>
 
                     </p>
 
+
                     <a
-                        href="../actions/attachment.php?attachment_id=<?php echo escape($attachment["attachment_id"]); ?>"
-                        target="_blank"
+                        href="view-attachment.php?attachment_id=<?php echo escape($attachment["attachment_id"]); ?>"
                         class="button secondary-button"
                     >
                         View Attachment
@@ -871,24 +1080,42 @@ if ($section === "raise") {
     <?php elseif ($section === "success"): ?>
 
 
+        <!-- =========================
+             SUCCESS
+             ========================= -->
+
         <div class="success-page">
 
             <div class="success-card">
+
+
+                <a
+                    href="suggestions.php?section=my"
+                    class="back-link"
+                >
+                    ← Back to My Suggestions
+                </a>
+
 
                 <div class="success-icon">
                     ✓
                 </div>
 
+
                 <h1>
                     Suggestion Submitted!
                 </h1>
 
+
                 <p class="success-text">
-                    Your suggestion has been submitted successfully.
+
+                    Your suggestion has been
+                    submitted successfully.
+
                 </p>
 
 
-                <div class="grievance-id-box">
+                <div class="reference-id-box">
 
                     <span>
                         Suggestion ID
@@ -899,7 +1126,9 @@ if ($section === "raise") {
                         <?php
                         echo escape(
                             formatSuggestionId(
-                                $suggestion["suggestion_id"]
+                                $suggestion[
+                                    "suggestion_id"
+                                ]
                             )
                         );
                         ?>
@@ -909,14 +1138,22 @@ if ($section === "raise") {
                 </div>
 
 
-                <div class="button-group success-buttons">
+                <div
+                    class="button-group success-buttons"
+                >
 
                     <a
-                        href="suggestions.php?section=view&id=<?php echo escape($suggestion_id); ?>"
+                        href="
+                        suggestions.php?section=view&id=<?php
+                        echo escape(
+                            $suggestion_id
+                        );
+                        ?>"
                         class="button primary-button"
                     >
                         View Suggestion
                     </a>
+
 
                     <a
                         href="suggestions.php?section=my"
@@ -926,6 +1163,7 @@ if ($section === "raise") {
                     </a>
 
                 </div>
+
 
             </div>
 
@@ -937,7 +1175,9 @@ if ($section === "raise") {
 </div>
 
 
-<!-- Delete Not Possible Modal -->
+<!-- =========================
+     DELETE NOT POSSIBLE MODAL
+     ========================= -->
 
 <div
     id="suggestionDeleteNotPossibleModal"
@@ -950,14 +1190,19 @@ if ($section === "raise") {
             Delete Not Possible
         </h2>
 
-        <p id="suggestionDeleteNotPossibleMessage"></p>
+        <p
+            id="suggestionDeleteNotPossibleMessage"
+        ></p>
+
 
         <div class="modal-buttons">
 
             <button
                 type="button"
                 class="button secondary-button"
-                onclick="closeSuggestionDeleteNotPossible()"
+                onclick="
+                    closeSuggestionDeleteNotPossible()
+                "
             >
                 Close
             </button>
@@ -970,110 +1215,6 @@ if ($section === "raise") {
 
 
 <script src="../js/script-student-services.js"></script>
-
-<script>
-
-/* Suggestion Confirmation */
-
-function showSuggestionConfirmationPopup()
-{
-    const form = document.getElementById(
-        "suggestionForm"
-    );
-
-    if (!form) {
-        return;
-    }
-
-    if (!form.checkValidity()) {
-
-        form.reportValidity();
-
-        return;
-    }
-
-    const modal = document.getElementById(
-        "suggestionConfirmationModal"
-    );
-
-    if (modal) {
-        modal.style.display = "flex";
-    }
-}
-
-
-function closeSuggestionConfirmationPopup()
-{
-    const modal = document.getElementById(
-        "suggestionConfirmationModal"
-    );
-
-    if (modal) {
-        modal.style.display = "none";
-    }
-}
-
-
-function submitSuggestion()
-{
-    const form = document.getElementById(
-        "suggestionForm"
-    );
-
-    if (form) {
-        form.submit();
-    }
-}
-
-
-/* Delete */
-
-function confirmSuggestionDelete()
-{
-    return confirm(
-        "Are you sure you want to delete this suggestion?"
-    );
-}
-
-
-function showSuggestionDeleteNotPossible(status)
-{
-    const modal = document.getElementById(
-        "suggestionDeleteNotPossibleModal"
-    );
-
-    const message = document.getElementById(
-        "suggestionDeleteNotPossibleMessage"
-    );
-
-    if (!modal) {
-        return;
-    }
-
-    if (message) {
-
-        message.textContent =
-            "This suggestion cannot be deleted because its current status is " +
-            status +
-            ".";
-    }
-
-    modal.style.display = "flex";
-}
-
-
-function closeSuggestionDeleteNotPossible()
-{
-    const modal = document.getElementById(
-        "suggestionDeleteNotPossibleModal"
-    );
-
-    if (modal) {
-        modal.style.display = "none";
-    }
-}
-
-</script>
 
 </body>
 

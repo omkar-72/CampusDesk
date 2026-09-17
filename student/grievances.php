@@ -199,6 +199,13 @@ if ($section === "success") {
 
         <div class="page-header">
 
+            <a
+                href="dashboard.php"
+                class="back-link"
+            >
+                ← Back to Dashboard
+            </a>
+
             <h1 class="page-title">
                 Grievances
             </h1>
@@ -259,6 +266,13 @@ if ($section === "success") {
     <?php if ($section === "raise"): ?>
 
         <div class="page-header">
+
+            <a
+                href="grievances.php"
+                class="back-link"
+            >
+                ← Back to Grievances
+            </a>
 
             <h1 class="page-title">
                 Raise New Grievance
@@ -531,6 +545,13 @@ if ($section === "success") {
     <?php if ($section === "my"): ?>
 
         <div class="page-header">
+
+            <a
+                href="grievances.php"
+                class="back-link"
+            >
+                ← Back to Grievances
+            </a>
 
             <h1 class="page-title">
                 My Grievances
@@ -823,17 +844,25 @@ if ($section === "success") {
                 <!-- Identity Preference -->
 
                 <div class="detail-row">
-                    <div class="detail-label">Identity Preference</div>
+
+                    <div class="detail-label">
+                        Identity Preference
+                    </div>
 
                     <div class="detail-value">
+
                     <?php
+
                     if ($grievance["anonymous_status"] === "t") {
                         echo "Confidential";
                     } else {
                         echo "Identity Revealed";
-                    }   
+                    }
+
                     ?>
+
                     </div>
+
                 </div>
 
 
@@ -942,11 +971,10 @@ if ($section === "success") {
                     </p>
 
                     <a
-                        href="../actions/attachment.php?attachment_id=<?= escape($attachment["attachment_id"]) ?>"
-                        target="_blank"
-                        class="button secondary-button button-link"
+                        href="view-attachment.php?attachment_id=<?php echo escape($attachment["attachment_id"]); ?>"
+                        class="button secondary-button"
                     >
-                        View Document
+                        View Attachment
                     </a>
 
                 <?php else: ?>
@@ -1038,6 +1066,13 @@ if ($section === "success") {
 
             <div class="success-card">
 
+                <a
+                    href="grievances.php?section=my"
+                    class="back-link"
+                >
+                    ← Back to My Grievances
+                </a>
+
                 <div class="success-icon">
                     ✓
                 </div>
@@ -1050,7 +1085,7 @@ if ($section === "success") {
                     Your grievance has been submitted successfully.
                 </p>
 
-                <div class="grievance-id-box">
+                <div class="reference-id-box">
 
                     <span>
                         Grievance ID
