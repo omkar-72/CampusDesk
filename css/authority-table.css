@@ -1,12 +1,49 @@
 /* =========================================================
-   CAMPUSDESK - AUTHORITY TABLE
+   MODERN TABLE DESIGN
    ========================================================= */
 
-.table-container{
-    background:#ffffff;
-    border:2px solid #666;
-    padding:20px;
-    overflow-x:auto;
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.page-header h2{
+    font-size:28px;
+    color:#0F172A;
+}
+
+.page-header p{
+    color:#64748B;
+    margin-top:5px;
+}
+
+/* Filter */
+
+.filter-bar{
+    display:flex;
+    gap:15px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+}
+
+.filter-bar input{
+    flex:1;
+    min-width:220px;
+}
+
+.filter-bar select{
+    min-width:180px;
+}
+
+/* Table Card */
+
+.table-card{
+    background:white;
+    border-radius:18px;
+    box-shadow:0 8px 24px rgba(15,23,42,.08);
+    overflow:hidden;
 }
 
 table{
@@ -14,29 +51,40 @@ table{
     border-collapse:collapse;
 }
 
-table th{
-    background:#e5e5e5;
-    border:1px solid #666;
-    padding:12px;
+thead{
+    background:#F8FAFC;
+}
+
+thead th{
+    padding:18px;
     text-align:left;
+    color:#475569;
+    font-size:14px;
+    border-bottom:1px solid #E2E8F0;
 }
 
-table td{
-    border:1px solid #666;
-    padding:12px;
+tbody td{
+    padding:18px;
+    border-bottom:1px solid #E2E8F0;
 }
 
-table tr:nth-child(even){
-    background:#f7f7f7;
+tbody tr:hover{
+    background:#F8FAFC;
 }
 
-table button{
-    padding:6px 12px;
-    border:1px solid #666;
-    background:#d9d9d9;
+/* Action Button */
+
+.action-btn{
+    background:#2563EB;
+    color:white;
+    border:none;
+    padding:9px 18px;
+    border-radius:8px;
+    font-weight:600;
     cursor:pointer;
+    transition:.25s;
 }
 
-table button:hover{
-    background:#cfcfcf;
+.action-btn:hover{
+    background:#1D4ED8;
 }
