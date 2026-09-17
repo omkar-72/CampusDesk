@@ -1,51 +1,23 @@
-/* =========================================================
-   CAMPUSDESK - COMMON NAVBAR
-   ========================================================= */
+<li class="<?php if($currentPage=="dashboard.php") echo "active"; ?>">
+    <a href="../authority/dashboard.php">🏠 Dashboard</a>
+</li>
 
-.navbar{
-    width:240px;
-    min-height:100vh;
-    background:#2c3e50;
-    color:#ffffff;
-    padding:20px 0;
-}
+<li class="<?php if($currentPage=="grievances.php") echo "active"; ?>">
+    <a href="../authority/grievances.php">📢 Grievances</a>
+</li>
 
-.navbar-title{
-    text-align:center;
-    padding-bottom:20px;
-    border-bottom:1px solid #44576d;
-}
+<li class="<?php if($currentPage=="suggestions.php") echo "active"; ?>">
+    <a href="../authority/suggestions.php">💡 Suggestions</a>
+</li>
 
-.navbar-title h2{
-    font-size:24px;
-    margin:0;
-}
+<li class="<?php if($currentPage=="applications.php") echo "active"; ?>">
+    <a href="../authority/applications.php">📄 Applications</a>
+</li>
 
-.navbar-menu{
-    list-style:none;
-    padding:20px 0 0;
-    margin:0;
-}
+<li class="<?php if($currentPage=="profile.php") echo "active"; ?>">
+    <a href="../authority/profile.php">👤 Profile</a>
+</li>
 
-.navbar-menu li{
-    margin:6px 12px;
-}
-
-.navbar-menu a{
-    display:block;
-    padding:12px 18px;
-    color:#ffffff;
-    text-decoration:none;
-    border-radius:8px;
-    transition:0.2s;
-}
-
-.navbar-menu a:hover{
-    background:#34495e;
-}
-
-.navbar-menu .active a{
-    background:#1abc9c;
-    color:#ffffff;
-    font-weight:bold;
-}
+<li>
+    <a href="../logout.php">🚪 Logout</a>
+</li>
