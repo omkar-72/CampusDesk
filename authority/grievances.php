@@ -29,59 +29,77 @@ if (!isset($_SESSION["role_name"])) {
 
         <main class="dashboard-content">
 
-            <h2>Grievances</h2>
+    <div class="page-header">
+        <div>
+            <h2>Grievance Management</h2>
+            <p>Review and manage student grievances.</p>
+        </div>
+    </div>
 
-            <div class="table-container">
+    <div class="filter-bar">
 
-                <table>
+        <input type="text" placeholder="Search grievances...">
 
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Student</th>
-                            <th>Title</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
+        <select>
+            <option>All Status</option>
+            <option>Pending</option>
+            <option>In Progress</option>
+            <option>Resolved</option>
+        </select>
 
-                    <tbody>
+    </div>
 
-                        <tr>
-                            <td>GR001</td>
-                            <td>Omkar Gavane</td>
-                            <td>Library Issue</td>
-                            <td>Pending</td>
-                            <td>12-09-2026</td>
-                            <td><button>View</button></td>
-                        </tr>
+    <div class="table-card">
 
-                        <tr>
-                            <td>GR002</td>
-                            <td>Aditi Sharma</td>
-                            <td>Wi-Fi Problem</td>
-                            <td>In Progress</td>
-                            <td>11-09-2026</td>
-                            <td><button>View</button></td>
-                        </tr>
+        <table>
 
-                        <tr>
-                            <td>GR003</td>
-                            <td>Rahul Patil</td>
-                            <td>Classroom Cleaning</td>
-                            <td>Resolved</td>
-                            <td>10-09-2026</td>
-                            <td><button>View</button></td>
-                        </tr>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Student</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
 
-                    </tbody>
+            <tbody>
 
-                </table>
+                <tr>
+                    <td>GR001</td>
+                    <td>Omkar Gavane</td>
+                    <td>Library Issue</td>
+                    <td><span class="badge badge-pending">Pending</span></td>
+                    <td>12 Sep 2026</td>
+                    <td><button class="action-btn">View</button></td>
+                </tr>
 
-            </div>
+                <tr>
+                    <td>GR002</td>
+                    <td>Aditi Sharma</td>
+                    <td>Wi-Fi Problem</td>
+                    <td><span class="badge badge-progress">In Progress</span></td>
+                    <td>11 Sep 2026</td>
+                    <td><button class="action-btn">View</button></td>
+                </tr>
 
-        </main>
+                <tr>
+                    <td>GR003</td>
+                    <td>Rahul Patil</td>
+                    <td>Classroom Cleaning</td>
+                    <td><span class="badge badge-success">Resolved</span></td>
+                    <td>10 Sep 2026</td>
+                    <td><button class="action-btn">View</button></td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</main>
 
     </div>
 
