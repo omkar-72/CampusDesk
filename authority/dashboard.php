@@ -31,41 +31,83 @@ if (!isset($_SESSION["role_name"])) {
 
         <main class="dashboard-content">
 
-            <h2>Dashboard</h2>
+    <section class="welcome-banner">
 
-            <div class="dashboard-cards">
+        <div>
+            <h2>Welcome, Authority 👋</h2>
+            <p>Manage grievances, suggestions and applications from one place.</p>
+        </div>
 
-                <div class="dashboard-card">
-                    <h3>Pending Grievances</h3>
-                    <p>12</p>
-                </div>
+    </section>
 
-                <div class="dashboard-card">
-                    <h3>Pending Suggestions</h3>
-                    <p>8</p>
-                </div>
+    <section class="dashboard-cards">
 
-                <div class="dashboard-card">
-                    <h3>Pending Applications</h3>
-                    <p>15</p>
-                </div>
+        <div class="dashboard-card blue">
+            <div class="card-icon">📢</div>
+            <h3>Pending Grievances</h3>
+            <p>12</p>
+        </div>
+
+        <div class="dashboard-card green">
+            <div class="card-icon">💡</div>
+            <h3>Suggestions</h3>
+            <p>8</p>
+        </div>
+
+        <div class="dashboard-card orange">
+            <div class="card-icon">📄</div>
+            <h3>Applications</h3>
+            <p>15</p>
+        </div>
+
+        <div class="dashboard-card red">
+            <div class="card-icon">✔️</div>
+            <h3>Resolved</h3>
+            <p>56</p>
+        </div>
+
+    </section>
+
+    <section class="bottom-grid">
+
+        <div class="panel">
+
+            <h3>Recent Activity</h3>
+
+            <div class="activity-item">
+                <span class="activity-dot"></span>
+                <span>New grievance submitted.</span>
+            </div>
+
+            <div class="activity-item">
+                <span class="activity-dot"></span>
+                <span>Suggestion received.</span>
+            </div>
+
+            <div class="activity-item">
+                <span class="activity-dot"></span>
+                <span>Application waiting for approval.</span>
+            </div>
+
+        </div>
+
+        <div class="panel">
+
+            <h3>Quick Actions</h3>
+
+            <div class="quick-actions">
+
+                <button>View Grievances</button>
+                <button>Review Suggestions</button>
+                <button>Check Applications</button>
 
             </div>
 
-            <div class="recent-section">
+        </div>
 
-                <h3>Recent Activity</h3>
+    </section>
 
-                <hr>
-
-                <p>New grievance submitted.</p>
-                <p>Application waiting for review.</p>
-                <p>Suggestion received.</p>
-
-            </div>
-
-        </main>
-
+</main>
     </div>
 
     <?php include "../includes/footer.php"; ?>
