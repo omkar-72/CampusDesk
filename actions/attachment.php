@@ -101,6 +101,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
 
+    /* Check File Size */
+
     if (!isAllowedFileSize($file["size"])) {
         die("File size must not exceed 5 MB.");
     }
@@ -269,6 +271,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
     $module_type = $attachment["module_type"];
     $reference_id = $attachment["reference_id"];
+
 
     if ($module_type === "GRIEVANCE") {
 
