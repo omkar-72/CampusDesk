@@ -1,0 +1,468 @@
+/* CampusDesk - Student Services */
+
+
+/* =========================
+   GENERAL
+   ========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f6f8;
+    color: #222;
+}
+
+a {
+    text-decoration: none;
+}
+
+.page-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+
+/* =========================
+   PAGE HEADER
+   ========================= */
+
+.page-header {
+    margin-bottom: 20px;
+}
+
+.page-title {
+    margin: 0 0 8px;
+    font-size: 28px;
+}
+
+
+/* =========================
+   SECTION
+   ========================= */
+
+.section-box {
+    background: #fff;
+    padding: 25px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+
+/* =========================
+   MODULE OPTIONS
+   ========================= */
+
+.module-options {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.module-option {
+    display: block;
+    width: 250px;
+    padding: 25px;
+    background: #fff;
+    color: #222;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.module-option:hover {
+    border-color: #777;
+}
+
+.module-option h2 {
+    margin-top: 0;
+}
+
+
+/* =========================
+   FORM
+   ========================= */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.form-group textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.form-group input[type="file"] {
+    padding: 8px;
+}
+
+.form-group small {
+    display: block;
+    margin-top: 6px;
+    color: #666;
+}
+
+
+/* =========================
+   DECLARATION
+   ========================= */
+
+.declaration {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    margin: 20px 0;
+}
+
+.declaration input {
+    margin-top: 3px;
+}
+
+
+/* =========================
+   BUTTONS
+   ========================= */
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+}
+
+.button-link {
+    display: inline-block;
+}
+
+.primary-button {
+    background: #222;
+    color: #fff;
+}
+
+.secondary-button {
+    background: #e5e5e5;
+    color: #222;
+}
+
+
+/* =========================
+   TABLE
+   ========================= */
+
+.table-container {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.data-table th {
+    background: #f0f0f0;
+}
+
+
+/* =========================
+   ACTION BUTTONS
+   ========================= */
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.action-buttons form {
+    margin: 0;
+}
+
+.view-button,
+.delete-button {
+    padding: 7px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.view-button {
+    display: inline-block;
+    background: #e5e5e5;
+    color: #222;
+}
+
+.delete-button {
+    border: none;
+    background: #ddd;
+    color: #222;
+}
+
+
+/* =========================
+   STATUS
+   ========================= */
+
+.status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: #eee;
+    font-size: 13px;
+}
+
+
+/* =========================
+   DETAILS
+   ========================= */
+
+.details {
+    width: 100%;
+}
+
+.detail-row {
+    display: flex;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-label {
+    width: 180px;
+    font-weight: bold;
+}
+
+.detail-value {
+    flex: 1;
+}
+
+
+/* =========================
+   ATTACHMENT
+   ========================= */
+
+.attachment-box {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+
+/* =========================
+   TIMELINE
+   ========================= */
+
+.timeline {
+    margin-top: 20px;
+    padding-left: 20px;
+}
+
+.timeline-item {
+    margin-bottom: 15px;
+}
+
+
+/* =========================
+   MODAL
+   ========================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 450px;
+    padding: 25px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+
+/* =========================
+   SUCCESS PAGE
+   ========================= */
+
+.success-page {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.success-card {
+    width: 100%;
+    max-width: 500px;
+    padding: 40px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.success-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-size: 38px;
+    line-height: 65px;
+    font-weight: bold;
+}
+
+.success-card h1 {
+    margin: 0 0 10px;
+    font-size: 28px;
+}
+
+.success-text {
+    margin-bottom: 25px;
+    color: #666;
+}
+
+.grievance-id-box {
+    padding: 18px;
+    margin-bottom: 25px;
+    background: #f5f6f8;
+    border-radius: 8px;
+}
+
+.grievance-id-box span {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.grievance-id-box strong {
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+.success-buttons {
+    justify-content: center;
+}
+
+
+/* =========================
+   OTHER
+   ========================= */
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.no-data {
+    padding: 20px;
+    text-align: center;
+    color: #666;
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 700px) {
+
+    .page-container {
+        width: 95%;
+    }
+
+    .page-title {
+        font-size: 24px;
+    }
+
+    .detail-row {
+        display: block;
+    }
+
+    .detail-label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .module-option {
+        width: 100%;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .view-button,
+    .delete-button {
+        text-align: center;
+    }
+
+    .success-card {
+        padding: 30px 20px;
+    }
+
+    .success-buttons {
+        flex-direction: column;
+    }
+
+    .success-buttons .button {
+        width: 100%;
+    }
+}
