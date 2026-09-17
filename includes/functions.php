@@ -67,7 +67,7 @@ function getSuggestionCategories($conn)
             FROM suggestion_categories
             WHERE status = TRUE
             ORDER BY category_name";
-
+            
     return pg_query($conn, $sql);
 }
 
@@ -117,6 +117,16 @@ function formatGrievanceId($grievance_id)
 {
     return "GRV-" . str_pad(
         $grievance_id,
+        3,
+        "0",
+        STR_PAD_LEFT
+    );
+}
+
+function formatSuggestionId($suggestion_id)
+{
+    return "SUG-" . str_pad(
+        $suggestion_id,
         3,
         "0",
         STR_PAD_LEFT

@@ -2,12 +2,14 @@
 
 
 /* =========================
-   CONFIRMATION POPUP
+   GRIEVANCE
    ========================= */
 
-function showConfirmationPopup() {
-
-    const form = document.getElementById("grievanceForm");
+function showConfirmationPopup()
+{
+    const form = document.getElementById(
+        "grievanceForm"
+    );
 
     if (!form) {
         return;
@@ -28,8 +30,8 @@ function showConfirmationPopup() {
 }
 
 
-function closeConfirmationPopup() {
-
+function closeConfirmationPopup()
+{
     const modal = document.getElementById(
         "confirmationModal"
     );
@@ -40,12 +42,8 @@ function closeConfirmationPopup() {
 }
 
 
-/* =========================
-   IDENTITY POPUP
-   ========================= */
-
-function showIdentityPopup() {
-
+function showIdentityPopup()
+{
     closeConfirmationPopup();
 
     const modal = document.getElementById(
@@ -58,8 +56,8 @@ function showIdentityPopup() {
 }
 
 
-function closeIdentityPopup() {
-
+function closeIdentityPopup()
+{
     const modal = document.getElementById(
         "identityModal"
     );
@@ -70,12 +68,8 @@ function closeIdentityPopup() {
 }
 
 
-/* =========================
-   SET IDENTITY AND SUBMIT
-   ========================= */
-
-function setIdentity(value) {
-
+function setIdentity(value)
+{
     const input = document.getElementById(
         "anonymous_status"
     );
@@ -94,24 +88,16 @@ function setIdentity(value) {
 }
 
 
-/* =========================
-   DELETE CONFIRMATION
-   ========================= */
-
-function confirmDelete() {
-
+function confirmDelete()
+{
     return confirm(
         "Are you sure you want to delete this grievance?"
     );
 }
 
 
-/* =========================
-   DELETE NOT POSSIBLE
-   ========================= */
-
-function showDeleteNotPossible(status) {
-
+function showDeleteNotPossible(status)
+{
     const modal = document.getElementById(
         "deleteNotPossibleModal"
     );
@@ -136,10 +122,109 @@ function showDeleteNotPossible(status) {
 }
 
 
-function closeDeleteNotPossible() {
-
+function closeDeleteNotPossible()
+{
     const modal = document.getElementById(
         "deleteNotPossibleModal"
+    );
+
+    if (modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+/* =========================
+   SUGGESTION
+   ========================= */
+
+function showSuggestionConfirmationPopup()
+{
+    const form = document.getElementById(
+        "suggestionForm"
+    );
+
+    if (!form) {
+        return;
+    }
+
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    const modal = document.getElementById(
+        "suggestionConfirmationModal"
+    );
+
+    if (modal) {
+        modal.style.display = "flex";
+    }
+}
+
+
+function closeSuggestionConfirmationPopup()
+{
+    const modal = document.getElementById(
+        "suggestionConfirmationModal"
+    );
+
+    if (modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+function submitSuggestion()
+{
+    const form = document.getElementById(
+        "suggestionForm"
+    );
+
+    if (form) {
+        form.submit();
+    }
+}
+
+
+function confirmSuggestionDelete()
+{
+    return confirm(
+        "Are you sure you want to delete this suggestion?"
+    );
+}
+
+
+function showSuggestionDeleteNotPossible(status)
+{
+    const modal = document.getElementById(
+        "suggestionDeleteNotPossibleModal"
+    );
+
+    const message = document.getElementById(
+        "suggestionDeleteNotPossibleMessage"
+    );
+
+    if (!modal) {
+        return;
+    }
+
+    if (message) {
+
+        message.textContent =
+            "This suggestion cannot be deleted because its current status is " +
+            status +
+            ".";
+    }
+
+    modal.style.display = "flex";
+}
+
+
+function closeSuggestionDeleteNotPossible()
+{
+    const modal = document.getElementById(
+        "suggestionDeleteNotPossibleModal"
     );
 
     if (modal) {
@@ -152,8 +237,8 @@ function closeDeleteNotPossible() {
    FILE VALIDATION
    ========================= */
 
-function validateFile(input) {
-
+function validateFile(input)
+{
     if (!input.files || input.files.length === 0) {
         return true;
     }
@@ -168,6 +253,7 @@ function validateFile(input) {
 
     const maxSize = 5 * 1024 * 1024;
 
+
     if (!allowedTypes.includes(file.type)) {
 
         alert(
@@ -178,6 +264,7 @@ function validateFile(input) {
 
         return false;
     }
+
 
     if (file.size > maxSize) {
 
@@ -190,12 +277,13 @@ function validateFile(input) {
         return false;
     }
 
+
     return true;
 }
 
 
 /* =========================
-   CLOSE MODAL
+   CLOSE MODALS
    ========================= */
 
 window.addEventListener(
