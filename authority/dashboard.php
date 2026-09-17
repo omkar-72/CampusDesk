@@ -31,75 +31,119 @@ if (!isset($_SESSION["role_name"])) {
 
         <main class="dashboard-content">
 
+    <!-- Top Welcome Section -->
+
     <section class="welcome-banner">
 
-        <div>
-            <h2>Welcome, Authority 👋</h2>
-            <p>Manage grievances, suggestions and applications from one place.</p>
+        <div class="welcome-text">
+            <h2>Good Morning, Authority 👋</h2>
+            <p>Here's what's happening in your department today.</p>
+        </div>
+
+        <div class="welcome-date">
+            <span><?php echo date("d M Y"); ?></span>
         </div>
 
     </section>
+
+    <!-- Statistics Cards -->
 
     <section class="dashboard-cards">
 
         <div class="dashboard-card blue">
-            <div class="card-icon">📢</div>
+            <div class="card-top">
+                <span class="card-icon">📢</span>
+                <span class="card-number">12</span>
+            </div>
             <h3>Pending Grievances</h3>
-            <p>12</p>
+            <p>Needs immediate review</p>
         </div>
 
         <div class="dashboard-card green">
-            <div class="card-icon">💡</div>
+            <div class="card-top">
+                <span class="card-icon">💡</span>
+                <span class="card-number">8</span>
+            </div>
             <h3>Suggestions</h3>
-            <p>8</p>
+            <p>Waiting for decision</p>
         </div>
 
         <div class="dashboard-card orange">
-            <div class="card-icon">📄</div>
+            <div class="card-top">
+                <span class="card-icon">📄</span>
+                <span class="card-number">15</span>
+            </div>
             <h3>Applications</h3>
-            <p>15</p>
+            <p>Pending approval</p>
         </div>
 
         <div class="dashboard-card red">
-            <div class="card-icon">✔️</div>
-            <h3>Resolved</h3>
-            <p>56</p>
+            <div class="card-top">
+                <span class="card-icon">✔</span>
+                <span class="card-number">56</span>
+            </div>
+            <h3>Resolved Cases</h3>
+            <p>Completed successfully</p>
         </div>
 
     </section>
+
+    <!-- Bottom Section -->
 
     <section class="bottom-grid">
 
         <div class="panel">
 
-            <h3>Recent Activity</h3>
-
-            <div class="activity-item">
-                <span class="activity-dot"></span>
-                <span>New grievance submitted.</span>
+            <div class="panel-header">
+                <h3>Recent Activity</h3>
+                <a href="#">View All</a>
             </div>
 
             <div class="activity-item">
-                <span class="activity-dot"></span>
-                <span>Suggestion received.</span>
+                <div class="activity-icon">📢</div>
+                <div>
+                    <strong>New Grievance</strong>
+                    <p>Library Issue • 2 min ago</p>
+                </div>
             </div>
 
             <div class="activity-item">
-                <span class="activity-dot"></span>
-                <span>Application waiting for approval.</span>
+                <div class="activity-icon">💡</div>
+                <div>
+                    <strong>Suggestion Received</strong>
+                    <p>Wi-Fi Improvement • 15 min ago</p>
+                </div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-icon">📄</div>
+                <div>
+                    <strong>Application Submitted</strong>
+                    <p>Bonafide Certificate • 1 hour ago</p>
+                </div>
             </div>
 
         </div>
 
         <div class="panel">
 
-            <h3>Quick Actions</h3>
+            <div class="panel-header">
+                <h3>Quick Actions</h3>
+            </div>
 
             <div class="quick-actions">
 
-                <button>View Grievances</button>
-                <button>Review Suggestions</button>
-                <button>Check Applications</button>
+                <a href="grievances.php" class="quick-btn">
+                    📢 Review Grievances
+                </a>
+
+                <a href="suggestions.php" class="quick-btn">
+                    💡 Review Suggestions
+                </a>
+
+                <a href="applications.php" class="quick-btn">
+                    📄 Check Applications
+                </a>
 
             </div>
 
