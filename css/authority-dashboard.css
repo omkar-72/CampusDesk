@@ -1,113 +1,137 @@
 /* =========================================================
-   CAMPUSDESK - PREMIUM AUTHORITY DASHBOARD
+   CAMPUSDESK - AUTHORITY DASHBOARD
    ========================================================= */
 
 .dashboard-layout{
-    display:flex;
     margin-left:260px;
     min-height:100vh;
-    background:#F8FAFC;
 }
 
 .dashboard-content{
-    flex:1;
-    padding:30px;
+    padding:100px 30px 30px;
+    background:#F4F7FC;
+    min-height:100vh;
 }
 
 /* ================= Welcome Banner ================= */
 
 .welcome-banner{
-    background:linear-gradient(135deg,#2563EB,#1E40AF);
-    color:white;
-    border-radius:22px;
-    padding:28px 35px;
+    background:linear-gradient(135deg,#2563EB,#1D4ED8);
+    color:#fff;
+    border-radius:20px;
+    padding:28px 32px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:30px;
-    box-shadow:0 18px 40px rgba(37,99,235,.30);
+    margin-bottom:25px;
+    box-shadow:0 12px 30px rgba(37,99,235,.25);
 }
 
-.welcome-text h2{
+.welcome-banner h2{
+    margin:0;
     font-size:32px;
-    margin-bottom:8px;
 }
 
-.welcome-text p{
+.welcome-banner p{
+    margin-top:6px;
     opacity:.9;
-    font-size:15px;
 }
 
 .welcome-date{
-    background:rgba(255,255,255,.15);
-    backdrop-filter:blur(12px);
-    padding:12px 20px;
-    border-radius:14px;
+    background:rgba(255,255,255,.18);
+    padding:14px 22px;
+    border-radius:12px;
     font-weight:600;
 }
 
-/* ================= Dashboard Cards ================= */
+/* ================= KPI CARDS ================= */
 
-.dashboard-cards{
+.stats-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
     margin-bottom:30px;
 }
 
-.dashboard-card{
-    background:white;
-    border-radius:20px;
-    padding:22px;
+.stat-box{
     position:relative;
     overflow:hidden;
-    box-shadow:0 10px 30px rgba(15,23,42,.08);
-    transition:.25s ease;
+    border-radius:16px;
+    padding:16px;
+    min-height:110px;
+    color:#fff;
+    box-shadow:0 10px 24px rgba(0,0,0,.15);
+    transition:.25s;
 }
 
-.dashboard-card:hover{
-    transform:translateY(-8px);
+.stat-box:hover{
+    transform:translateY(-5px);
 }
 
-.dashboard-card::before{
-    content:"";
-    position:absolute;
-    left:0;
-    top:0;
-    width:100%;
-    height:5px;
-}
-
-.dashboard-card.blue::before{background:#2563EB;}
-.dashboard-card.green::before{background:#22C55E;}
-.dashboard-card.orange::before{background:#F59E0B;}
-.dashboard-card.red::before{background:#EF4444;}
-
-.card-top{
+.stat-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:20px;
 }
 
-.card-icon{
-    font-size:34px;
+.stat-header span{
+    font-size:13px;
+    font-weight:500;
 }
 
-.card-number{
+.stat-header i{
+    font-size:20px;
+}
+
+.stat-box h2{
+    margin-top:18px;
     font-size:34px;
     font-weight:700;
-    color:#0F172A;
 }
 
-.dashboard-card h3{
-    color:#334155;
-    margin-bottom:8px;
+.stat-box::after{
+    content:"";
+    position:absolute;
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:rgba(255,255,255,.12);
+    right:-20px;
+    bottom:-20px;
 }
 
-.dashboard-card p{
-    color:#64748B;
-    font-size:14px;
+/* Card Colors */
+
+.stat-box.blue{
+    background:linear-gradient(135deg,#2563EB,#1D4ED8);
+}
+
+.stat-box.purple{
+    background:linear-gradient(135deg,#7C3AED,#6D28D9);
+}
+
+.stat-box.orange{
+    background:linear-gradient(135deg,#F59E0B,#EA580C);
+}
+
+.stat-box.red{
+    background:linear-gradient(135deg,#EF4444,#DC2626);
+}
+
+.stat-box.teal{
+    background:linear-gradient(135deg,#0EA5A4,#0F766E);
+}
+
+.stat-box.green{
+    background:linear-gradient(135deg,#22C55E,#15803D);
+}
+
+.stat-box.cyan{
+    background:linear-gradient(135deg,#06B6D4,#0284C7);
+}
+
+.stat-box.success{
+    background:linear-gradient(135deg,#16A34A,#166534);
 }
 
 /* ================= Bottom Section ================= */
@@ -115,41 +139,42 @@
 .bottom-grid{
     display:grid;
     grid-template-columns:2fr 1fr;
-    gap:22px;
+    gap:20px;
 }
 
 .panel{
-    background:white;
-    border-radius:20px;
+    background:#fff;
+    border-radius:18px;
     padding:24px;
-    box-shadow:0 10px 30px rgba(15,23,42,.08);
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
 }
 
 .panel-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:22px;
+    margin-bottom:18px;
 }
 
 .panel-header h3{
+    margin:0;
     color:#0F172A;
 }
 
 .panel-header a{
     color:#2563EB;
-    font-size:14px;
+    text-decoration:none;
     font-weight:600;
 }
 
-/* ================= Activity Timeline ================= */
+/* Activity */
 
 .activity-item{
     display:flex;
-    gap:15px;
     align-items:center;
+    gap:15px;
     padding:16px 0;
-    border-bottom:1px solid #E2E8F0;
+    border-bottom:1px solid #E5E7EB;
 }
 
 .activity-item:last-child{
@@ -161,10 +186,11 @@
     height:46px;
     border-radius:50%;
     background:#EFF6FF;
+    color:#2563EB;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:22px;
+    font-size:18px;
 }
 
 .activity-item strong{
@@ -173,23 +199,23 @@
 
 .activity-item p{
     color:#64748B;
-    font-size:14px;
-    margin-top:3px;
+    margin:4px 0 0;
 }
 
-/* ================= Quick Actions ================= */
+/* Quick Actions */
 
 .quick-actions{
     display:flex;
     flex-direction:column;
-    gap:14px;
+    gap:12px;
 }
 
 .quick-btn{
     background:#2563EB;
-    color:white;
+    color:#fff;
+    text-decoration:none;
     padding:14px 16px;
-    border-radius:12px;
+    border-radius:10px;
     font-weight:600;
     display:flex;
     align-items:center;
@@ -199,25 +225,18 @@
 
 .quick-btn:hover{
     background:#1D4ED8;
-    transform:translateX(4px);
 }
 
 /* ================= Responsive ================= */
 
-@media(max-width:900px){
+@media(max-width:992px){
 
-    .dashboard-layout{
-        margin-left:220px;
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
     .bottom-grid{
         grid-template-columns:1fr;
-    }
-
-    .welcome-banner{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:15px;
     }
 }
 
@@ -228,10 +247,10 @@
     }
 
     .dashboard-content{
-        padding:20px;
+        padding:90px 20px 20px;
     }
 
-    .welcome-text h2{
-        font-size:24px;
+    .stats-grid{
+        grid-template-columns:1fr;
     }
 }

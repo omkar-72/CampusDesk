@@ -1,31 +1,36 @@
 <header class="top-header">
 
     <div class="header-left">
+        <button class="menu-btn">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
         <h2>CampusDesk</h2>
     </div>
 
     <div class="header-center">
+
         <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" placeholder="Search...">
         </div>
+
     </div>
 
     <div class="header-right">
 
-        <button class="notification-btn">
+        <button class="icon-btn">
             <i class="fa-regular fa-bell"></i>
-            <span class="notification-dot"></span>
         </button>
 
-        <div class="user-box">
+        <div class="profile-box">
 
-            <div class="user-avatar">
+            <div class="profile-avatar">
                 <?php echo strtoupper(substr($_SESSION["role_name"] ?? "U",0,1)); ?>
             </div>
 
-            <div class="user-info">
-                <small>Logged in as</small>
+            <div class="profile-text">
+                <small>Role</small>
                 <span><?php echo $_SESSION["role_name"] ?? "User"; ?></span>
             </div>
 

@@ -1,45 +1,58 @@
-/* =========================================================
-   CAMPUSDESK - MODERN LEFT SIDEBAR
-   ========================================================= */
+/* ================= LEFT SIDEBAR ================= */
 
 .navbar{
-    position:fixed;
-    top:0;
-    left:0;
-    width:260px;
-    height:100vh;
-    background:#0F172A;
-    color:#ffffff;
-    display:flex;
-    flex-direction:column;
-    padding:24px 16px;
-    box-shadow:4px 0 20px rgba(15,23,42,.15);
-    z-index:1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    background: #0F172A;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 15px;
+    color: white;
+    z-index: 1000;
 }
 
-/* Logo */
+.navbar-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding-bottom:25px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
 
-.navbar-title{
+.logo-circle{
+    width:50px;
+    height:50px;
+    border-radius:14px;
+    background:#2563EB;
     display:flex;
     align-items:center;
     justify-content:center;
-    margin-bottom:35px;
+    color:white;
+    font-size:22px;
 }
 
-.navbar-title h2{
-    font-size:26px;
-    font-weight:700;
-    color:#ffffff;
+.logo-text h2{
+    color:white;
+    margin:0;
+    font-size:22px;
 }
 
-/* Menu */
+.logo-text span{
+    color:#94A3B8;
+    font-size:12px;
+}
 
 .navbar-menu{
     list-style:none;
+    margin-top:25px;
     display:flex;
     flex-direction:column;
     gap:8px;
     flex:1;
+    padding:0;
 }
 
 .navbar-menu li a{
@@ -49,47 +62,19 @@
     padding:14px 18px;
     border-radius:12px;
     color:#CBD5E1;
-    font-weight:500;
-    transition:all .25s ease;
+    transition:.25s;
 }
-
-/* Hover */
 
 .navbar-menu li a:hover{
     background:#1E293B;
-    color:#ffffff;
-    transform:translateX(5px);
-}
-
-/* Active */
-
-.navbar-menu li.active a{
-    background:#2563EB;
-    color:#ffffff;
-    box-shadow:0 8px 18px rgba(37,99,235,.35);
-}
-
-/* Logout */
-
-.navbar-menu li:last-child{
-    margin-top:auto;
-}
-
-.navbar-menu li:last-child a{
-    color:#FCA5A5;
-}
-
-.navbar-menu li:last-child a:hover{
-    background:#7F1D1D;
     color:white;
 }
 
-/* Mobile */
+.navbar-menu li.active a{
+    background:#2563EB;
+    color:white;
+}
 
-@media(max-width:768px){
-
-    .navbar{
-        width:220px;
-    }
-
+.logout{
+    margin-top:auto;
 }
