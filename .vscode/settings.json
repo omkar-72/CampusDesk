@@ -1,6 +1,8 @@
 {
     "editor.formatOnSave": false,
 
+    "intelephense.diagnostics.undefinedVariables": "off",
+
     "[php]": {
         "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
         "editor.formatOnSave": true,

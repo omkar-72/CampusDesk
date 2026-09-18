@@ -1,0 +1,257 @@
+/* CampusDesk - Student Notifications */
+
+/* =========================
+   GENERAL
+   ========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f6f8;
+    color: #222;
+}
+
+a {
+    text-decoration: none;
+}
+
+.page-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+/* =========================
+   PAGE HEADER
+   ========================= */
+
+.page-header {
+    margin-bottom: 20px;
+}
+
+.page-title {
+    margin: 0 0 8px;
+    font-size: 28px;
+}
+
+.page-header p {
+    margin: 0;
+    color: #666;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.unread-count {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 5px;
+    background: #eee;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+/* =========================
+   SECTION
+   ========================= */
+
+.section-box {
+    background: #fff;
+    padding: 25px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* =========================
+   ACTIONS
+   ========================= */
+
+.notification-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.notification-actions form {
+    margin: 0;
+}
+
+/* =========================
+   BUTTONS
+   ========================= */
+
+.button {
+    display: inline-block;
+    padding: 9px 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    text-align: center;
+}
+
+.primary-button {
+    background: #222;
+    color: #fff;
+}
+
+.secondary-button {
+    background: #e5e5e5;
+    color: #222;
+}
+
+/* =========================
+   NOTIFICATION LIST
+   ========================= */
+
+.notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.notification-item {
+    padding: 18px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.notification-item.unread {
+    border-left: 4px solid #222;
+    background: #fafafa;
+}
+
+.notification-item.read {
+    background: #fff;
+}
+
+.notification-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.notification-module {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 4px;
+    background: #eee;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.notification-badge {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 4px;
+    background: #ddd;
+    font-size: 12px;
+}
+
+.notification-title {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.notification-message {
+    margin: 0 0 15px;
+    line-height: 1.5;
+    color: #444;
+}
+
+.notification-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.notification-date {
+    color: #666;
+    font-size: 13px;
+}
+
+.notification-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.notification-buttons form {
+    margin: 0;
+}
+
+/* =========================
+   NO DATA
+   ========================= */
+
+.no-data {
+    padding: 35px 20px;
+    text-align: center;
+    color: #666;
+}
+
+.no-data h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 700px) {
+    .page-container {
+        width: 95%;
+    }
+
+    .page-title {
+        font-size: 24px;
+    }
+
+    .notification-header {
+        display: block;
+    }
+
+    .unread-count {
+        margin-top: 12px;
+    }
+
+    .notification-footer {
+        display: block;
+    }
+
+    .notification-buttons {
+        margin-top: 12px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .notification-buttons .button,
+    .notification-buttons form {
+        width: 100%;
+    }
+
+    .notification-buttons form .button {
+        width: 100%;
+    }
+}
