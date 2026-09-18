@@ -8,15 +8,6 @@
         <h2>CampusDesk</h2>
     </div>
 
-    <div class="header-center">
-
-        <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search...">
-        </div>
-
-    </div>
-
     <div class="header-right">
 
         <button class="icon-btn">
@@ -26,7 +17,7 @@
         <div class="profile-box">
 
             <div class="profile-avatar">
-                <?php echo strtoupper(substr($_SESSION["role_name"] ?? "U",0,1)); ?>
+                <?php echo strtoupper(substr($_SESSION["role_name"] ?? "U", 0, 1)); ?>
             </div>
 
             <div class="profile-text">

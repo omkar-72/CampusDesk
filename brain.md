@@ -13,6 +13,9 @@ omkar@1234
 amod.naikare@campusdesk.com
 amod@1234
 
+ganesh.mane@campusdesk.com
+ganesh@1234
+
 authority1@campusdesk.com
 authority1@123
 

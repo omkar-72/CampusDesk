@@ -94,23 +94,26 @@ ORDER BY type_name
 ");
 
 /* ---------------- Main Query ---------------- */
-
 $query = "
 SELECT
-a.application_id,
-a.student_id,
-a.subject,
-a.submission_date,
-at.type_name,
-s.status_name
+    a.application_id,
+    a.student_id,
+    st.full_name,
+    a.subject,
+    a.submission_date,
+    at.type_name,
+    s.status_name
 
 FROM applications a
 
+LEFT JOIN students st
+ON a.student_id = st.student_id
+
 LEFT JOIN application_types at
-ON a.application_type_id=at.application_type_id
+ON a.application_type_id = at.application_type_id
 
 LEFT JOIN statuses s
-ON a.status_id=s.status_id
+ON a.status_id = s.status_id
 
 WHERE 1=1
 ";
@@ -419,7 +422,7 @@ $totalRows = $result ? pg_num_rows($result) : 0;
 
                                     <td>AP<?= str_pad($row["application_id"], 3, "0", STR_PAD_LEFT) ?></td>
 
-                                    <td>Student #<?= htmlspecialchars($row["student_id"]) ?></td>
+                                    <td><?= htmlspecialchars($row["full_name"] ?? "Unknown Student") ?></td>
 
                                     <td><?= htmlspecialchars($row["type_name"]) ?></td>
 
