@@ -396,7 +396,7 @@ function formatDateTime($datetime)
    ATTACHMENT VALIDATION
    ========================= */
 
-function isAllowedAttachmentType($file_type)
+function isAllowedFileType($file_type)
 {
     $allowed_types = [
         "image/jpeg",
@@ -416,7 +416,7 @@ function isAllowedAttachmentType($file_type)
    ATTACHMENT SIZE
    ========================= */
 
-function isAllowedAttachmentSize($file_size)
+function isAllowedFileSize($file_size)
 {
     $max_size = 5 * 1024 * 1024;
 
@@ -431,9 +431,21 @@ function isAllowedAttachmentSize($file_size)
 
 function getAttachment(
     $conn,
-    $attachment_id
+    $user_id,
+    $module_type,
+    $reference_id
 ) {
-    if (!isValidId($attachment_id)) {
+    if (!isValidId($user_id) || !isValidId($reference_id)) {
+        return false;
+    }
+
+    $allowed_modules = [
+        "GRIEVANCE",
+        "SUGGESTION",
+        "APPLICATION"
+    ];
+
+    if (!in_array($module_type, $allowed_modules, true)) {
         return false;
     }
 
@@ -450,8 +462,16 @@ function getAttachment(
             file_data,
             uploaded_at
          FROM attachments
-         WHERE attachment_id = $1",
-        [$attachment_id]
+         WHERE user_id = $1
+         AND module_type = $2
+         AND reference_id = $3
+         ORDER BY uploaded_at DESC
+         LIMIT 1",
+        [
+            $user_id,
+            $module_type,
+            $reference_id
+        ]
     );
 
     if (
@@ -463,5 +483,3 @@ function getAttachment(
 
     return pg_fetch_assoc($result);
 }
-
-?>
