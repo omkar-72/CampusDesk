@@ -165,210 +165,210 @@ LIMIT 6
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CampusDesk | Authority Dashboard</title>
+    <title>CampusDesk | Authority Dashboard</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<link rel="stylesheet" href="../css/global.css">
-<link rel="stylesheet" href="../css/header.css">
-<link rel="stylesheet" href="../css/navbar.css">
-<link rel="stylesheet" href="../css/authority-dashboard.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/authority-dashboard.css">
 
 </head>
 
 <body>
 
-<?php include "../includes/navbar.php"; ?>
-<?php include "../includes/header.php"; ?>
+    <?php include "../includes/navbar.php"; ?>
+    <?php include "../includes/header.php"; ?>
 
-<div class="dashboard-layout">
+    <div class="dashboard-layout">
 
-<main class="dashboard-content">
+        <main class="dashboard-content">
 
-<!-- Welcome Banner -->
+            <!-- Welcome Banner -->
 
-<section class="welcome-banner">
+            <section class="welcome-banner">
 
-<div class="welcome-text">
-<h2>Good Morning, Authority 👋</h2>
-<p>Here's what's happening in your department today.</p>
-</div>
+                <div class="welcome-text">
+                    <h2>Good Morning, Authority 👋</h2>
+                    <p>Here's what's happening in your department today.</p>
+                </div>
 
-<div class="welcome-date">
-<?= date("d M Y") ?>
-</div>
+                <div class="welcome-date">
+                    <?= date("d M Y") ?>
+                </div>
 
-</section>
+            </section>
 
-<!-- Statistics -->
+            <!-- Statistics -->
 
-<section class="stats-grid">
+            <section class="stats-grid">
 
-<div class="stat-box blue">
-<div class="stat-header">
-<span>Grievances</span>
-<i class="fa-solid fa-circle-exclamation"></i>
-</div>
-<h2><?= $grievances ?></h2>
-</div>
+                <div class="stat-box blue">
+                    <div class="stat-header">
+                        <span>Grievances</span>
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                    </div>
+                    <h2><?= $grievances ?></h2>
+                </div>
 
-<div class="stat-box purple">
-<div class="stat-header">
-<span>Suggestions</span>
-<i class="fa-solid fa-lightbulb"></i>
-</div>
-<h2><?= $suggestions ?></h2>
-</div>
+                <div class="stat-box purple">
+                    <div class="stat-header">
+                        <span>Suggestions</span>
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h2><?= $suggestions ?></h2>
+                </div>
 
-<div class="stat-box orange">
-<div class="stat-header">
-<span>Applications</span>
-<i class="fa-solid fa-file-lines"></i>
-</div>
-<h2><?= $applications ?></h2>
-</div>
+                <div class="stat-box orange">
+                    <div class="stat-header">
+                        <span>Applications</span>
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <h2><?= $applications ?></h2>
+                </div>
 
-<div class="stat-box red">
-<div class="stat-header">
-<span>Pending</span>
-<i class="fa-solid fa-clock"></i>
-</div>
-<h2><?= $pending ?></h2>
-</div>
+                <div class="stat-box red">
+                    <div class="stat-header">
+                        <span>Pending</span>
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <h2><?= $pending ?></h2>
+                </div>
 
-<div class="stat-box teal">
-<div class="stat-header">
-<span>New Grievances</span>
-<i class="fa-solid fa-bell"></i>
-</div>
-<h2><?= $newGrievances ?></h2>
-</div>
+                <div class="stat-box teal">
+                    <div class="stat-header">
+                        <span>New Grievances</span>
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+                    <h2><?= $newGrievances ?></h2>
+                </div>
 
-<div class="stat-box green">
-<div class="stat-header">
-<span>New Suggestions</span>
-<i class="fa-solid fa-star"></i>
-</div>
-<h2><?= $newSuggestions ?></h2>
-</div>
+                <div class="stat-box green">
+                    <div class="stat-header">
+                        <span>New Suggestions</span>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <h2><?= $newSuggestions ?></h2>
+                </div>
 
-<div class="stat-box cyan">
-<div class="stat-header">
-<span>New Applications</span>
-<i class="fa-solid fa-folder-open"></i>
-</div>
-<h2><?= $newApplications ?></h2>
-</div>
+                <div class="stat-box cyan">
+                    <div class="stat-header">
+                        <span>New Applications</span>
+                        <i class="fa-solid fa-folder-open"></i>
+                    </div>
+                    <h2><?= $newApplications ?></h2>
+                </div>
 
-<div class="stat-box success">
-<div class="stat-header">
-<span>Resolved Today</span>
-<i class="fa-solid fa-circle-check"></i>
-</div>
-<h2><?= $resolvedToday ?></h2>
-</div>
+                <div class="stat-box success">
+                    <div class="stat-header">
+                        <span>Resolved Today</span>
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <h2><?= $resolvedToday ?></h2>
+                </div>
 
-</section>
+            </section>
 
-<!-- Bottom Section -->
+            <!-- Bottom Section -->
 
-<section class="bottom-grid">
+            <section class="bottom-grid">
 
-<div class="panel">
+                <div class="panel">
 
-<div class="panel-header">
-<h3>Recent Activity</h3>
-<a href="#">View All</a>
-</div>
+                    <div class="panel-header">
+                        <h3>Recent Activity</h3>
+                        <a href="#">View All</a>
+                    </div>
 
-<?php if($recentActivity && pg_num_rows($recentActivity)>0): ?>
+                    <?php if ($recentActivity && pg_num_rows($recentActivity) > 0): ?>
 
-<?php while($row = pg_fetch_assoc($recentActivity)): ?>
+                        <?php while ($row = pg_fetch_assoc($recentActivity)): ?>
 
-<div class="activity-item">
+                            <div class="activity-item">
 
-<div class="activity-icon">
+                                <div class="activity-icon">
 
-<?php
+                                    <?php
 
-switch($row["module"]){
+                                    switch ($row["module"]) {
 
-case "Grievance":
-echo '<i class="fa-solid fa-circle-exclamation"></i>';
-break;
+                                        case "Grievance":
+                                            echo '<i class="fa-solid fa-circle-exclamation"></i>';
+                                            break;
 
-case "Suggestion":
-echo '<i class="fa-solid fa-lightbulb"></i>';
-break;
+                                        case "Suggestion":
+                                            echo '<i class="fa-solid fa-lightbulb"></i>';
+                                            break;
 
-default:
-echo '<i class="fa-solid fa-file-lines"></i>';
+                                        default:
+                                            echo '<i class="fa-solid fa-file-lines"></i>';
+                                    }
 
-}
+                                    ?>
 
-?>
+                                </div>
 
-</div>
+                                <div>
 
-<div>
+                                    <strong><?= htmlspecialchars($row["module"]) ?></strong>
 
-<strong><?= htmlspecialchars($row["module"]) ?></strong>
+                                    <p><?= htmlspecialchars($row["title"]) ?></p>
 
-<p><?= htmlspecialchars($row["title"]) ?></p>
+                                    <small><?= date("d M Y h:i A", strtotime($row["activity_date"])) ?></small>
 
-<small><?= date("d M Y h:i A", strtotime($row["activity_date"])) ?></small>
+                                </div>
 
-</div>
+                            </div>
 
-</div>
+                        <?php endwhile; ?>
 
-<?php endwhile; ?>
+                    <?php else: ?>
 
-<?php else: ?>
+                        <p>No recent activity found.</p>
 
-<p>No recent activity found.</p>
+                    <?php endif; ?>
 
-<?php endif; ?>
+                </div>
 
-</div>
+                <div class="panel">
 
-<div class="panel">
+                    <div class="panel-header">
+                        <h3>Quick Actions</h3>
+                    </div>
 
-<div class="panel-header">
-<h3>Quick Actions</h3>
-</div>
+                    <div class="quick-actions">
 
-<div class="quick-actions">
+                        <a href="grievances.php" class="quick-btn">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            Review Grievances
+                        </a>
 
-<a href="grievances.php" class="quick-btn">
-<i class="fa-solid fa-circle-exclamation"></i>
-Review Grievances
-</a>
+                        <a href="suggestions.php" class="quick-btn">
+                            <i class="fa-solid fa-lightbulb"></i>
+                            Review Suggestions
+                        </a>
 
-<a href="suggestions.php" class="quick-btn">
-<i class="fa-solid fa-lightbulb"></i>
-Review Suggestions
-</a>
+                        <a href="applications.php" class="quick-btn">
+                            <i class="fa-solid fa-file-lines"></i>
+                            Check Applications
+                        </a>
 
-<a href="applications.php" class="quick-btn">
-<i class="fa-solid fa-file-lines"></i>
-Check Applications
-</a>
+                    </div>
 
-</div>
+                </div>
 
-</div>
+            </section>
 
-</section>
+        </main>
 
-</main>
+    </div>
 
-</div>
-
-<?php include "../includes/footer.php"; ?>
+    <?php include "../includes/footer.php"; ?>
 
 </body>
+
 </html>

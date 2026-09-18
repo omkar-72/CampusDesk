@@ -3,6 +3,7 @@
 require_once "../includes/auth.php";
 requireStudent();
 
+$conn = null;
 require_once "../config/database.php";
 require_once "../includes/functions.php";
 
@@ -91,22 +92,29 @@ if ($action === "delete") {
         $conn,
         "DELETE FROM grievances
          WHERE grievance_id = $1
-         AND student_id = $2",
+         AND student_id = $2
+         AND status_id = (
+             SELECT status_id
+             FROM statuses
+             WHERE status_name = 'New'
+             AND module_type = 'GRIEVANCE'
+         )",
         [
             $grievance_id,
             $student_id
         ]
     );
 
-    if (!$result) {
+    if (!$result || pg_affected_rows($result) !== 1) {
         pg_query($conn, "ROLLBACK");
-        die("Failed to delete grievance.");
+        die("Grievance cannot be deleted.");
     }
 
 
     /* Complete Transaction */
 
     if (!pg_query($conn, "COMMIT")) {
+        pg_query($conn, "ROLLBACK");
         die("Failed to complete deletion.");
     }
 

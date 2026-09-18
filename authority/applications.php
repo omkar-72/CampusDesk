@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($_POST["action"] == "approve") {
 
-        pg_query_params($conn,"
+        pg_query_params($conn, "
             UPDATE applications
             SET status_id = (
                 SELECT status_id
@@ -25,13 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ),
             review_date = CURRENT_DATE
             WHERE application_id=$1
-        ",[$applicationId]);
-
+        ", [$applicationId]);
     }
 
     if ($_POST["action"] == "reject") {
 
-        pg_query_params($conn,"
+        pg_query_params($conn, "
             UPDATE applications
             SET status_id = (
                 SELECT status_id
@@ -41,8 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ),
             review_date = CURRENT_DATE
             WHERE application_id=$1
-        ",[$applicationId]);
-
+        ", [$applicationId]);
     }
 
     header("Location: applications.php");
@@ -59,37 +57,37 @@ $dateFilter = $_GET["date"] ?? "";
 
 /* ---------------- Summary Cards ---------------- */
 
-$newCount = pg_fetch_result(pg_query($conn,"
+$newCount = pg_fetch_result(pg_query($conn, "
 SELECT COUNT(*)
 FROM applications a
 JOIN statuses s ON a.status_id=s.status_id
 WHERE s.status_name='New'
-"),0,0);
+"), 0, 0);
 
-$processingCount = pg_fetch_result(pg_query($conn,"
+$processingCount = pg_fetch_result(pg_query($conn, "
 SELECT COUNT(*)
 FROM applications a
 JOIN statuses s ON a.status_id=s.status_id
 WHERE s.status_name IN ('Processing','Under Review')
-"),0,0);
+"), 0, 0);
 
-$approvedCount = pg_fetch_result(pg_query($conn,"
+$approvedCount = pg_fetch_result(pg_query($conn, "
 SELECT COUNT(*)
 FROM applications a
 JOIN statuses s ON a.status_id=s.status_id
 WHERE s.status_name='Approved'
-"),0,0);
+"), 0, 0);
 
-$rejectedCount = pg_fetch_result(pg_query($conn,"
+$rejectedCount = pg_fetch_result(pg_query($conn, "
 SELECT COUNT(*)
 FROM applications a
 JOIN statuses s ON a.status_id=s.status_id
 WHERE s.status_name='Rejected'
-"),0,0);
+"), 0, 0);
 
 /* ---------------- Application Types ---------------- */
 
-$types = pg_query($conn,"
+$types = pg_query($conn, "
 SELECT application_type_id,type_name
 FROM application_types
 ORDER BY type_name
@@ -117,38 +115,38 @@ ON a.status_id=s.status_id
 WHERE 1=1
 ";
 
-$params=[];
-$count=1;
+$params = [];
+$count = 1;
 
-if($searchId!=""){
-$query.=" AND a.application_id=$".$count++;
-$params[]=$searchId;
+if ($searchId != "") {
+    $query .= " AND a.application_id=$" . $count++;
+    $params[] = $searchId;
 }
 
-if($search!=""){
-$query.=" AND a.subject ILIKE $".$count++;
-$params[]="%".$search."%";
+if ($search != "") {
+    $query .= " AND a.subject ILIKE $" . $count++;
+    $params[] = "%" . $search . "%";
 }
 
-if($type!=""){
-$query.=" AND a.application_type_id=$".$count++;
-$params[]=$type;
+if ($type != "") {
+    $query .= " AND a.application_type_id=$" . $count++;
+    $params[] = $type;
 }
 
-if($statusFilter!=""){
-$query.=" AND s.status_name=$".$count++;
-$params[]=$statusFilter;
+if ($statusFilter != "") {
+    $query .= " AND s.status_name=$" . $count++;
+    $params[] = $statusFilter;
 }
 
-if($dateFilter=="today"){
-$query.=" AND DATE(a.submission_date)=CURRENT_DATE";
+if ($dateFilter == "today") {
+    $query .= " AND DATE(a.submission_date)=CURRENT_DATE";
 }
 
-$query.=" ORDER BY a.submission_date DESC";
+$query .= " ORDER BY a.submission_date DESC";
 
-$result=pg_query_params($conn,$query,$params);
+$result = pg_query_params($conn, $query, $params);
 
-$totalRows=$result?pg_num_rows($result):0;
+$totalRows = $result ? pg_num_rows($result) : 0;
 ?>
 
 <!DOCTYPE html>
@@ -156,359 +154,368 @@ $totalRows=$result?pg_num_rows($result):0;
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CampusDesk | Authority Applications</title>
+    <title>CampusDesk | Authority Applications</title>
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<link rel="stylesheet" href="../css/global.css">
-<link rel="stylesheet" href="../css/header.css">
-<link rel="stylesheet" href="../css/navbar.css">
-<link rel="stylesheet" href="../css/authority-dashboard.css">
-<link rel="stylesheet" href="../css/authority-table.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/authority-dashboard.css">
+    <link rel="stylesheet" href="../css/authority-table.css">
 
-<style>
+    <style>
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin: 20px 0;
+        }
 
-.summary-grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:14px;
-margin:20px 0;
-}
+        .summary-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
+            border-top: 4px solid #2563EB;
+        }
 
-.summary-card{
-background:#fff;
-border-radius:14px;
-padding:18px;
-box-shadow:0 6px 18px rgba(0,0,0,.08);
-border-top:4px solid #2563EB;
-}
+        .summary-card h3 {
+            margin: 0;
+            font-size: 28px;
+        }
 
-.summary-card h3{
-margin:0;
-font-size:28px;
-}
+        .summary-card p {
+            margin-top: 8px;
+            color: #64748B;
+        }
 
-.summary-card p{
-margin-top:8px;
-color:#64748B;
-}
+        .filter-form {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
 
-.filter-form{
-display:flex;
-gap:12px;
-flex-wrap:wrap;
-margin-bottom:20px;
-}
+        .filter-form input,
+        .filter-form select {
+            padding: 10px 14px;
+            border: 1px solid #CBD5E1;
+            border-radius: 8px;
+        }
 
-.filter-form input,
-.filter-form select{
-padding:10px 14px;
-border:1px solid #CBD5E1;
-border-radius:8px;
-}
+        .filter-form button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #2563EB;
+            color: white;
+            cursor: pointer;
+        }
 
-.filter-form button{
-padding:10px 18px;
-border:none;
-border-radius:8px;
-background:#2563EB;
-color:white;
-cursor:pointer;
-}
+        .reset-btn {
+            background: #64748B;
+        }
 
-.reset-btn{
-background:#64748B;
-}
+        .table-info {
+            margin: 16px 0;
+            font-weight: 600;
+            color: #334155;
+        }
 
-.table-info{
-margin:16px 0;
-font-weight:600;
-color:#334155;
-}
+        .badge-review {
+            background: #F59E0B;
+            color: white;
+        }
 
-.badge-review{background:#F59E0B;color:white;}
-.badge-success{background:#16A34A;color:white;}
-.badge-danger{background:#DC2626;color:white;}
-.badge-pending{background:#2563EB;color:white;}
+        .badge-success {
+            background: #16A34A;
+            color: white;
+        }
 
-.action-group{
-display:flex;
-gap:6px;
-}
+        .badge-danger {
+            background: #DC2626;
+            color: white;
+        }
 
-.accept-btn{
-background:#16A34A;
-color:white;
-border:none;
-padding:6px 10px;
-border-radius:6px;
-cursor:pointer;
-}
+        .badge-pending {
+            background: #2563EB;
+            color: white;
+        }
 
-.reject-btn{
-background:#DC2626;
-color:white;
-border:none;
-padding:6px 10px;
-border-radius:6px;
-cursor:pointer;
-}
+        .action-group {
+            display: flex;
+            gap: 6px;
+        }
 
-</style>
+        .accept-btn {
+            background: #16A34A;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .reject-btn {
+            background: #DC2626;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
 
 </head>
 
 <body>
 
-<?php include "../includes/navbar.php"; ?>
-<?php include "../includes/header.php"; ?>
+    <?php include "../includes/navbar.php"; ?>
+    <?php include "../includes/header.php"; ?>
 
-<div class="dashboard-layout">
+    <div class="dashboard-layout">
 
-<main class="dashboard-content">
+        <main class="dashboard-content">
 
-<div class="page-header">
+            <div class="page-header">
 
-<div>
-<h2>Application Management</h2>
-<p>Review and approve student applications.</p>
-</div>
+                <div>
+                    <h2>Application Management</h2>
+                    <p>Review and approve student applications.</p>
+                </div>
 
-</div>
+            </div>
 
-<!-- Filters -->
+            <!-- Filters -->
 
-<form method="GET" class="filter-form">
+            <form method="GET" class="filter-form">
 
-<input
-type="number"
-name="application_id"
-placeholder="Application ID"
-value="<?= htmlspecialchars($searchId) ?>"
->
+                <input
+                    type="number"
+                    name="application_id"
+                    placeholder="Application ID"
+                    value="<?= htmlspecialchars($searchId) ?>">
 
-<input
-type="text"
-name="search"
-placeholder="Search subject..."
-value="<?= htmlspecialchars($search) ?>"
->
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search subject..."
+                    value="<?= htmlspecialchars($search) ?>">
 
-<select name="type">
+                <select name="type">
 
-<option value="">Application Type</option>
+                    <option value="">Application Type</option>
 
-<?php while($t=pg_fetch_assoc($types)): ?>
+                    <?php while ($t = pg_fetch_assoc($types)): ?>
 
-<option
-value="<?= $t["application_type_id"] ?>"
-<?= $type==$t["application_type_id"]?"selected":"" ?>
->
+                        <option
+                            value="<?= $t["application_type_id"] ?>"
+                            <?= $type == $t["application_type_id"] ? "selected" : "" ?>>
 
-<?= htmlspecialchars($t["type_name"]) ?>
+                            <?= htmlspecialchars($t["type_name"]) ?>
 
-</option>
+                        </option>
 
-<?php endwhile; ?>
+                    <?php endwhile; ?>
 
-</select>
+                </select>
 
-<select name="status">
+                <select name="status">
 
-<option value="">All Status</option>
+                    <option value="">All Status</option>
 
-<option value="New">New</option>
-<option value="Processing">Processing</option>
-<option value="Under Review">Under Review</option>
-<option value="Approved">Approved</option>
-<option value="Rejected">Rejected</option>
+                    <option value="New">New</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Under Review">Under Review</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Rejected">Rejected</option>
 
-</select>
+                </select>
 
-<select name="date">
+                <select name="date">
 
-<option value="">Date</option>
+                    <option value="">Date</option>
 
-<option value="today" <?= $dateFilter=="today"?"selected":"" ?>>
-Today
-</option>
+                    <option value="today" <?= $dateFilter == "today" ? "selected" : "" ?>>
+                        Today
+                    </option>
 
-</select>
+                </select>
 
-<button type="submit">Search</button>
+                <button type="submit">Search</button>
 
-<a href="applications.php">
-<button type="button" class="reset-btn">Reset</button>
-</a>
+                <a href="applications.php">
+                    <button type="button" class="reset-btn">Reset</button>
+                </a>
 
-</form>
+            </form>
 
-<!-- Summary Cards -->
+            <!-- Summary Cards -->
 
-<div class="summary-grid">
+            <div class="summary-grid">
 
-<div class="summary-card" style="border-color:#2563EB;">
-<h3><?= $newCount ?></h3>
-<p>New</p>
-</div>
+                <div class="summary-card" style="border-color:#2563EB;">
+                    <h3><?= $newCount ?></h3>
+                    <p>New</p>
+                </div>
 
-<div class="summary-card" style="border-color:#F59E0B;">
-<h3><?= $processingCount ?></h3>
-<p>Processing</p>
-</div>
+                <div class="summary-card" style="border-color:#F59E0B;">
+                    <h3><?= $processingCount ?></h3>
+                    <p>Processing</p>
+                </div>
 
-<div class="summary-card" style="border-color:#16A34A;">
-<h3><?= $approvedCount ?></h3>
-<p>Approved</p>
-</div>
+                <div class="summary-card" style="border-color:#16A34A;">
+                    <h3><?= $approvedCount ?></h3>
+                    <p>Approved</p>
+                </div>
 
-<div class="summary-card" style="border-color:#DC2626;">
-<h3><?= $rejectedCount ?></h3>
-<p>Rejected</p>
-</div>
+                <div class="summary-card" style="border-color:#DC2626;">
+                    <h3><?= $rejectedCount ?></h3>
+                    <p>Rejected</p>
+                </div>
 
-</div>
+            </div>
 
-<div class="table-info">
+            <div class="table-info">
 
-Showing 1–<?= $totalRows ?> of <?= $totalRows ?>
+                Showing 1–<?= $totalRows ?> of <?= $totalRows ?>
 
-</div>
+            </div>
 
-<!-- Table -->
+            <!-- Table -->
 
-<div class="table-card">
+            <div class="table-card">
 
-<table>
+                <table>
 
-<thead>
+                    <thead>
 
-<tr>
+                        <tr>
 
-<th>ID</th>
-<th>Student</th>
-<th>Type</th>
-<th>Subject</th>
-<th>Date</th>
-<th>Status</th>
-<th>Action</th>
+                            <th>ID</th>
+                            <th>Student</th>
+                            <th>Type</th>
+                            <th>Subject</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
 
-</tr>
+                        </tr>
 
-</thead>
+                    </thead>
 
-<tbody>
+                    <tbody>
 
-<?php if($result && pg_num_rows($result)>0): ?>
+                        <?php if ($result && pg_num_rows($result) > 0): ?>
 
-<?php while($row=pg_fetch_assoc($result)): ?>
+                            <?php while ($row = pg_fetch_assoc($result)): ?>
 
-<tr>
+                                <tr>
 
-<td>AP<?= str_pad($row["application_id"],3,"0",STR_PAD_LEFT) ?></td>
+                                    <td>AP<?= str_pad($row["application_id"], 3, "0", STR_PAD_LEFT) ?></td>
 
-<td>Student #<?= htmlspecialchars($row["student_id"]) ?></td>
+                                    <td>Student #<?= htmlspecialchars($row["student_id"]) ?></td>
 
-<td><?= htmlspecialchars($row["type_name"]) ?></td>
+                                    <td><?= htmlspecialchars($row["type_name"]) ?></td>
 
-<td><?= htmlspecialchars($row["subject"]) ?></td>
+                                    <td><?= htmlspecialchars($row["subject"]) ?></td>
 
-<td><?= date("d M Y",strtotime($row["submission_date"])) ?></td>
+                                    <td><?= date("d M Y", strtotime($row["submission_date"])) ?></td>
 
-<td>
+                                    <td>
 
-<?php
+                                        <?php
 
-$status=$row["status_name"];
+                                        $status = $row["status_name"];
 
-$class="badge-pending";
+                                        $class = "badge-pending";
 
-if($status=="Approved") $class="badge-success";
-elseif($status=="Rejected") $class="badge-danger";
-elseif($status=="Processing" || $status=="Under Review") $class="badge-review";
+                                        if ($status == "Approved") $class = "badge-success";
+                                        elseif ($status == "Rejected") $class = "badge-danger";
+                                        elseif ($status == "Processing" || $status == "Under Review") $class = "badge-review";
 
-?>
+                                        ?>
 
-<span class="badge <?= $class ?>">
-<?= htmlspecialchars($status) ?>
-</span>
+                                        <span class="badge <?= $class ?>">
+                                            <?= htmlspecialchars($status) ?>
+                                        </span>
 
-</td>
+                                    </td>
 
-<td>
+                                    <td>
 
-<?php if(in_array($status,["New","Processing","Under Review"])): ?>
+                                        <?php if (in_array($status, ["New", "Processing", "Under Review"])): ?>
 
-<form method="POST" class="action-group">
+                                            <form method="POST" class="action-group">
 
-<input
-type="hidden"
-name="application_id"
-value="<?= $row["application_id"] ?>"
->
+                                                <input
+                                                    type="hidden"
+                                                    name="application_id"
+                                                    value="<?= $row["application_id"] ?>">
 
-<button name="action" value="approve" class="accept-btn">
+                                                <button name="action" value="approve" class="accept-btn">
 
-<i class="fa-solid fa-check"></i>
+                                                    <i class="fa-solid fa-check"></i>
 
-</button>
+                                                </button>
 
-<button name="action" value="reject" class="reject-btn">
+                                                <button name="action" value="reject" class="reject-btn">
 
-<i class="fa-solid fa-xmark"></i>
+                                                    <i class="fa-solid fa-xmark"></i>
 
-</button>
+                                                </button>
 
-<button type="button" class="action-btn">
+                                                <button type="button" class="action-btn">
 
-<i class="fa-solid fa-eye"></i>
+                                                    <i class="fa-solid fa-eye"></i>
 
-</button>
+                                                </button>
 
-</form>
+                                            </form>
 
-<?php else: ?>
+                                        <?php else: ?>
 
-<a href="view_application.php?id=<?= $row['application_id'] ?>" class="action-btn">
-    <i class="fa-solid fa-eye"></i>
-    View
-</a>
+                                            <a href="view_application.php?id=<?= $row['application_id'] ?>" class="action-btn">
+                                                <i class="fa-solid fa-eye"></i>
+                                                View
+                                            </a>
 
-<?php endif; ?>
+                                        <?php endif; ?>
 
-</td>
+                                    </td>
 
-</tr>
+                                </tr>
 
-<?php endwhile; ?>
+                            <?php endwhile; ?>
 
-<?php else: ?>
+                        <?php else: ?>
 
-<tr>
+                            <tr>
 
-<td colspan="7" style="text-align:center;padding:30px;">
-No applications found.
-</td>
+                                <td colspan="7" style="text-align:center;padding:30px;">
+                                    No applications found.
+                                </td>
 
-</tr>
+                            </tr>
 
-<?php endif; ?>
+                        <?php endif; ?>
 
-</tbody>
+                    </tbody>
 
-</table>
+                </table>
 
-</div>
+            </div>
 
-</main>
+        </main>
 
-</div>
+    </div>
 
-<?php include "../includes/footer.php"; ?>
+    <?php include "../includes/footer.php"; ?>
 
 </body>
 
