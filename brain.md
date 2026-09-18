@@ -20,3 +20,21 @@ Authority@123
 login@gmail.com
 
 Login@123
+
+
+
+step 1:-
+database open kar in terminal (psql)
+
+step 2:-
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+INSERT INTO users (email, password, role_id)
+VALUES (
+    'authority1@campusdesk.com',
+    crypt('authority1@123', gen_salt('bf')),
+    (SELECT role_id FROM roles WHERE role_name = 'AUTHORITY')
+);
+
+step 3:-
+login using those email and password in authority dashbord
