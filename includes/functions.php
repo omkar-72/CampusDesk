@@ -482,10 +482,9 @@ function getAttachment(
     }
 
     return pg_fetch_assoc($result);
-<<<<<<< HEAD
 }
-=======
-}
+
+
 /* =========================================================
    GET AUTHORITY PROFILE
    ========================================================= */
@@ -532,4 +531,3 @@ function getAuthorityProfile($conn, $user_id)
     return pg_fetch_assoc($result);
 }
 ?>
->>>>>>> 339b615a17cb62fc9aea3f10054eea39350c2214
