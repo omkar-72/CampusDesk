@@ -482,4 +482,54 @@ function getAttachment(
     }
 
     return pg_fetch_assoc($result);
+<<<<<<< HEAD
 }
+=======
+}
+/* =========================================================
+   GET AUTHORITY PROFILE
+   ========================================================= */
+
+function getAuthorityProfile($conn, $user_id)
+{
+    $query = "
+        SELECT
+            u.user_id,
+            a.name AS full_name,
+            u.email,
+            u.mobile_number,
+            u.created_at,
+            u.last_login,
+            u.account_status,
+            u.profile_photo,
+
+            d.department_name,
+            a.designation,
+
+            0 AS grievance_count,
+            0 AS suggestion_count,
+            0 AS application_count
+
+        FROM users u
+
+        INNER JOIN authorities a
+            ON a.user_id = u.user_id
+
+        LEFT JOIN departments d
+            ON a.department_id = d.department_id
+
+        WHERE u.user_id = $1
+
+        LIMIT 1;
+    ";
+
+    $result = pg_query_params($conn, $query, [$user_id]);
+
+    if (!$result || pg_num_rows($result) === 0) {
+        return null;
+    }
+
+    return pg_fetch_assoc($result);
+}
+?>
+>>>>>>> 339b615a17cb62fc9aea3f10054eea39350c2214

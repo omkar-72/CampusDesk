@@ -1,12 +1,39 @@
 <?php
-session_start();
+require_once "../includes/auth.php";
+requireAuthority();
 
-if (!isset($_SESSION["role_name"])) {
-    $_SESSION["role_name"] = "AUTHORITY";
+require_once "../config/database.php";
+require_once "../includes/functions.php";
+
+$user_id = getLoggedInUserId();
+
+$profile = getAuthorityProfile($conn, $user_id);
+
+if (!$profile) {
+    die("Authority profile not found.");
 }
 
-$name = $_SESSION["user_name"] ?? "Authority";
-$email = $_SESSION["email"] ?? "authority@campusdesk.com";
+$profile_photo = $profile["profile_photo"] ?? null;
+
+$profile_photo_type = "image/jpeg";
+$profile_photo_data = null;
+
+if ($profile_photo) {
+    $profile_photo_data = pg_unescape_bytea($profile_photo);
+
+    if (function_exists("finfo_open")) {
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+
+        if ($finfo) {
+            $detected = finfo_buffer($finfo, $profile_photo_data);
+            finfo_close($finfo);
+
+            if (in_array($detected, ["image/jpeg","image/png"], true)) {
+                $profile_photo_type = $detected;
+            }
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,18 +41,18 @@ $email = $_SESSION["email"] ?? "authority@campusdesk.com";
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>CampusDesk | Authority Profile</title>
+<title>CampusDesk | Authority Profile</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/navbar.css">
-    <link rel="stylesheet" href="../css/authority-dashboard.css">
-    <link rel="stylesheet" href="../css/authority-profile.css">
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/header.css">
+<link rel="stylesheet" href="../css/navbar.css">
+<link rel="stylesheet" href="../css/authority-dashboard.css">
+<link rel="stylesheet" href="../css/authority-profile.css">
 
 </head>
 
@@ -38,132 +65,213 @@ $email = $_SESSION["email"] ?? "authority@campusdesk.com";
 
 <main class="dashboard-content">
 
-    <div class="profile-container">
+<div class="profile-container">
 
-        <!-- Profile Banner -->
+<!-- ================= Profile Banner ================= -->
 
-        <div class="profile-banner">
+<div class="profile-banner">
 
-            <div class="profile-avatar-large">
-                <?php echo strtoupper(substr($name,0,1)); ?>
-            </div>
+    <div class="profile-avatar-large">
 
-            <div class="profile-details">
+        <?php if ($profile_photo_data): ?>
 
-                <h2><?php echo htmlspecialchars($name); ?></h2>
+            <img
+                src="data:<?= htmlspecialchars($profile_photo_type) ?>;base64,<?= base64_encode($profile_photo_data) ?>"
+                alt="Profile Photo"
+                class="profile-photo-large"
+            >
 
-                <p><i class="fa-solid fa-envelope"></i> <?php echo htmlspecialchars($email); ?></p>
+        <?php else: ?>
 
-                <span class="role-badge">AUTHORITY</span>
+            <?= strtoupper(substr($profile["full_name"],0,1)); ?>
 
-            </div>
+        <?php endif; ?>
 
+    </div>
+
+    <div class="profile-details">
+
+        <h2><?= htmlspecialchars($profile["full_name"]); ?></h2>
+
+        <p>
+            <i class="fa-solid fa-envelope"></i>
+            <?= htmlspecialchars($profile["email"]); ?>
+        </p>
+
+        <span class="role-badge">AUTHORITY</span>
+
+    </div>
+
+</div>
+
+<!-- ================= Profile Information ================= -->
+
+<div class="profile-grid">
+
+    <div class="profile-card">
+
+        <h3>Personal Information</h3>
+
+        <div class="info-row">
+            <span>Full Name</span>
+            <strong><?= htmlspecialchars($profile["full_name"]); ?></strong>
         </div>
 
-        <!-- Profile Information -->
-
-        <div class="profile-grid">
-
-            <div class="profile-card">
-
-                <h3>Personal Information</h3>
-
-                <div class="info-row">
-                    <span>Full Name</span>
-                    <strong><?php echo htmlspecialchars($name); ?></strong>
-                </div>
-
-                <div class="info-row">
-                    <span>Email</span>
-                    <strong><?php echo htmlspecialchars($email); ?></strong>
-                </div>
-
-                <div class="info-row">
-                    <span>Role</span>
-                    <strong>Authority</strong>
-                </div>
-
-                <div class="info-row">
-                    <span>Department</span>
-                    <strong>Computer Engineering</strong>
-                </div>
-
-            </div>
-
-            <div class="profile-card">
-
-                <h3>Account Overview</h3>
-
-                <div class="stat-mini">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    <div>
-                        <strong>156</strong>
-                        <span>Grievances Managed</span>
-                    </div>
-                </div>
-
-                <div class="stat-mini">
-                    <i class="fa-solid fa-lightbulb"></i>
-                    <div>
-                        <strong>48</strong>
-                        <span>Suggestions Reviewed</span>
-                    </div>
-                </div>
-
-                <div class="stat-mini">
-                    <i class="fa-solid fa-file-lines"></i>
-                    <div>
-                        <strong>72</strong>
-                        <span>Applications Processed</span>
-                    </div>
-                </div>
-
-            </div>
-
+        <div class="info-row">
+            <span>Email</span>
+            <strong><?= htmlspecialchars($profile["email"]); ?></strong>
         </div>
 
-        <!-- Edit Profile -->
+        <div class="info-row">
+            <span>Department</span>
+            <strong><?= htmlspecialchars($profile["department_name"]); ?></strong>
+        </div>
 
-        <div class="profile-card edit-card">
+        <div class="info-row">
+            <span>Designation</span>
+            <strong><?= htmlspecialchars($profile["designation"]); ?></strong>
+        </div>
 
-            <h3>Edit Profile</h3>
-
-            <form>
-
-                <div class="form-grid">
-
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" value="<?php echo htmlspecialchars($name); ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" value="<?php echo htmlspecialchars($email); ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Department</label>
-                        <input type="text" value="Computer Engineering">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Phone</label>
-                        <input type="text" placeholder="+91 9876543210">
-                    </div>
-
-                </div>
-
-                <button type="submit" class="save-btn">
-                    <i class="fa-solid fa-floppy-disk"></i>
-                    Save Changes
-                </button>
-
-            </form>
-
+        <div class="info-row">
+            <span>Mobile</span>
+            <strong><?= htmlspecialchars($profile["mobile_number"] ?? "-"); ?></strong>
         </div>
 
     </div>
+
+    <div class="profile-card">
+
+        <h3>Account Overview</h3>
+
+        <div class="stat-mini">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <div>
+                <strong><?= $profile["grievance_count"] ?? 0 ?></strong>
+                <span>Grievances Managed</span>
+            </div>
+        </div>
+
+        <div class="stat-mini">
+            <i class="fa-solid fa-lightbulb"></i>
+            <div>
+                <strong><?= $profile["suggestion_count"] ?? 0 ?></strong>
+                <span>Suggestions Reviewed</span>
+            </div>
+        </div>
+
+        <div class="stat-mini">
+            <i class="fa-solid fa-file-lines"></i>
+            <div>
+                <strong><?= $profile["application_count"] ?? 0 ?></strong>
+                <span>Applications Processed</span>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= Edit Profile ================= -->
+
+<div class="profile-card edit-card">
+
+    <h3>Edit Profile</h3>
+
+    <form action="../actions/profile.php" method="POST">
+
+        <input type="hidden" name="action" value="update_profile">
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input
+                    type="text"
+                    name="full_name"
+                    value="<?= htmlspecialchars($profile["full_name"]); ?>"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input
+                    type="email"
+                    value="<?= htmlspecialchars($profile["email"]); ?>"
+                    readonly
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Department</label>
+                <input
+                    type="text"
+                    value="<?= htmlspecialchars($profile["department_name"]); ?>"
+                    readonly
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Designation</label>
+                <input
+                    type="text"
+                    value="<?= htmlspecialchars($profile["designation"]); ?>"
+                    readonly
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Phone</label>
+                <input
+                    type="text"
+                    name="mobile"
+                    value="<?= htmlspecialchars($profile["mobile_number"] ?? ""); ?>"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Address</label>
+                <input
+                    type="text"
+                    name="address"
+                    value="<?= htmlspecialchars($profile["address"] ?? ""); ?>"
+                >
+            </div>
+
+        </div>
+
+        <button type="submit" class="save-btn">
+            <i class="fa-solid fa-floppy-disk"></i>
+            Save Changes
+        </button>
+
+    </form>
+
+</div>
+
+<!-- ================= Account Information ================= -->
+
+<div class="profile-card">
+
+    <h3>Account Information</h3>
+
+    <div class="info-row">
+        <span>Account Status</span>
+        <strong><?= $profile["account_status"] ? "Active" : "Inactive"; ?></strong>
+    </div>
+
+    <div class="info-row">
+        <span>Last Login</span>
+        <strong><?= formatDateTime($profile["last_login"]); ?></strong>
+    </div>
+
+    <div class="info-row">
+        <span>Account Created</span>
+        <strong><?= formatDateTime($profile["created_at"]); ?></strong>
+    </div>
+
+</div>
+
+</div>
 
 </main>
 

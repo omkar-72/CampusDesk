@@ -4,6 +4,160 @@ session_start();
 if (!isset($_SESSION["role_name"])) {
     $_SESSION["role_name"] = "AUTHORITY";
 }
+
+require_once "../config/database.php";
+
+/* ================= Dashboard Statistics ================= */
+
+/* Total Grievances */
+$grievances = pg_fetch_result(
+    pg_query($conn, "SELECT COUNT(*) FROM grievances"),
+    0,
+    0
+);
+
+/* Total Suggestions */
+$suggestions = pg_fetch_result(
+    pg_query($conn, "SELECT COUNT(*) FROM suggestions"),
+    0,
+    0
+);
+
+/* Total Applications */
+$applications = pg_fetch_result(
+    pg_query($conn, "SELECT COUNT(*) FROM applications"),
+    0,
+    0
+);
+
+/* Pending Grievances */
+$pendingGrievances = pg_fetch_result(
+    pg_query($conn, "
+        SELECT COUNT(*)
+        FROM grievances g
+        JOIN statuses s ON g.status_id = s.status_id
+        WHERE s.module_type='GRIEVANCE'
+        AND s.status_name IN ('New','Under Review','In Progress')
+    "),
+    0,
+    0
+);
+
+/* Pending Suggestions */
+$pendingSuggestions = pg_fetch_result(
+    pg_query($conn, "
+        SELECT COUNT(*)
+        FROM suggestions sg
+        JOIN statuses s ON sg.status_id = s.status_id
+        WHERE s.module_type='SUGGESTION'
+        AND s.status_name IN ('New','Under Review')
+    "),
+    0,
+    0
+);
+
+/* Pending Applications */
+$pendingApplications = pg_fetch_result(
+    pg_query($conn, "
+        SELECT COUNT(*)
+        FROM applications a
+        JOIN statuses s ON a.status_id = s.status_id
+        WHERE s.module_type='APPLICATION'
+        AND s.status_name IN ('New','Processing','Under Review')
+    "),
+    0,
+    0
+);
+
+$pending = $pendingGrievances + $pendingSuggestions + $pendingApplications;
+
+/* Today's Grievances */
+$newGrievances = pg_fetch_result(
+    pg_query($conn, "
+        SELECT COUNT(*)
+        FROM grievances
+        WHERE DATE(submission_date)=CURRENT_DATE
+    "),
+    0,
+    0
+);
+
+/* Today's Suggestions */
+$newSuggestions = pg_fetch_result(
+    pg_query($conn, "
+        SELECT COUNT(*)
+        FROM suggestions
+        WHERE DATE(submission_date)=CURRENT_DATE
+    "),
+    0,
+    0
+);
+
+/* Today's Applications */
+$newApplications = pg_fetch_result(
+    pg_query($conn, "
+        SELECT COUNT(*)
+        FROM applications
+        WHERE DATE(submission_date)=CURRENT_DATE
+    "),
+    0,
+    0
+);
+
+/* Resolved Today */
+$resolvedToday = pg_fetch_result(
+    pg_query($conn, "
+        SELECT COUNT(*)
+        FROM grievances g
+        JOIN statuses s ON g.status_id = s.status_id
+        WHERE s.module_type='GRIEVANCE'
+        AND s.status_name='Resolved'
+        AND DATE(g.resolution_date)=CURRENT_DATE
+    "),
+    0,
+    0
+);
+
+/* ================= Recent Activity ================= */
+
+$recentActivity = pg_query($conn, "
+(
+SELECT
+    'Grievance' AS module,
+    title,
+    submission_date AS activity_date
+FROM grievances
+ORDER BY submission_date DESC
+LIMIT 2
+)
+
+UNION ALL
+
+(
+SELECT
+    'Suggestion' AS module,
+    title,
+    submission_date AS activity_date
+FROM suggestions
+ORDER BY submission_date DESC
+LIMIT 2
+)
+
+UNION ALL
+
+(
+SELECT
+    'Application' AS module,
+    subject AS title,
+    submission_date AS activity_date
+FROM applications
+ORDER BY submission_date DESC
+LIMIT 2
+)
+
+ORDER BY activity_date DESC
+LIMIT 6
+");
 ?>
 
 <!DOCTYPE html>
@@ -11,17 +165,17 @@ if (!isset($_SESSION["role_name"])) {
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>CampusDesk | Authority Dashboard</title>
+<title>CampusDesk | Authority Dashboard</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/navbar.css">
-    <link rel="stylesheet" href="../css/authority-dashboard.css">
+<link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/header.css">
+<link rel="stylesheet" href="../css/navbar.css">
+<link rel="stylesheet" href="../css/authority-dashboard.css">
 
 </head>
 
@@ -32,165 +186,189 @@ if (!isset($_SESSION["role_name"])) {
 
 <div class="dashboard-layout">
 
-    <main class="dashboard-content">
+<main class="dashboard-content">
 
-        <!-- Welcome Banner -->
+<!-- Welcome Banner -->
 
-        <section class="welcome-banner">
+<section class="welcome-banner">
 
-            <div class="welcome-text">
-                <h2>Good Morning, Authority 👋</h2>
-                <p>Here's what's happening in your department today.</p>
-            </div>
+<div class="welcome-text">
+<h2>Good Morning, Authority 👋</h2>
+<p>Here's what's happening in your department today.</p>
+</div>
 
-            <div class="welcome-date">
-                <?php echo date("d M Y"); ?>
-            </div>
+<div class="welcome-date">
+<?= date("d M Y") ?>
+</div>
 
-        </section>
+</section>
 
-        <!-- Statistics -->
+<!-- Statistics -->
 
-        <section class="stats-grid">
+<section class="stats-grid">
 
-            <div class="stat-box blue">
-                <div class="stat-header">
-                    <span>Grievances</span>
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                </div>
-                <h2>156</h2>
-            </div>
+<div class="stat-box blue">
+<div class="stat-header">
+<span>Grievances</span>
+<i class="fa-solid fa-circle-exclamation"></i>
+</div>
+<h2><?= $grievances ?></h2>
+</div>
 
-            <div class="stat-box purple">
-                <div class="stat-header">
-                    <span>Suggestions</span>
-                    <i class="fa-solid fa-lightbulb"></i>
-                </div>
-                <h2>48</h2>
-            </div>
+<div class="stat-box purple">
+<div class="stat-header">
+<span>Suggestions</span>
+<i class="fa-solid fa-lightbulb"></i>
+</div>
+<h2><?= $suggestions ?></h2>
+</div>
 
-            <div class="stat-box orange">
-                <div class="stat-header">
-                    <span>Applications</span>
-                    <i class="fa-solid fa-file-lines"></i>
-                </div>
-                <h2>72</h2>
-            </div>
+<div class="stat-box orange">
+<div class="stat-header">
+<span>Applications</span>
+<i class="fa-solid fa-file-lines"></i>
+</div>
+<h2><?= $applications ?></h2>
+</div>
 
-            <div class="stat-box red">
-                <div class="stat-header">
-                    <span>Pending</span>
-                    <i class="fa-solid fa-clock"></i>
-                </div>
-                <h2>23</h2>
-            </div>
+<div class="stat-box red">
+<div class="stat-header">
+<span>Pending</span>
+<i class="fa-solid fa-clock"></i>
+</div>
+<h2><?= $pending ?></h2>
+</div>
 
-            <div class="stat-box teal">
-                <div class="stat-header">
-                    <span>New Grievances</span>
-                    <i class="fa-solid fa-bell"></i>
-                </div>
-                <h2>12</h2>
-            </div>
+<div class="stat-box teal">
+<div class="stat-header">
+<span>New Grievances</span>
+<i class="fa-solid fa-bell"></i>
+</div>
+<h2><?= $newGrievances ?></h2>
+</div>
 
-            <div class="stat-box green">
-                <div class="stat-header">
-                    <span>New Suggestions</span>
-                    <i class="fa-solid fa-star"></i>
-                </div>
-                <h2>05</h2>
-            </div>
+<div class="stat-box green">
+<div class="stat-header">
+<span>New Suggestions</span>
+<i class="fa-solid fa-star"></i>
+</div>
+<h2><?= $newSuggestions ?></h2>
+</div>
 
-            <div class="stat-box cyan">
-                <div class="stat-header">
-                    <span>New Applications</span>
-                    <i class="fa-solid fa-folder-open"></i>
-                </div>
-                <h2>08</h2>
-            </div>
+<div class="stat-box cyan">
+<div class="stat-header">
+<span>New Applications</span>
+<i class="fa-solid fa-folder-open"></i>
+</div>
+<h2><?= $newApplications ?></h2>
+</div>
 
-            <div class="stat-box success">
-                <div class="stat-header">
-                    <span>Resolved Today</span>
-                    <i class="fa-solid fa-circle-check"></i>
-                </div>
-                <h2>07</h2>
-            </div>
+<div class="stat-box success">
+<div class="stat-header">
+<span>Resolved Today</span>
+<i class="fa-solid fa-circle-check"></i>
+</div>
+<h2><?= $resolvedToday ?></h2>
+</div>
 
-        </section>
+</section>
 
-        <!-- Bottom Section -->
+<!-- Bottom Section -->
 
-        <section class="bottom-grid">
+<section class="bottom-grid">
 
-            <div class="panel">
+<div class="panel">
 
-                <div class="panel-header">
-                    <h3>Recent Activity</h3>
-                    <a href="#">View All</a>
-                </div>
+<div class="panel-header">
+<h3>Recent Activity</h3>
+<a href="#">View All</a>
+</div>
 
-                <div class="activity-item">
-                    <div class="activity-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
-                    <div>
-                        <strong>New Grievance</strong>
-                        <p>Library Issue • 2 min ago</p>
-                    </div>
-                </div>
+<?php if($recentActivity && pg_num_rows($recentActivity)>0): ?>
 
-                <div class="activity-item">
-                    <div class="activity-icon"><i class="fa-solid fa-lightbulb"></i></div>
-                    <div>
-                        <strong>Suggestion Received</strong>
-                        <p>Wi-Fi Improvement • 15 min ago</p>
-                    </div>
-                </div>
+<?php while($row = pg_fetch_assoc($recentActivity)): ?>
 
-                <div class="activity-item">
-                    <div class="activity-icon"><i class="fa-solid fa-file-lines"></i></div>
-                    <div>
-                        <strong>Application Submitted</strong>
-                        <p>Bonafide Certificate • 1 hour ago</p>
-                    </div>
-                </div>
+<div class="activity-item">
 
-            </div>
+<div class="activity-icon">
 
-            <div class="panel">
+<?php
 
-                <div class="panel-header">
-                    <h3>Quick Actions</h3>
-                </div>
+switch($row["module"]){
 
-                <div class="quick-actions">
+case "Grievance":
+echo '<i class="fa-solid fa-circle-exclamation"></i>';
+break;
 
-                    <a href="grievances.php" class="quick-btn">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                        Review Grievances
-                    </a>
+case "Suggestion":
+echo '<i class="fa-solid fa-lightbulb"></i>';
+break;
 
-                    <a href="suggestions.php" class="quick-btn">
-                        <i class="fa-solid fa-lightbulb"></i>
-                        Review Suggestions
-                    </a>
+default:
+echo '<i class="fa-solid fa-file-lines"></i>';
 
-                    <a href="applications.php" class="quick-btn">
-                        <i class="fa-solid fa-file-lines"></i>
-                        Check Applications
-                    </a>
+}
 
-                </div>
+?>
 
-            </div>
+</div>
 
-        </section>
+<div>
 
-    </main>
+<strong><?= htmlspecialchars($row["module"]) ?></strong>
+
+<p><?= htmlspecialchars($row["title"]) ?></p>
+
+<small><?= date("d M Y h:i A", strtotime($row["activity_date"])) ?></small>
+
+</div>
+
+</div>
+
+<?php endwhile; ?>
+
+<?php else: ?>
+
+<p>No recent activity found.</p>
+
+<?php endif; ?>
+
+</div>
+
+<div class="panel">
+
+<div class="panel-header">
+<h3>Quick Actions</h3>
+</div>
+
+<div class="quick-actions">
+
+<a href="grievances.php" class="quick-btn">
+<i class="fa-solid fa-circle-exclamation"></i>
+Review Grievances
+</a>
+
+<a href="suggestions.php" class="quick-btn">
+<i class="fa-solid fa-lightbulb"></i>
+Review Suggestions
+</a>
+
+<a href="applications.php" class="quick-btn">
+<i class="fa-solid fa-file-lines"></i>
+Check Applications
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
 
 </div>
 
 <?php include "../includes/footer.php"; ?>
 
 </body>
-
 </html>
