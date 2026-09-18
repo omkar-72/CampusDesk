@@ -13,8 +13,10 @@ omkar@1234
 amod.naikare@campusdesk.com
 amod@1234
 
-authority@campusdesk.com
-Authority@123
+authority1@campusdesk.com
+authority1@123
+
+
 
 // done by ganesh
 login@gmail.com
