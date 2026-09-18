@@ -342,34 +342,19 @@ if ($section === "raise") {
                             Select Category
                         </option>
 
-                        <?php
-                        while (
-                            $category =
-                            pg_fetch_assoc($categories)
-                        ):
-                        ?>
+                        <?php if (!empty($categories)): ?>
 
-                            <option
-                                value="<?php
-                                echo escape(
-                                    $category[
-                                        "category_id"
-                                    ]
-                                );
-                                ?>"
-                            >
+                            <?php foreach ($categories as $category): ?>
 
-                                <?php
-                                echo escape(
-                                    $category[
-                                        "category_name"
-                                    ]
-                                );
-                                ?>
+                                <option
+                                    value="<?= escape($category["category_id"]) ?>"
+                                >
+                                    <?= escape($category["category_name"]) ?>
+                                </option>
 
-                            </option>
+                            <?php endforeach; ?>
 
-                        <?php endwhile; ?>
+                        <?php endif; ?>
 
                     </select>
 

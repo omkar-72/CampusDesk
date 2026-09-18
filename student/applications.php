@@ -330,34 +330,19 @@ if ($section === "submit") {
                             Select Application Type
                         </option>
 
-                        <?php
-                        while (
-                            $type =
-                            pg_fetch_assoc(
-                                $application_types
-                            )
-                        ):
-                        ?>
+                        <?php if (!empty($application_types)): ?>
 
-                            <option
-                                value="<?php
-                                echo escape(
-                                    $type[
-                                        "application_type_id"
-                                    ]
-                                );
-                                ?>"
-                            >
+                            <?php foreach ($application_types as $type): ?>
 
-                                <?php
-                                echo escape(
-                                    $type["type_name"]
-                                );
-                                ?>
+                                <option
+                                    value="<?= escape($type["application_type_id"]) ?>"
+                                >
+                                    <?= escape($type["type_name"]) ?>
+                                </option>
 
-                            </option>
+                            <?php endforeach; ?>
 
-                        <?php endwhile; ?>
+                        <?php endif; ?>
 
                     </select>
 

@@ -341,9 +341,9 @@ if ($section === "success") {
                             Select Category
                         </option>
 
-                        <?php if ($categories): ?>
+                        <?php if (!empty($categories)): ?>
 
-                            <?php while ($category = pg_fetch_assoc($categories)): ?>
+                            <?php foreach ($categories as $category): ?>
 
                                 <option
                                     value="<?= escape($category["category_id"]) ?>"
@@ -351,7 +351,7 @@ if ($section === "success") {
                                     <?= escape($category["category_name"]) ?>
                                 </option>
 
-                            <?php endwhile; ?>
+                                <?php endforeach; ?>
 
                         <?php endif; ?>
 

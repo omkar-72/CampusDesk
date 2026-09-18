@@ -7,9 +7,7 @@
 
 function showConfirmationPopup()
 {
-    const form = document.getElementById(
-        "grievanceForm"
-    );
+    const form = document.getElementById("grievanceForm");
 
     if (!form) {
         return;
@@ -20,9 +18,7 @@ function showConfirmationPopup()
         return;
     }
 
-    const modal = document.getElementById(
-        "confirmationModal"
-    );
+    const modal = document.getElementById("confirmationModal");
 
     if (modal) {
         modal.style.display = "flex";
@@ -32,9 +28,7 @@ function showConfirmationPopup()
 
 function closeConfirmationPopup()
 {
-    const modal = document.getElementById(
-        "confirmationModal"
-    );
+    const modal = document.getElementById("confirmationModal");
 
     if (modal) {
         modal.style.display = "none";
@@ -46,9 +40,7 @@ function showIdentityPopup()
 {
     closeConfirmationPopup();
 
-    const modal = document.getElementById(
-        "identityModal"
-    );
+    const modal = document.getElementById("identityModal");
 
     if (modal) {
         modal.style.display = "flex";
@@ -58,9 +50,7 @@ function showIdentityPopup()
 
 function closeIdentityPopup()
 {
-    const modal = document.getElementById(
-        "identityModal"
-    );
+    const modal = document.getElementById("identityModal");
 
     if (modal) {
         modal.style.display = "none";
@@ -70,13 +60,8 @@ function closeIdentityPopup()
 
 function setIdentity(value)
 {
-    const input = document.getElementById(
-        "anonymous_status"
-    );
-
-    const form = document.getElementById(
-        "grievanceForm"
-    );
+    const input = document.getElementById("anonymous_status");
+    const form = document.getElementById("grievanceForm");
 
     if (!input || !form) {
         return;
@@ -111,7 +96,6 @@ function showDeleteNotPossible(status)
     }
 
     if (message) {
-
         message.textContent =
             "This grievance cannot be deleted because its current status is " +
             status +
@@ -140,9 +124,7 @@ function closeDeleteNotPossible()
 
 function showSuggestionConfirmationPopup()
 {
-    const form = document.getElementById(
-        "suggestionForm"
-    );
+    const form = document.getElementById("suggestionForm");
 
     if (!form) {
         return;
@@ -177,9 +159,7 @@ function closeSuggestionConfirmationPopup()
 
 function submitSuggestion()
 {
-    const form = document.getElementById(
-        "suggestionForm"
-    );
+    const form = document.getElementById("suggestionForm");
 
     if (form) {
         form.submit();
@@ -210,7 +190,6 @@ function showSuggestionDeleteNotPossible(status)
     }
 
     if (message) {
-
         message.textContent =
             "This suggestion cannot be deleted because its current status is " +
             status +
@@ -239,9 +218,7 @@ function closeSuggestionDeleteNotPossible()
 
 function showApplicationConfirmationPopup()
 {
-    const form = document.getElementById(
-        "applicationForm"
-    );
+    const form = document.getElementById("applicationForm");
 
     if (!form) {
         return;
@@ -276,9 +253,7 @@ function closeApplicationConfirmationPopup()
 
 function submitApplication()
 {
-    const form = document.getElementById(
-        "applicationForm"
-    );
+    const form = document.getElementById("applicationForm");
 
     if (form) {
         form.submit();
@@ -309,7 +284,6 @@ function showApplicationDeleteNotPossible(status)
     }
 
     if (message) {
-
         message.textContent =
             "This application cannot be deleted because its current status is " +
             status +
@@ -352,9 +326,7 @@ function validateFile(input)
 
     const maxSize = 5 * 1024 * 1024;
 
-
     if (!allowedTypes.includes(file.type)) {
-
         alert(
             "Only JPG, PNG and PDF files are allowed."
         );
@@ -364,9 +336,7 @@ function validateFile(input)
         return false;
     }
 
-
     if (file.size > maxSize) {
-
         alert(
             "File size must not exceed 5 MB."
         );
@@ -375,7 +345,6 @@ function validateFile(input)
 
         return false;
     }
-
 
     return true;
 }
@@ -387,21 +356,17 @@ function validateFile(input)
 
 window.addEventListener(
     "click",
-    function (event) {
-
-        const modals = document.querySelectorAll(
-            ".modal"
-        );
+    function (event)
+    {
+        const modals = document.querySelectorAll(".modal");
 
         modals.forEach(
-            function (modal) {
-
+            function (modal)
+            {
                 if (event.target === modal) {
                     modal.style.display = "none";
                 }
-
             }
         );
-
     }
 );
