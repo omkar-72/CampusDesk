@@ -56,6 +56,7 @@ $student = pg_fetch_assoc(
 $grievance_count = 0;
 $suggestion_count = 0;
 $application_count = 0;
+$notification_count = 0;
 
 
 /* =========================
@@ -126,6 +127,30 @@ if ($result) {
         $row["total"];
 }
 
+
+/* =========================
+   UNREAD NOTIFICATIONS
+   ========================= */
+
+$result = pg_query_params(
+    $conn,
+    "SELECT COUNT(*) AS total
+     FROM notifications
+     WHERE user_id = $1
+     AND is_read = FALSE",
+    [$user_id]
+);
+
+if ($result) {
+
+    $row = pg_fetch_assoc(
+        $result
+    );
+
+    $notification_count =
+        $row["total"];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -137,8 +162,7 @@ if ($result) {
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+        content="width=device-width, initial-scale=1.0">
 
     <title>
         Student Dashboard - CampusDesk
@@ -146,150 +170,154 @@ if ($result) {
 
     <link
         rel="stylesheet"
-        href="../css/style-student-services.css"
-    >
+        href="../css/style-student-services.css">
 
 </head>
 
 <body>
 
-<div class="page-container">
+    <div class="page-container">
 
 
-    <!-- =========================
+        <!-- =========================
          HEADER
          ========================= -->
 
-    <div class="page-header">
+        <div class="page-header">
 
-        <h1 class="page-title">
-            Student Dashboard
-        </h1>
+            <h1 class="page-title">
+                Student Dashboard
+            </h1>
 
-        <p>
-            Welcome,
-            <?php
-            echo escape(
-                $student["full_name"]
-            );
-            ?>.
-        </p>
+            <p>
 
-    </div>
+                Welcome,
+
+                <?php
+                echo escape(
+                    $student["full_name"]
+                );
+                ?>.
+
+            </p>
+
+        </div>
 
 
-    <!-- =========================
+        <!-- =========================
          STUDENT INFORMATION
          ========================= -->
 
-    <div class="section-box">
+        <div class="section-box">
 
-        <h2>
-            Student Information
-        </h2>
+            <h2>
+                Student Information
+            </h2>
 
-        <div class="details">
-
-
-            <!-- Name -->
-
-            <div class="detail-row">
-
-                <div class="detail-label">
-                    Name
-                </div>
-
-                <div class="detail-value">
-
-                    <?php
-                    echo escape(
-                        $student["full_name"]
-                    );
-                    ?>
-
-                </div>
-
-            </div>
+            <div class="details">
 
 
-            <!-- Course -->
+                <!-- Name -->
 
-            <div class="detail-row">
+                <div class="detail-row">
 
-                <div class="detail-label">
-                    Course
-                </div>
+                    <div class="detail-label">
+                        Name
+                    </div>
 
-                <div class="detail-value">
+                    <div class="detail-value">
 
-                    <?php
-                    echo escape(
-                        $student["course"]
-                    );
-                    ?>
+                        <?php
+                        echo escape(
+                            $student["full_name"]
+                        );
+                        ?>
+
+                    </div>
 
                 </div>
 
-            </div>
 
+                <!-- Course -->
 
-            <!-- Year -->
+                <div class="detail-row">
 
-            <div class="detail-row">
+                    <div class="detail-label">
+                        Course
+                    </div>
 
-                <div class="detail-label">
-                    Year
-                </div>
+                    <div class="detail-value">
 
-                <div class="detail-value">
+                        <?php
+                        echo escape(
+                            $student["course"]
+                        );
+                        ?>
 
-                    <?php
-                    echo escape(
-                        $student["year"]
-                    );
-                    ?>
-
-                </div>
-
-            </div>
-
-
-            <!-- Semester -->
-
-            <div class="detail-row">
-
-                <div class="detail-label">
-                    Semester
-                </div>
-
-                <div class="detail-value">
-
-                    <?php
-                    echo escape(
-                        $student["semester"]
-                    );
-                    ?>
+                    </div>
 
                 </div>
 
-            </div>
 
+                <!-- Year -->
 
-            <!-- Division -->
+                <div class="detail-row">
 
-            <div class="detail-row">
+                    <div class="detail-label">
+                        Year
+                    </div>
 
-                <div class="detail-label">
-                    Division
+                    <div class="detail-value">
+
+                        <?php
+                        echo escape(
+                            $student["year"]
+                        );
+                        ?>
+
+                    </div>
+
                 </div>
 
-                <div class="detail-value">
 
-                    <?php
-                    echo escape(
-                        $student["division"]
-                    );
-                    ?>
+                <!-- Semester -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Semester
+                    </div>
+
+                    <div class="detail-value">
+
+                        <?php
+                        echo escape(
+                            $student["semester"]
+                        );
+                        ?>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Division -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Division
+                    </div>
+
+                    <div class="detail-value">
+
+                        <?php
+                        echo escape(
+                            $student["division"]
+                        );
+                        ?>
+
+                    </div>
 
                 </div>
 
@@ -297,167 +325,202 @@ if ($result) {
 
         </div>
 
-    </div>
 
-
-    <!-- =========================
+        <!-- =========================
          STUDENT SERVICES
          ========================= -->
 
-    <div class="section-box">
+        <div class="section-box">
 
-        <h2>
-            Student Services
-        </h2>
+            <h2>
+                Student Services
+            </h2>
 
-        <div class="module-options">
-
-
-            <!-- Grievances -->
-
-            <a
-                href="grievances.php"
-                class="module-option"
-            >
-
-                <h2>
-                    Grievances
-                </h2>
-
-                <p>
-                    Raise and track your grievances.
-                </p>
-
-                <p>
-                    Total:
-                    <?php
-                    echo escape(
-                        $grievance_count
-                    );
-                    ?>
-                </p>
-
-            </a>
+            <div class="module-options">
 
 
-            <!-- Suggestions -->
+                <!-- Grievances -->
 
-            <a
-                href="suggestions.php"
-                class="module-option"
-            >
+                <a
+                    href="grievances.php"
+                    class="module-option">
 
-                <h2>
-                    Suggestions
-                </h2>
+                    <h2>
+                        Grievances
+                    </h2>
 
-                <p>
-                    Submit and manage your suggestions.
-                </p>
+                    <p>
+                        Raise and track your grievances.
+                    </p>
 
-                <p>
-                    Total:
-                    <?php
-                    echo escape(
-                        $suggestion_count
-                    );
-                    ?>
-                </p>
+                    <p>
+                        Total:
 
-            </a>
+                        <?php
+                        echo escape(
+                            $grievance_count
+                        );
+                        ?>
+
+                    </p>
+
+                </a>
 
 
-            <!-- Applications -->
+                <!-- Suggestions -->
 
-            <a
-                href="applications.php"
-                class="module-option"
-            >
+                <a
+                    href="suggestions.php"
+                    class="module-option">
 
-                <h2>
-                    Applications
-                </h2>
+                    <h2>
+                        Suggestions
+                    </h2>
 
-                <p>
-                    Submit and track your applications.
-                </p>
+                    <p>
+                        Submit and manage your suggestions.
+                    </p>
 
-                <p>
-                    Total:
-                    <?php
-                    echo escape(
-                        $application_count
-                    );
-                    ?>
-                </p>
+                    <p>
+                        Total:
 
-            </a>
+                        <?php
+                        echo escape(
+                            $suggestion_count
+                        );
+                        ?>
 
+                    </p>
+
+                </a>
+
+
+                <!-- Applications -->
+
+                <a
+                    href="applications.php"
+                    class="module-option">
+
+                    <h2>
+                        Applications
+                    </h2>
+
+                    <p>
+                        Submit and track your applications.
+                    </p>
+
+                    <p>
+                        Total:
+
+                        <?php
+                        echo escape(
+                            $application_count
+                        );
+                        ?>
+
+                    </p>
+
+                </a>
+
+
+                <!-- Notifications -->
+
+                <a
+                    href="notifications.php"
+                    class="module-option">
+
+                    <h2>
+                        Notifications
+                    </h2>
+
+                    <p>
+                        View updates from the college authority.
+                    </p>
+
+                    <p>
+
+                        Unread:
+
+                        <?php
+                        echo escape(
+                            $notification_count
+                        );
+                        ?>
+
+                    </p>
+
+                </a>
+
+
+            </div>
 
         </div>
 
-    </div>
 
-
-    <!-- =========================
+        <!-- =========================
          QUICK LINKS
          ========================= -->
 
-    <div class="section-box">
+        <div class="section-box">
 
-        <h2>
-            Quick Links
-        </h2>
+            <h2>
+                Quick Links
+            </h2>
 
-        <div class="button-group">
-
-
-            <!-- Raise Grievance -->
-
-            <a
-                href="grievances.php?section=raise"
-                class="button primary-button"
-            >
-                Raise Grievance
-            </a>
+            <div class="button-group">
 
 
-            <!-- Submit Suggestion -->
+                <!-- Raise Grievance -->
 
-            <a
-                href="suggestions.php?section=raise"
-                class="button primary-button"
-            >
-                Submit Suggestion
-            </a>
-
-
-            <!-- Submit Application -->
-
-            <a
-                href="applications.php?section=submit"
-                class="button primary-button"
-            >
-                Submit Application
-            </a>
+                <a
+                    href="grievances.php?section=raise"
+                    class="button primary-button">
+                    Raise Grievance
+                </a>
 
 
-            <!-- My Profile -->
+                <!-- Submit Suggestion -->
 
-            <a
-                href="profile.php"
-                class="button primary-button"
-            >
-                My Profile
-            </a>
+                <a
+                    href="suggestions.php?section=raise"
+                    class="button primary-button">
+                    Submit Suggestion
+                </a>
 
+
+                <!-- Submit Application -->
+
+                <a
+                    href="applications.php?section=submit"
+                    class="button primary-button">
+                    Submit Application
+                </a>
+
+
+                <!-- Notifications -->
+
+                <a
+                    href="notifications.php"
+                    class="button primary-button">
+                    Notifications
+                </a>
+
+
+                <!-- My Profile -->
+
+                <a
+                    href="profile.php"
+                    class="button primary-button">
+                    My Profile
+                </a>
+
+
+            </div>
 
         </div>
 
+
     </div>
-
-
-</div>
 
 </body>
 

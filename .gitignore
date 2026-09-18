@@ -5,9 +5,6 @@ config/database.php
 uploads/*
 !uploads/.gitkeep
 
-# VS Code
-.vscode/
-
 # Operating system files
 .DS_Store
 Thumbs.db
