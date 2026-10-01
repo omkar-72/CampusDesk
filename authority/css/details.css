@@ -1,0 +1,669 @@
+/* =========================================================
+   AUTHORITY DETAIL PAGES
+   Used by:
+   - View Application
+   - View Grievance
+   - View Suggestion
+   ========================================================= */
+
+
+/* =========================================================
+   MAIN PAGE CONTAINER
+   ========================================================= */
+
+.authority-page {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.page-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 20px;
+    padding: 10px 16px;
+
+    background: #64748B;
+    color: #FFFFFF;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: 0.25s ease;
+}
+
+.page-back:hover {
+    background: #475569;
+}
+
+
+/* =========================================================
+   MAIN DETAIL CARD
+   ========================================================= */
+
+.detail-card {
+    background: #FFFFFF;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 25px rgba(15, 23, 42, 0.08);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   DETAIL HEADER
+   ========================================================= */
+
+.detail-header {
+    padding: 30px;
+
+    background: linear-gradient(
+        135deg,
+        #2563EB,
+        #3B82F6
+    );
+
+    color: #FFFFFF;
+}
+
+.detail-header h2 {
+    margin: 0;
+
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.detail-header p {
+    margin: 8px 0 0;
+
+    font-size: 15px;
+
+    color: #EFF6FF;
+}
+
+
+/* =========================================================
+   STATUS BADGES
+   ========================================================= */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+
+    margin-top: 16px;
+    padding: 7px 14px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* New / Pending */
+
+.status-new {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+
+/* Processing / Under Review */
+
+.status-processing {
+    background: #DBEAFE;
+    color: #1D4ED8;
+}
+
+
+/* Approved / Resolved / Accepted */
+
+.status-approved,
+.status-resolved,
+.status-accepted {
+    background: #DCFCE7;
+    color: #166534;
+}
+
+
+/* Rejected */
+
+.status-rejected {
+    background: #FEE2E2;
+    color: #991B1B;
+}
+
+
+/* =========================================================
+   DETAIL BODY
+   ========================================================= */
+
+.detail-body {
+    padding: 30px;
+}
+
+
+/* =========================================================
+   INFORMATION GRID
+   ========================================================= */
+
+.detail-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(210px, 1fr)
+        );
+
+    gap: 16px;
+}
+
+
+/* =========================================================
+   INFORMATION ITEM
+   ========================================================= */
+
+.detail-item {
+    padding: 17px;
+
+    background: #F8FAFC;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 12px;
+
+    transition: 0.2s ease;
+}
+
+.detail-item:hover {
+    border-color: #CBD5E1;
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+
+/* Label */
+
+.detail-item small {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #64748B;
+
+    font-size: 13px;
+}
+
+
+/* Value */
+
+.detail-item strong {
+    color: #0F172A;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   DETAIL SECTION
+   ========================================================= */
+
+.detail-section {
+    margin-top: 28px;
+}
+
+.detail-section h3 {
+    margin: 0 0 12px;
+
+    color: #0F172A;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   CONTENT BOX
+   ========================================================= */
+
+.detail-content {
+    padding: 18px;
+
+    background: #F8FAFC;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 12px;
+
+    color: #334155;
+
+    line-height: 1.7;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   ATTACHMENT LIST
+   ========================================================= */
+
+.attachment-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+/* =========================================================
+   ATTACHMENT ITEM
+   ========================================================= */
+
+.attachment-item {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 15px;
+
+    background: #F8FAFC;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 12px;
+
+    transition: 0.25s ease;
+}
+
+.attachment-item:hover {
+    background: #F1F5F9;
+
+    border-color: #CBD5E1;
+}
+
+
+/* =========================================================
+   ATTACHMENT NAME
+   ========================================================= */
+
+.attachment-name {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+
+    color: #0F172A;
+
+    font-weight: 600;
+}
+
+.attachment-name i {
+    flex-shrink: 0;
+
+    color: #2563EB;
+
+    font-size: 21px;
+}
+
+
+/* Attachment filename */
+
+.attachment-name div {
+    min-width: 0;
+
+    word-break: break-word;
+}
+
+
+/* Attachment metadata */
+
+.attachment-name small {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #64748B;
+
+    font-size: 12px;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   AUTHORITY BUTTON
+   ========================================================= */
+
+.authority-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 10px 16px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition: 0.25s ease;
+}
+
+
+/* =========================================================
+   VIEW BUTTON
+   ========================================================= */
+
+.btn-view {
+    background: #2563EB;
+
+    color: #FFFFFF;
+}
+
+.btn-view:hover {
+    background: #1D4ED8;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   APPROVE BUTTON
+   ========================================================= */
+
+.btn-approve {
+    background: #16A34A;
+
+    color: #FFFFFF;
+}
+
+.btn-approve:hover {
+    background: #15803D;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   REJECT BUTTON
+   ========================================================= */
+
+.btn-reject {
+    background: #DC2626;
+
+    color: #FFFFFF;
+}
+
+.btn-reject:hover {
+    background: #B91C1C;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   AUTHORITY REPLY SECTION
+   ========================================================= */
+
+.authority-reply {
+    padding-top: 4px;
+}
+
+
+/* =========================================================
+   REPLY TEXTAREA
+   ========================================================= */
+
+.authority-reply textarea {
+    width: 100%;
+
+    min-height: 140px;
+
+    box-sizing: border-box;
+
+    padding: 14px 16px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #CBD5E1;
+
+    border-radius: 10px;
+
+    color: #0F172A;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    resize: vertical;
+
+    outline: none;
+
+    transition: 0.25s ease;
+}
+
+.authority-reply textarea::placeholder {
+    color: #94A3B8;
+}
+
+.authority-reply textarea:focus {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   AUTHORITY ACTIONS
+   ========================================================= */
+
+.authority-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-top: 15px;
+}
+
+
+/* Remove unwanted form spacing */
+
+.authority-actions form {
+    margin: 0;
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .detail-body {
+        padding: 24px;
+    }
+
+    .detail-header {
+        padding: 25px;
+    }
+
+    .detail-header h2 {
+        font-size: 24px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET / MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .authority-page {
+        width: 100%;
+    }
+
+
+    .detail-header {
+        padding: 22px;
+    }
+
+
+    .detail-header h2 {
+        font-size: 22px;
+    }
+
+
+    .detail-header p {
+        font-size: 14px;
+    }
+
+
+    .detail-body {
+        padding: 20px;
+    }
+
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .detail-section {
+        margin-top: 22px;
+    }
+
+
+    .attachment-item {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .attachment-name {
+        width: 100%;
+    }
+
+
+    .attachment-item .authority-btn {
+        width: 100%;
+    }
+
+
+    .authority-actions {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .authority-actions form {
+        width: 100%;
+    }
+
+
+    .authority-actions .authority-btn {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .page-back {
+        width: 100%;
+
+        box-sizing: border-box;
+
+        justify-content: center;
+    }
+
+
+    .detail-header {
+        padding: 18px;
+    }
+
+
+    .detail-body {
+        padding: 16px;
+    }
+
+
+    .detail-header h2 {
+        font-size: 20px;
+    }
+
+
+    .detail-item {
+        padding: 14px;
+    }
+
+
+    .detail-content {
+        padding: 15px;
+    }
+
+
+    .authority-btn {
+        padding: 10px 14px;
+
+        font-size: 13px;
+    }
+
+}
