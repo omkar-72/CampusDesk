@@ -523,6 +523,261 @@
 
 
 /* =========================================================
+   MANAGEMENT / REVIEW SECTION
+   Used by:
+   - View Grievance
+   - View Suggestion
+   ========================================================= */
+
+.management-section {
+    margin-top: 30px;
+
+    padding-top: 5px;
+}
+
+
+/* =========================================================
+   MANAGEMENT FORM
+   ========================================================= */
+
+.management-form {
+    padding: 22px;
+
+    background: #F8FAFC;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 14px;
+}
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   FORM LABEL
+   ========================================================= */
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   SELECT FIELD
+   ========================================================= */
+
+.form-group select {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #CBD5E1;
+
+    border-radius: 9px;
+
+    color: #0F172A;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    outline: none;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.form-group select:focus {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   MANAGEMENT TEXTAREA
+   ========================================================= */
+
+.form-group textarea {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    min-height: 130px;
+
+    padding: 13px 14px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #CBD5E1;
+
+    border-radius: 9px;
+
+    color: #0F172A;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    resize: vertical;
+
+    outline: none;
+
+    transition: 0.25s ease;
+}
+
+.form-group textarea::placeholder {
+    color: #94A3B8;
+}
+
+.form-group textarea:focus {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   ASSIGNMENT / REVIEW INFORMATION
+   ========================================================= */
+
+.assignment-info,
+.reviewed-authority {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 12px;
+
+    padding: 12px 14px;
+
+    background: #EFF6FF;
+
+    border: 1px solid #BFDBFE;
+
+    border-radius: 9px;
+
+    color: #1E40AF;
+
+    font-size: 13px;
+}
+
+.assignment-info i,
+.reviewed-authority i {
+    flex-shrink: 0;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   SAVE / UPDATE BUTTON
+   ========================================================= */
+
+.save-btn {
+    background: #2563EB;
+
+    color: #FFFFFF;
+}
+
+.save-btn:hover {
+    background: #1D4ED8;
+
+    transform: translateY(-1px);
+}
+
+.save-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   SUCCESS MESSAGE
+   ========================================================= */
+
+.success-message {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+    padding: 13px 16px;
+
+    background: #DCFCE7;
+
+    border: 1px solid #BBF7D0;
+
+    border-radius: 9px;
+
+    color: #166534;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+.success-message i {
+    flex-shrink: 0;
+
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   MANAGEMENT ACTION AREA
+   ========================================================= */
+
+.management-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+}
+
+.management-actions form {
+    margin: 0;
+}
+
+
+/* =========================================================
    RESPONSIVE DESIGN
    ========================================================= */
 
@@ -553,36 +808,29 @@
         width: 100%;
     }
 
-
     .detail-header {
         padding: 22px;
     }
-
 
     .detail-header h2 {
         font-size: 22px;
     }
 
-
     .detail-header p {
         font-size: 14px;
     }
-
 
     .detail-body {
         padding: 20px;
     }
 
-
     .detail-grid {
         grid-template-columns: 1fr;
     }
 
-
     .detail-section {
         margin-top: 22px;
     }
-
 
     .attachment-item {
         align-items: flex-start;
@@ -590,16 +838,13 @@
         flex-direction: column;
     }
 
-
     .attachment-name {
         width: 100%;
     }
 
-
     .attachment-item .authority-btn {
         width: 100%;
     }
-
 
     .authority-actions {
         flex-direction: column;
@@ -607,14 +852,33 @@
         align-items: stretch;
     }
 
-
     .authority-actions form {
         width: 100%;
     }
 
-
     .authority-actions .authority-btn {
         width: 100%;
+    }
+
+    /* Management form responsive layout */
+
+    .management-form {
+        padding: 18px;
+    }
+
+    .management-actions {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .management-actions .authority-btn {
+        width: 100%;
+    }
+
+    .assignment-info,
+    .reviewed-authority {
+        align-items: flex-start;
     }
 
 }
@@ -634,35 +898,44 @@
         justify-content: center;
     }
 
-
     .detail-header {
         padding: 18px;
     }
-
 
     .detail-body {
         padding: 16px;
     }
 
-
     .detail-header h2 {
         font-size: 20px;
     }
-
 
     .detail-item {
         padding: 14px;
     }
 
-
     .detail-content {
         padding: 15px;
     }
 
-
     .authority-btn {
         padding: 10px 14px;
 
+        font-size: 13px;
+    }
+
+    /* Management form mobile spacing */
+
+    .management-form {
+        padding: 15px;
+    }
+
+    .form-group select,
+    .form-group textarea {
+        font-size: 13px;
+    }
+
+    .success-message {
         font-size: 13px;
     }
 

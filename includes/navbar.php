@@ -12,7 +12,6 @@ $currentPage = basename($_SERVER["PHP_SELF"]);
 
         <div class="logo-text">
             <h2>CampusDesk</h2>
-            <span>College ERP</span>
         </div>
     </div>
 

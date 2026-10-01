@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         /*
          * Mobile number is the authority-editable field
-         * that is actually available in the database.
+         * that is available in the database.
          */
         $mobile = trim($_POST["mobile"] ?? "");
 
@@ -157,11 +157,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
    ========================================================= */
 
 /*
- * We query the profile directly here so that we can also
- * retrieve authorities.status.
+ * Load the authority profile directly.
  *
- * This fixes the previous "Authority Status: Inactive"
- * problem.
+ * This query also retrieves authorities.status so that
+ * Authority Status can correctly show Active or Inactive.
  */
 $profile_query = "
     SELECT
@@ -313,15 +312,104 @@ $mobile =
     $profile["mobile_number"] ?? "";
 
 
+/* =========================================================
+   ACTIVITY COUNTS
+   ========================================================= */
+
 /*
- * Activity values.
+ * Count all grievances assigned to the logged-in authority.
  *
- * These remain zero for now because the current helper/database
- * setup does not calculate the actual activity counts.
+ * The grievances table stores the authority ID in assigned_to.
  */
+$grievance_query = "
+    SELECT COUNT(*) AS total
+    FROM grievances
+    WHERE assigned_to = $1
+";
+
+
+$grievance_result = pg_query_params(
+    $conn,
+    $grievance_query,
+    [$profile["authority_id"]]
+);
+
+
 $grievance_count = 0;
+
+
+if ($grievance_result) {
+
+    $grievance_count = (int) pg_fetch_result(
+        $grievance_result,
+        0,
+        "total"
+    );
+}
+
+
+/*
+ * Count all suggestions reviewed by the logged-in authority.
+ *
+ * The suggestions table stores the authority ID in reviewed_by.
+ */
+$suggestion_query = "
+    SELECT COUNT(*) AS total
+    FROM suggestions
+    WHERE reviewed_by = $1
+";
+
+
+$suggestion_result = pg_query_params(
+    $conn,
+    $suggestion_query,
+    [$profile["authority_id"]]
+);
+
+
 $suggestion_count = 0;
+
+
+if ($suggestion_result) {
+
+    $suggestion_count = (int) pg_fetch_result(
+        $suggestion_result,
+        0,
+        "total"
+    );
+}
+
+
+/*
+ * Count all applications assigned to the logged-in authority.
+ *
+ * The applications table stores the authority ID in assigned_to.
+ */
+$application_query = "
+    SELECT COUNT(*) AS total
+    FROM applications
+    WHERE assigned_to = $1
+";
+
+
+$application_result = pg_query_params(
+    $conn,
+    $application_query,
+    [$profile["authority_id"]]
+);
+
+
 $application_count = 0;
+
+
+if ($application_result) {
+
+    $application_count = (int) pg_fetch_result(
+        $application_result,
+        0,
+        "total"
+    );
+}
 
 
 /*
@@ -351,14 +439,9 @@ $account_status =
    ========================================================= */
 
 /*
- * IMPORTANT:
+ * This value comes directly from authorities.status.
  *
- * This value now comes directly from:
- *
- * authorities.status
- *
- * So if authorities.status = TRUE,
- * the page will show Active.
+ * If authorities.status is TRUE, the page displays Active.
  */
 $authority_status =
     !empty($profile["authority_status"])
@@ -457,6 +540,8 @@ $authority_status =
 
                 <div class="profile-page-top">
 
+                    <!-- Back to Dashboard -->
+
                     <a
                         href="dashboard.php"
                         class="profile-back-link">
@@ -467,6 +552,8 @@ $authority_status =
 
                     </a>
 
+
+                    <!-- Logout -->
 
                     <a
                         href="../logout.php"
@@ -865,6 +952,7 @@ $authority_status =
 
                             </div>
 
+
                             <div>
 
                                 <strong>
@@ -890,6 +978,7 @@ $authority_status =
 
                             </div>
 
+
                             <div>
 
                                 <strong>
@@ -914,6 +1003,7 @@ $authority_status =
                                 <i class="fa-solid fa-file-lines"></i>
 
                             </div>
+
 
                             <div>
 

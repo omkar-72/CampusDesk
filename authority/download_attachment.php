@@ -1,11 +1,13 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
-| CAMPUSDESK - VIEW / DOWNLOAD APPLICATION ATTACHMENT
+| CAMPUSDESK - VIEW / DOWNLOAD ATTACHMENT
 |--------------------------------------------------------------------------
 | This file:
 | - Allows only authenticated AUTHORITY users.
-| - Fetches an application attachment from PostgreSQL.
+| - Fetches an attachment from PostgreSQL.
+| - Supports APPLICATION, GRIEVANCE and SUGGESTION attachments.
 | - Reads the BYTEA file data safely.
 | - Sends the file directly to the browser.
 | - Uses inline disposition so supported files can be viewed.
@@ -67,12 +69,15 @@ $id = (int)$id;
    ========================================================= */
 
 /*
- * Only APPLICATION attachments are allowed here.
+ * This download page supports attachments from:
  *
- * This matches the structure used by view_application.php:
+ * 1. APPLICATION
+ * 2. GRIEVANCE
+ * 3. SUGGESTION
  *
- * module_type = APPLICATION
- * reference_id = application_id
+ * The attachment_id uniquely identifies the file.
+ *
+ * Therefore, we allow all three module types here.
  */
 
 $result = pg_query_params(
@@ -88,7 +93,11 @@ $result = pg_query_params(
         file_data
     FROM attachments
     WHERE attachment_id = $1
-      AND module_type = 'APPLICATION'
+      AND module_type IN (
+          'APPLICATION',
+          'GRIEVANCE',
+          'SUGGESTION'
+      )
     LIMIT 1
     ",
     [$id]
