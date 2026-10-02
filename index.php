@@ -1,60 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CampusDesk</title>
+    <title>CampusDesk</title>
 
-<link rel="stylesheet" href="css/global.css">
-<link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
 
 </head>
 
 <body>
 
-<div class="home-container">
+    <div class="home-container">
 
-    <div class="home-box">
+        <div class="home-box">
 
-        <h1>CampusDesk</h1>
+            <h1>CampusDesk</h1>
 
-        <p>Student Grievance Management System</p>
+            <!-- Admin Login -->
+            <a href="admin/admin_login.php" class="admin-login-btn">
+                Admin Login
+            </a>
 
-        <hr>
+            <p>Student Grievance Management System</p>
 
-        <h3>Select Your Role</h3>
+            <hr>
 
-        <div class="role-cards">
+            <h3>Select Your Role</h3>
 
-            <div class="role-card">
+            <div class="role-cards">
 
-                <h2>Student</h2>
+                <div class="role-card">
 
-                <p>Register and Login</p>
+                    <h2>Student</h2>
 
-                <a href="login.php?role=Student">Continue</a>
+                    <p>Register and Login</p>
+
+                    <a href="login.php?role=Student">Continue</a>
+
+                </div>
+
+                <div class="role-card">
+
+                    <h2>Authority</h2>
+
+                    <p>Login Only</p>
+
+                    <a href="login.php?role=Authority">Continue</a>
+
+                </div>
 
             </div>
 
-            <div class="role-card">
-
-                <h2>Authority</h2>
-
-                <p>Login Only</p>
-
-                <a href="login.php?role=Authority">Continue</a>
-
-            </div>
-            
         </div>
 
     </div>
 
-</div>
-
-<script src="js/global.js"></script>
-<script src="js/home.js"></script>
+    <script src="js/global.js"></script>
+    <script src="js/home.js"></script>
 
 </body>
+
 </html>
