@@ -244,12 +244,7 @@ if ($section === "success") {
 
         <div class="page-header">
 
-            <a
-                href="dashboard.php"
-                class="back-link"
-            >
-                ← Back to Dashboard
-            </a>
+
 
             <h1 class="page-title">
                 Grievances
