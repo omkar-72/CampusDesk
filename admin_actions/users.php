@@ -13,6 +13,7 @@
  * - Admin Profile Photo Update
  * - Admin Profile Photo Removal
  * - Admin Password Change
+ * - User Password Reset
  */
 
 require_once "../config/database.php";
@@ -1344,40 +1345,19 @@ if ($action === "edit") {
 
 
             /* ---------------------------------------------
-               CREATE OR UPDATE AUTHORITY PROFILE
+               UPDATE AUTHORITY PROFILE
             --------------------------------------------- */
 
-            $authority_check = pg_query_params(
-                $conn,
-                "
-                SELECT authority_id
-                FROM authorities
-                WHERE user_id = $1
-                LIMIT 1
-                ",
-                [$user_id]
-            );
-
-            if (!$authority_check) {
-                throw new Exception(
-                    "Unable to check administrator professional profile."
-                );
-            }
-
-            $authority_status = true;
-
-            if (pg_num_rows($authority_check) > 0) {
-
-                $authority_result = pg_query_params(
+            $authority_result =
+                pg_query_params(
                     $conn,
                     "
                     UPDATE authorities
                     SET
                         name = $1,
                         department_id = $2,
-                        designation = $3,
-                        status = $4
-                    WHERE user_id = $5
+                        designation = $3
+                    WHERE user_id = $4
                     ",
                     [
                         $name,
@@ -1385,56 +1365,30 @@ if ($action === "edit") {
                         $designation !== ""
                             ? $designation
                             : null,
-                        $authority_status ? "t" : "f",
                         $user_id
                     ]
                 );
 
-                if (!$authority_result) {
-                    throw new Exception(
-                        "Failed to update administrator professional profile."
-                    );
-                }
-            } else {
 
-                $authority_result = pg_query_params(
-                    $conn,
-                    "
-                    INSERT INTO authorities
-                    (
-                        user_id,
-                        department_id,
-                        name,
-                        designation,
-                        status
-                    )
-                    VALUES
-                    ($1, $2, $3, $4, $5)
-                    ",
-                    [
-                        $user_id,
-                        $department_id,
-                        $name,
-                        $designation !== ""
-                            ? $designation
-                            : null,
-                        $authority_status ? "t" : "f"
-                    ]
+            if (
+                !$authority_result ||
+                pg_affected_rows(
+                    $authority_result
+                ) === 0
+            ) {
+
+                throw new Exception(
+                    "Administrator professional profile not found."
                 );
-
-                if (!$authority_result) {
-                    throw new Exception(
-                        "Failed to create administrator professional profile."
-                    );
-                }
             }
+
 
             addAuditLog(
                 $conn,
                 $admin_user_id,
                 "USER",
                 $user_id,
-                "UPDATE_ADMIN_PROFILE"
+                "UPDATE_USER"
             );
 
 
@@ -1873,7 +1827,7 @@ if ($action === "edit") {
 
 
         /* -------------------------------------------------
-           CHECK AUTHORITY PROFILE
+           GET AUTHORITY ID
         ------------------------------------------------- */
 
         $authority_result = pg_query_params(
@@ -1888,13 +1842,14 @@ if ($action === "edit") {
         );
 
 
-        if (!$authority_result) {
+        if (
+            !$authority_result ||
+            pg_num_rows($authority_result) === 0
+        ) {
             redirectUsersError(
-                "Unable to check professional profile."
+                "Professional profile not found."
             );
         }
-
-        $authority_exists = pg_num_rows($authority_result) > 0;
 
 
         pg_query(
@@ -2030,12 +1985,11 @@ if ($action === "edit") {
 
 
             /* ---------------------------------------------
-               CREATE OR UPDATE AUTHORITY
+               UPDATE AUTHORITY
             --------------------------------------------- */
 
-            if ($authority_exists) {
-
-                $authority_update = pg_query_params(
+            $authority_update =
+                pg_query_params(
                     $conn,
                     "
                     UPDATE authorities
@@ -2058,39 +2012,12 @@ if ($action === "edit") {
                         $user_id
                     ]
                 );
-            } else {
 
-                $authority_update = pg_query_params(
-                    $conn,
-                    "
-                    INSERT INTO authorities
-                    (
-                        user_id,
-                        department_id,
-                        name,
-                        designation,
-                        status
-                    )
-                    VALUES
-                    ($1, $2, $3, $4, $5)
-                    ",
-                    [
-                        $user_id,
-                        $department_id,
-                        $name,
-                        $designation !== ""
-                            ? $designation
-                            : null,
-                        $account_status
-                            ? "t"
-                            : "f"
-                    ]
-                );
-            }
 
             if (!$authority_update) {
+
                 throw new Exception(
-                    "Failed to save professional information."
+                    "Failed to update professional information."
                 );
             }
 
@@ -2368,6 +2295,115 @@ if ($action === "deactivate") {
 
 
 /* =========================================================
+   RESET USER PASSWORD
+========================================================= */
+
+if ($action === "reset_password") {
+
+    $user_id = $_POST["user_id"] ?? "";
+    $new_password = $_POST["new_password"] ?? "";
+    $confirm_password = $_POST["confirm_password"] ?? "";
+
+    if (
+        !is_numeric($user_id) ||
+        (int) $user_id <= 0
+    ) {
+        redirectUsersError(
+            "Invalid user ID."
+        );
+    }
+
+    $user_id = (int) $user_id;
+
+    if (!userExists($conn, $user_id)) {
+        redirectUsersError(
+            "User not found."
+        );
+    }
+
+    if ($new_password === "" || $confirm_password === "") {
+        redirectUsersError(
+            "New password and confirm password are required."
+        );
+    }
+
+    if (!isValidPassword($new_password)) {
+        redirectUsersError(
+            "Password must contain at least 8 characters."
+        );
+    }
+
+    if ($new_password !== $confirm_password) {
+        redirectUsersError(
+            "Passwords do not match."
+        );
+    }
+
+    $hashed_password = password_hash(
+        $new_password,
+        PASSWORD_DEFAULT
+    );
+
+    if ($hashed_password === false) {
+        redirectUsersError(
+            "Unable to process password."
+        );
+    }
+
+    pg_query($conn, "BEGIN");
+
+    try {
+
+        $update_result = pg_query_params(
+            $conn,
+            "
+            UPDATE users
+            SET
+                password = $1,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE user_id = $2
+            ",
+            [
+                $hashed_password,
+                $user_id
+            ]
+        );
+
+        if (!$update_result) {
+            throw new Exception(
+                "Failed to reset user password."
+            );
+        }
+
+        if (!addAuditLog(
+            $conn,
+            $admin_user_id,
+            "USER",
+            $user_id,
+            "RESET_PASSWORD"
+        )) {
+            throw new Exception(
+                "Failed to create password reset audit log."
+            );
+        }
+
+        pg_query($conn, "COMMIT");
+
+        redirectUsersSuccess(
+            "User password reset successfully."
+        );
+    } catch (Exception $e) {
+
+        pg_query($conn, "ROLLBACK");
+
+        redirectUsersError(
+            $e->getMessage()
+        );
+    }
+}
+
+
+/* =========================================================
    UPDATE ADMIN PROFILE PHOTO
 ========================================================= */
 
@@ -2528,20 +2564,28 @@ if ($action === "change_password") {
         $new_password === "" ||
         $confirm_password === ""
     ) {
+
         redirectProfileError(
             "password_fields_required"
         );
     }
 
 
-    if (!isValidPassword($new_password)) {
+    if (!isValidPassword(
+        $new_password
+    )) {
+
         redirectProfileError(
             "password_length"
         );
     }
 
 
-    if ($new_password !== $confirm_password) {
+    if (
+        $new_password !==
+        $confirm_password
+    ) {
+
         redirectProfileError(
             "password_mismatch"
         );
@@ -2555,6 +2599,7 @@ if ($action === "change_password") {
 
 
     if ($hashed_password === false) {
+
         redirectProfileError(
             "password_update_failed"
         );
@@ -2569,7 +2614,6 @@ if ($action === "change_password") {
             password = $1,
             updated_at = CURRENT_TIMESTAMP
         WHERE user_id = $2
-          AND account_status = TRUE
         ",
         [
             $hashed_password,
@@ -2578,7 +2622,8 @@ if ($action === "change_password") {
     );
 
 
-    if (!$update_result || pg_affected_rows($update_result) === 0) {
+    if (!$update_result) {
+
         redirectProfileError(
             "password_update_failed"
         );
@@ -2598,6 +2643,7 @@ if ($action === "change_password") {
         "password_changed"
     );
 }
+
 
 /* =========================================================
    INVALID ACTION

@@ -2597,6 +2597,16 @@ $current_page =
 
                     <button
                         type="button"
+                        class="admin-btn admin-btn-danger"
+                        id="resetUserPasswordButton"
+                        onclick="openResetPasswordModal();"
+                        style="display: none;">
+                        <i class="fa-solid fa-key"></i>
+                        Reset Password
+                    </button>
+
+                    <button
+                        type="button"
                         class="admin-btn admin-btn-secondary"
                         onclick="closeUserModal();">
                         Cancel
@@ -2616,6 +2626,130 @@ $current_page =
 
                     </button>
 
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ======================================================
+     RESET PASSWORD MODAL
+======================================================= -->
+
+    <div
+        class="admin-modal"
+        id="resetPasswordModal"
+        aria-hidden="true">
+
+        <div class="admin-modal-overlay"></div>
+
+        <div class="admin-modal-dialog">
+
+            <div class="admin-modal-header">
+
+                <div>
+                    <h2>Reset User Password</h2>
+                    <p>Set a new password for the selected user account.</p>
+                </div>
+
+                <button
+                    type="button"
+                    class="admin-modal-close"
+                    onclick="closeResetPasswordModal();"
+                    aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+            <form
+                id="resetPasswordForm"
+                method="POST"
+                action="../admin_actions/users.php">
+
+                <input type="hidden" name="action" value="reset_password">
+                <input type="hidden" name="user_id" id="resetPasswordUserId" value="">
+
+                <div class="admin-modal-body">
+
+                    <div class="admin-form-group">
+                        <label for="resetPasswordUserName">User</label>
+                        <input
+                            type="text"
+                            id="resetPasswordUserName"
+                            readonly>
+                    </div>
+
+                    <div class="admin-form-group">
+                        <label for="resetPasswordEmail">Email</label>
+                        <input
+                            type="text"
+                            id="resetPasswordEmail"
+                            readonly>
+                    </div>
+
+                    <div class="admin-form-group">
+                        <label for="resetNewPassword">New Password <span class="required">*</span></label>
+                        <div class="admin-password-field">
+                            <input
+                                type="password"
+                                id="resetNewPassword"
+                                name="new_password"
+                                minlength="8"
+                                required
+                                autocomplete="new-password"
+                                placeholder="Minimum 8 characters">
+                            <button
+                                type="button"
+                                class="admin-password-toggle"
+                                onclick="togglePasswordField('resetNewPassword', this);"
+                                tabindex="-1">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="admin-form-group">
+                        <label for="resetConfirmPassword">Confirm New Password <span class="required">*</span></label>
+                        <div class="admin-password-field">
+                            <input
+                                type="password"
+                                id="resetConfirmPassword"
+                                name="confirm_password"
+                                minlength="8"
+                                required
+                                autocomplete="new-password"
+                                placeholder="Re-enter new password">
+                            <button
+                                type="button"
+                                class="admin-password-toggle"
+                                onclick="togglePasswordField('resetConfirmPassword', this);"
+                                tabindex="-1">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                        <small>Minimum 8 characters. The current password is not required.</small>
+                    </div>
+
+                </div>
+
+                <div class="admin-modal-footer">
+                    <button
+                        type="button"
+                        class="admin-btn admin-btn-secondary"
+                        onclick="closeResetPasswordModal();">
+                        Cancel
+                    </button>
+                    <button
+                        type="submit"
+                        class="admin-btn admin-btn-primary"
+                        id="resetPasswordSubmitButton">
+                        <i class="fa-solid fa-key"></i>
+                        Reset Password
+                    </button>
                 </div>
 
             </form>
@@ -2839,6 +2973,51 @@ $current_page =
                 "passwordHelp"
             );
 
+        const resetPasswordModal =
+            document.getElementById(
+                "resetPasswordModal"
+            );
+
+        const resetPasswordButton =
+            document.getElementById(
+                "resetUserPasswordButton"
+            );
+
+        const resetPasswordForm =
+            document.getElementById(
+                "resetPasswordForm"
+            );
+
+        const resetPasswordUserId =
+            document.getElementById(
+                "resetPasswordUserId"
+            );
+
+        const resetPasswordUserName =
+            document.getElementById(
+                "resetPasswordUserName"
+            );
+
+        const resetPasswordEmail =
+            document.getElementById(
+                "resetPasswordEmail"
+            );
+
+        const resetNewPassword =
+            document.getElementById(
+                "resetNewPassword"
+            );
+
+        const resetConfirmPassword =
+            document.getElementById(
+                "resetConfirmPassword"
+            );
+
+        const resetPasswordSubmitButton =
+            document.getElementById(
+                "resetPasswordSubmitButton"
+            );
+
 
         /* =========================================================
            GET USER
@@ -2924,6 +3103,9 @@ $current_page =
 
 
             editRoleNotice.style.display =
+                "none";
+
+            resetPasswordButton.style.display =
                 "none";
 
 
@@ -3063,6 +3245,18 @@ $current_page =
 
             editRoleNotice.style.display =
                 "flex";
+
+            resetPasswordButton.style.display =
+                "inline-flex";
+
+            resetPasswordButton.dataset.userId =
+                user.user_id;
+
+            resetPasswordButton.dataset.userName =
+                user.display_name || "";
+
+            resetPasswordButton.dataset.userEmail =
+                user.email || "";
 
 
             /* -----------------------------------------------------
@@ -3353,6 +3547,71 @@ $current_page =
             document.getElementById(
                 "authorityDepartment"
             ).value = "";
+        }
+
+
+        /* =========================================================
+           RESET PASSWORD MODAL
+        ========================================================= */
+
+        function openResetPasswordModal() {
+            if (!resetPasswordModal || !resetPasswordButton) {
+                return;
+            }
+
+            const selectedId =
+                resetPasswordButton.dataset.userId ||
+                userId.value;
+
+            const selectedUser =
+                findUser(selectedId);
+
+            if (!selectedUser) {
+                alert("User information could not be loaded.");
+                return;
+            }
+
+            resetPasswordUserId.value =
+                selectedUser.user_id;
+
+            resetPasswordUserName.value =
+                selectedUser.display_name ||
+                "";
+
+            resetPasswordEmail.value =
+                selectedUser.email ||
+                "";
+
+            resetNewPassword.value =
+                "";
+
+            resetConfirmPassword.value =
+                "";
+
+            resetPasswordModal.classList.add("show");
+            resetPasswordModal.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+            resetNewPassword.focus();
+        }
+
+
+        function closeResetPasswordModal() {
+            if (!resetPasswordModal) {
+                return;
+            }
+
+            resetPasswordModal.classList.remove("show");
+            resetPasswordModal.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            if (resetPasswordForm) {
+                resetPasswordForm.reset();
+            }
         }
 
 
@@ -3901,6 +4160,19 @@ $current_page =
                 }
 
 
+                if (resetPasswordModal) {
+
+                    resetPasswordModal
+                        .querySelector(
+                            ".admin-modal-overlay"
+                        )
+                        .addEventListener(
+                            "click",
+                            closeResetPasswordModal
+                        );
+                }
+
+
                 document.addEventListener(
                     "keydown",
                     function(event) {
@@ -3913,6 +4185,8 @@ $current_page =
                             closeUserModal();
 
                             closeViewUserModal();
+
+                            closeResetPasswordModal();
                         }
 
                     }
@@ -4090,6 +4364,40 @@ $current_page =
                             userSubmitText.textContent =
                                 "Saving...";
 
+                        }
+                    );
+                }
+
+
+                if (resetPasswordForm) {
+
+                    resetPasswordForm.addEventListener(
+                        "submit",
+                        function(event) {
+
+                            const newPassword =
+                                resetNewPassword.value;
+
+                            const confirmPassword =
+                                resetConfirmPassword.value;
+
+                            if (newPassword.length < 8) {
+                                event.preventDefault();
+                                alert("Password must contain at least 8 characters.");
+                                resetNewPassword.focus();
+                                return;
+                            }
+
+                            if (newPassword !== confirmPassword) {
+                                event.preventDefault();
+                                alert("Passwords do not match.");
+                                resetConfirmPassword.focus();
+                                return;
+                            }
+
+                            resetPasswordSubmitButton.disabled = true;
+                            resetPasswordSubmitButton.innerHTML =
+                                '<i class="fa-solid fa-spinner fa-spin"></i> Resetting...';
                         }
                     );
                 }
