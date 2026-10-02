@@ -10,6 +10,7 @@ requireStudent();
 
 require_once "../config/database.php";
 require_once "../includes/functions.php";
+require_once "../includes/audit.php";
 
 $user_id = getLoggedInUserId();
 
@@ -119,6 +120,22 @@ if (
         pg_query($conn, "ROLLBACK");
 
         die("Failed to delete application.");
+    }
+
+
+    /* Audit Log - Delete Application */
+
+    if (!addAuditLog(
+        $conn,
+        $user_id,
+        "APPLICATION",
+        $application_id,
+        "DELETE_APPLICATION"
+    )) {
+
+        pg_query($conn, "ROLLBACK");
+
+        die("Failed to record audit log.");
     }
 
 
@@ -280,7 +297,6 @@ if (
         );
 
         finfo_close($finfo);
-
     } else {
 
         $file_type = $file["type"];
@@ -288,9 +304,7 @@ if (
 
 
     if (!isAllowedFileType($file_type)) {
-        die(
-            "Only JPG, PNG and PDF files are allowed."
-        );
+        die("Only JPG, PNG and PDF files are allowed.");
     }
 }
 
@@ -430,6 +444,24 @@ if (
 
 
 /* =========================
+   AUDIT LOG
+   ========================= */
+
+if (!addAuditLog(
+    $conn,
+    $user_id,
+    "APPLICATION",
+    $application_id,
+    "SUBMIT_APPLICATION"
+)) {
+
+    pg_query($conn, "ROLLBACK");
+
+    die("Failed to record audit log.");
+}
+
+
+/* =========================
    COMMIT
    ========================= */
 
@@ -442,9 +474,7 @@ pg_query($conn, "COMMIT");
 
 header(
     "Location: ../student/applications.php?section=success&id=" .
-    $application_id
+        $application_id
 );
 
 exit;
-
-?>

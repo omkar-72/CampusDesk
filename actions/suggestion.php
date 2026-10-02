@@ -8,6 +8,7 @@
 require_once "../config/database.php";
 require_once "../includes/auth.php";
 require_once "../includes/functions.php";
+require_once "../includes/audit.php";
 
 requireStudent();
 
@@ -101,6 +102,23 @@ if (isset($_POST["delete_suggestion"])) {
         pg_query($conn, "ROLLBACK");
         die("Failed to delete suggestion");
     }
+
+
+    /* Audit Log - Delete Suggestion */
+
+    if (!addAuditLog(
+        $conn,
+        $user_id,
+        "SUGGESTION",
+        $suggestion_id,
+        "DELETE_SUGGESTION"
+    )) {
+
+        pg_query($conn, "ROLLBACK");
+
+        die("Failed to record audit log");
+    }
+
 
     pg_query($conn, "COMMIT");
 
@@ -220,7 +238,6 @@ if ($file && $file["error"] !== UPLOAD_ERR_NO_FILE) {
         $file_type = $finfo->file(
             $file["tmp_name"]
         );
-
     } else {
 
         $file_type = $file["type"];
@@ -339,6 +356,22 @@ if ($file && $file["error"] !== UPLOAD_ERR_NO_FILE) {
 }
 
 
+/* Audit Log - Submit Suggestion */
+
+if (!addAuditLog(
+    $conn,
+    $user_id,
+    "SUGGESTION",
+    $suggestion_id,
+    "SUBMIT_SUGGESTION"
+)) {
+
+    pg_query($conn, "ROLLBACK");
+
+    die("Failed to record audit log");
+}
+
+
 /* Commit */
 
 pg_query($conn, "COMMIT");
@@ -348,9 +381,7 @@ pg_query($conn, "COMMIT");
 
 header(
     "Location: ../student/suggestions.php?section=success&id=" .
-    $suggestion_id
+        $suggestion_id
 );
 
 exit;
-
-?>

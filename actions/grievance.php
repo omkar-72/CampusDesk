@@ -3,9 +3,9 @@
 require_once "../includes/auth.php";
 requireStudent();
 
-$conn = null;
 require_once "../config/database.php";
 require_once "../includes/functions.php";
+require_once "../includes/audit.php";   // ADDED
 
 $user_id = getLoggedInUserId();
 
@@ -108,6 +108,20 @@ if ($action === "delete") {
     if (!$result || pg_affected_rows($result) !== 1) {
         pg_query($conn, "ROLLBACK");
         die("Grievance cannot be deleted.");
+    }
+
+
+    /* Audit Log - Delete Grievance */
+
+    if (!addAuditLog(
+        $conn,
+        $user_id,
+        "GRIEVANCE",
+        $grievance_id,
+        "DELETE_GRIEVANCE"
+    )) {
+        pg_query($conn, "ROLLBACK");
+        die("Failed to record audit log.");
     }
 
 
@@ -279,7 +293,6 @@ if ($action === "submit") {
             );
 
             finfo_close($finfo);
-
         } else {
 
             $file_type = $file["type"];
@@ -348,6 +361,20 @@ if ($action === "submit") {
     }
 
 
+    /* Audit Log - Submit Grievance */
+
+    if (!addAuditLog(
+        $conn,
+        $user_id,
+        "GRIEVANCE",
+        $grievance_id,
+        "SUBMIT_GRIEVANCE"
+    )) {
+        pg_query($conn, "ROLLBACK");
+        die("Failed to record audit log.");
+    }
+
+
     /* Complete Transaction */
 
     if (!pg_query($conn, "COMMIT")) {
@@ -359,7 +386,7 @@ if ($action === "submit") {
 
     header(
         "Location: ../student/grievances.php?section=success&id=" .
-        $grievance_id
+            $grievance_id
     );
 
     exit;
@@ -367,5 +394,3 @@ if ($action === "submit") {
 
 
 die("Invalid action.");
-
-?>

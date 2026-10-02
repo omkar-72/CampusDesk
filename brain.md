@@ -16,17 +16,17 @@ amod@1234
 ganesh.mane@campusdesk.com
 ganesh@1234
 
-authority1@campusdesk.com
-authority1@123
+authority@campusdesk.com
+authority@123
 
+admin@campusdesk.com
 
+admin@123
 
 // done by ganesh
 login@gmail.com
 
 Login@123
-
-
 
 step 1:-
 database open kar in terminal (psql)
@@ -43,3 +43,14 @@ VALUES (
 
 step 3:-
 login using those email and password in authority dashbord
+
+Admin Login
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+INSERT INTO users (email, password, role_id)
+VALUES (
+    'admin@campusdesk.com',
+    crypt('admin@123', gen_salt('bf')),
+    (SELECT role_id FROM roles WHERE role_name = 'ADMIN')
+);
