@@ -96,6 +96,13 @@ $currentPage = basename($_SERVER["PHP_SELF"]);
                 </a>
             </li>
 
+            <li class="<?php if ($currentPage == "notifications.php") echo "active"; ?>">
+                <a href="../student/notifications.php">
+                    <i class="fa-solid fa-bell"></i>
+                    Notifications
+                </a>
+            </li>
+
             <li class="<?php if ($currentPage == "profile.php") echo "active"; ?>">
                 <a href="../student/profile.php">
                     <i class="fa-solid fa-user"></i>

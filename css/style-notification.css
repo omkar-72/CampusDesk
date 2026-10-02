@@ -1,257 +1,1063 @@
-/* CampusDesk - Student Notifications */
 
-/* =========================
-   GENERAL
-   ========================= */
+/* =========================================================
+   CAMPUSDESK - STUDENT NOTIFICATIONS
+   APPLICATION-STYLE PAGE LAYOUT
+   ========================================================= */
 
-* {
-    box-sizing: border-box;
+/*
+ * The application page uses:
+ *
+ * .dashboard-layout
+ *     .dashboard-content
+ *         .page-container
+ *
+ * Notifications uses the same structure, so this page container
+ * is deliberately aligned to the same width and spacing.
+ */
+
+/* =========================================================
+   PAGE CONTAINER
+   ========================================================= */
+
+.notification-page{
+    width:min(1120px, calc(100% - 40px));
+    margin:32px auto 50px;
+    padding:0;
+    box-sizing:border-box;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f6f8;
-    color: #222;
+
+/* =========================================================
+   BACK LINK
+   ========================================================= */
+
+.notification-page-top{
+    margin-bottom:18px;
 }
 
-a {
-    text-decoration: none;
+.notification-back{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    color:#2563EB;
+
+    font-size:14px;
+    font-weight:600;
+
+    text-decoration:none;
+
+    transition:.2s ease;
 }
 
-.page-container {
-    width: 90%;
-    max-width: 1100px;
-    margin: 30px auto;
+.notification-back:hover{
+    color:#1D4ED8;
+    transform:translateX(-2px);
 }
 
-/* =========================
-   PAGE HEADER
-   ========================= */
 
-.page-header {
-    margin-bottom: 20px;
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.notification-hero{
+    position:relative;
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:24px;
+
+    padding:28px 32px;
+
+    margin-bottom:24px;
+
+    border-radius:22px;
+
+    background:linear-gradient(
+        135deg,
+        #2563EB,
+        #1D4ED8
+    );
+
+    color:#FFFFFF;
+
+    box-shadow:
+        0 15px 35px rgba(37,99,235,.20);
 }
 
-.page-title {
-    margin: 0 0 8px;
-    font-size: 28px;
+.notification-hero::after{
+    content:"";
+
+    position:absolute;
+
+    width:170px;
+    height:170px;
+
+    right:-55px;
+    bottom:-90px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.10);
 }
 
-.page-header p {
-    margin: 0;
-    color: #666;
+.notification-hero-content{
+    position:relative;
+    z-index:1;
+
+    display:flex;
+    align-items:center;
+
+    gap:18px;
+
+    min-width:0;
 }
 
-.back-link {
-    display: inline-block;
-    margin-bottom: 15px;
-    color: #333;
+.notification-hero-icon{
+    width:58px;
+    height:58px;
+
+    min-width:58px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.16);
+
+    font-size:24px;
 }
 
-.notification-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
+.notification-eyebrow{
+    display:block;
+
+    margin-bottom:4px;
+
+    color:rgba(255,255,255,.70);
+
+    font-size:11px;
+    font-weight:800;
+
+    letter-spacing:1px;
 }
 
-.unread-count {
-    display: inline-block;
-    padding: 7px 12px;
-    border-radius: 5px;
-    background: #eee;
-    font-size: 13px;
-    white-space: nowrap;
+.notification-hero h1{
+    margin:0 0 6px;
+
+    font-size:30px;
+
+    line-height:1.2;
 }
 
-/* =========================
-   SECTION
-   ========================= */
+.notification-hero p{
+    margin:0;
 
-.section-box {
-    background: #fff;
-    padding: 25px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    color:rgba(255,255,255,.92);
+
+    font-size:14px;
+
+    line-height:1.6;
 }
 
-/* =========================
-   ACTIONS
-   ========================= */
 
-.notification-actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+
+.notification-summary{
+    position:relative;
+    z-index:1;
+
+    display:flex;
+    align-items:center;
+
+    flex-shrink:0;
+
+    padding:12px 16px;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.12);
+
+    border:1px solid rgba(255,255,255,.16);
 }
 
-.notification-actions form {
-    margin: 0;
+.summary-item{
+    min-width:65px;
+
+    text-align:center;
 }
 
-/* =========================
-   BUTTONS
-   ========================= */
+.summary-item span{
+    display:block;
 
-.button {
-    display: inline-block;
-    padding: 9px 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 13px;
-    text-align: center;
+    margin-bottom:3px;
+
+    color:rgba(255,255,255,.72);
+
+    font-size:11px;
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
 }
 
-.primary-button {
-    background: #222;
-    color: #fff;
+.summary-item strong{
+    color:#FFFFFF;
+
+    font-size:22px;
 }
 
-.secondary-button {
-    background: #e5e5e5;
-    color: #222;
+.summary-item .unread-number{
+    color:#BFDBFE;
 }
 
-/* =========================
-   NOTIFICATION LIST
-   ========================= */
+.summary-divider{
+    width:1px;
+    height:34px;
 
-.notification-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    margin:0 11px;
+
+    background:rgba(255,255,255,.20);
 }
 
-.notification-item {
-    padding: 18px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+
+/* =========================================================
+   NOTIFICATION PANEL
+   ========================================================= */
+
+.notification-panel{
+    background:#FFFFFF;
+
+    padding:28px;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 10px 28px rgba(15,23,42,.08);
 }
 
-.notification-item.unread {
-    border-left: 4px solid #222;
-    background: #fafafa;
+.notification-panel-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:18px;
+
+    padding-bottom:18px;
+
+    margin-bottom:18px;
+
+    border-bottom:1px solid #E2E8F0;
 }
 
-.notification-item.read {
-    background: #fff;
+.notification-panel-header h2{
+    margin:0 0 5px;
+
+    color:#0F172A;
+
+    font-size:18px;
 }
 
-.notification-top {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
-    flex-wrap: wrap;
+.notification-panel-header p{
+    margin:0;
+
+    color:#64748B;
+
+    font-size:13px;
 }
 
-.notification-module {
-    display: inline-block;
-    padding: 5px 9px;
-    border-radius: 4px;
-    background: #eee;
-    font-size: 12px;
-    font-weight: bold;
+.notification-panel-header form{
+    margin:0;
 }
 
-.notification-badge {
-    display: inline-block;
-    padding: 5px 9px;
-    border-radius: 4px;
-    background: #ddd;
-    font-size: 12px;
+
+/* =========================================================
+   MARK ALL BUTTON
+   ========================================================= */
+
+.notification-mark-all{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:8px;
+
+    padding:10px 14px;
+
+    border:1px solid #BFDBFE;
+    border-radius:10px;
+
+    background:#EFF6FF;
+    color:#1D4ED8;
+
+    font-size:12px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.2s ease;
 }
 
-.notification-title {
-    margin: 0 0 8px;
-    font-size: 18px;
+.notification-mark-all:hover{
+    background:#DBEAFE;
+
+    transform:translateY(-1px);
 }
 
-.notification-message {
-    margin: 0 0 15px;
-    line-height: 1.5;
-    color: #444;
+
+/* =========================================================
+   LIST
+   ========================================================= */
+
+.notification-list{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
 }
 
-.notification-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
+
+/* =========================================================
+   NOTIFICATION CARD
+   ========================================================= */
+
+.notification-card{
+    position:relative;
+
+    display:grid;
+
+    grid-template-columns:50px minmax(0,1fr);
+
+    gap:16px;
+
+    padding:18px;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:15px;
+
+    background:#FFFFFF;
+
+    transition:.2s ease;
 }
 
-.notification-date {
-    color: #666;
-    font-size: 13px;
+.notification-card:hover{
+    border-color:#BFDBFE;
+
+    box-shadow:
+        0 8px 20px rgba(37,99,235,.08);
+
+    transform:translateY(-1px);
 }
 
-.notification-buttons {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    flex-wrap: wrap;
+.notification-card.is-unread{
+    background:#F8FBFF;
+
+    border-color:#BFDBFE;
 }
 
-.notification-buttons form {
-    margin: 0;
+.notification-card.is-unread::before{
+    content:"";
+
+    position:absolute;
+
+    top:16px;
+    bottom:16px;
+    left:-1px;
+
+    width:4px;
+
+    border-radius:0 5px 5px 0;
+
+    background:#2563EB;
 }
 
-/* =========================
-   NO DATA
-   ========================= */
 
-.no-data {
-    padding: 35px 20px;
-    text-align: center;
-    color: #666;
+/* =========================================================
+   ICON
+   ========================================================= */
+
+.notification-card-icon{
+    width:50px;
+    height:50px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:14px;
+
+    background:#EFF6FF;
+
+    color:#2563EB;
+
+    font-size:18px;
 }
 
-.no-data h2 {
-    margin-top: 0;
-    color: #333;
+.notification-card.is-read .notification-card-icon{
+    background:#F1F5F9;
+    color:#64748B;
 }
 
-/* =========================
-   MOBILE
-   ========================= */
 
-@media (max-width: 700px) {
-    .page-container {
-        width: 95%;
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.notification-card-content{
+    min-width:0;
+}
+
+.notification-card-meta{
+    display:flex;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:7px;
+
+    margin-bottom:7px;
+}
+
+.notification-type{
+    display:inline-flex;
+    align-items:center;
+
+    padding:5px 9px;
+
+    border:1px solid #DBEAFE;
+
+    border-radius:999px;
+
+    background:#EFF6FF;
+
+    color:#2563EB;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:.45px;
+
+    text-transform:uppercase;
+}
+
+.notification-card.is-read .notification-type{
+    background:#F8FAFC;
+    border-color:#E2E8F0;
+    color:#64748B;
+}
+
+.notification-unread-dot{
+    display:inline-flex;
+    align-items:center;
+
+    gap:6px;
+
+    color:#DC2626;
+
+    font-size:11px;
+    font-weight:800;
+}
+
+.notification-unread-dot span{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#EF4444;
+}
+
+.notification-read-label{
+    color:#94A3B8;
+
+    font-size:11px;
+    font-weight:700;
+}
+
+.notification-card-content h3{
+    margin:0 0 5px;
+
+    color:#0F172A;
+
+    font-size:16px;
+    font-weight:700;
+
+    line-height:1.4;
+}
+
+.notification-card-content p{
+    margin:0;
+
+    color:#64748B;
+
+    font-size:13px;
+
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   CARD FOOTER
+   ========================================================= */
+
+.notification-card-bottom{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-top:15px;
+
+    padding-top:13px;
+
+    border-top:1px solid #EDF2F7;
+}
+
+.notification-time{
+    display:inline-flex;
+    align-items:center;
+
+    gap:6px;
+
+    color:#94A3B8;
+
+    font-size:12px;
+    font-weight:500;
+}
+
+.notification-time i{
+    color:#CBD5E1;
+}
+
+.notification-actions{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+}
+
+.notification-actions form{
+    margin:0;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+.notification-view-btn,
+.notification-read-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:7px;
+
+    min-height:35px;
+
+    padding:8px 12px;
+
+    border-radius:9px;
+
+    font-size:12px;
+    font-weight:800;
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+}
+
+.notification-view-btn{
+    background:#0F172A;
+    color:#FFFFFF;
+}
+
+.notification-view-btn:hover{
+    background:#1E293B;
+
+    transform:translateY(-1px);
+}
+
+.notification-read-btn{
+    border:1px solid #CBD5E1;
+
+    background:#FFFFFF;
+
+    color:#475569;
+}
+
+.notification-read-btn:hover{
+    border-color:#BFDBFE;
+
+    background:#EFF6FF;
+
+    color:#1D4ED8;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.notification-empty{
+    padding:60px 20px;
+
+    text-align:center;
+}
+
+.empty-icon{
+    width:72px;
+    height:72px;
+
+    margin:0 auto 17px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:18px;
+
+    background:#EFF6FF;
+
+    color:#2563EB;
+
+    font-size:27px;
+}
+
+.notification-empty h2{
+    margin:0 0 7px;
+
+    color:#0F172A;
+
+    font-size:22px;
+}
+
+.notification-empty p{
+    max-width:480px;
+
+    margin:0 auto 18px;
+
+    color:#64748B;
+
+    font-size:13px;
+
+    line-height:1.5;
+}
+
+.empty-dashboard-btn{
+    display:inline-flex;
+    align-items:center;
+
+    gap:8px;
+
+    padding:10px 15px;
+
+    border-radius:10px;
+
+    background:#2563EB;
+
+    color:#FFFFFF;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    text-decoration:none;
+}
+
+.empty-dashboard-btn:hover{
+    background:#1D4ED8;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:800px){
+
+    .notification-page{
+        width:min(94%,1120px);
+        margin:20px auto 35px;
     }
 
-    .page-title {
-        font-size: 24px;
+    .notification-hero{
+        flex-direction:column;
+        align-items:flex-start;
     }
 
-    .notification-header {
-        display: block;
+    .notification-summary{
+        align-self:flex-end;
     }
 
-    .unread-count {
-        margin-top: 12px;
+    .notification-panel{
+        padding:20px;
+    }
+}
+
+@media(max-width:600px){
+
+    .notification-page{
+        width:94%;
+        margin:18px auto 30px;
     }
 
-    .notification-footer {
-        display: block;
+    .notification-hero{
+        padding:22px;
+
+        border-radius:18px;
     }
 
-    .notification-buttons {
-        margin-top: 12px;
-        flex-direction: column;
-        align-items: stretch;
+    .notification-hero-content{
+        align-items:flex-start;
     }
 
-    .notification-buttons .button,
-    .notification-buttons form {
-        width: 100%;
+    .notification-hero-icon{
+        width:50px;
+        height:50px;
+        min-width:50px;
+
+        border-radius:13px;
+
+        font-size:18px;
     }
 
-    .notification-buttons form .button {
-        width: 100%;
+    .notification-hero h1{
+        font-size:24px;
+    }
+
+    .notification-hero p{
+        font-size:13px;
+    }
+
+    .notification-summary{
+        width:100%;
+        justify-content:center;
+        align-self:stretch;
+    }
+
+    .notification-panel{
+        padding:16px;
+
+        border-radius:15px;
+    }
+
+    .notification-panel-header{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .notification-mark-all{
+        width:100%;
+    }
+
+    .notification-card{
+        grid-template-columns:42px minmax(0,1fr);
+
+        gap:12px;
+
+        padding:15px;
+    }
+
+    .notification-card-icon{
+        width:42px;
+        height:42px;
+
+        border-radius:12px;
+    }
+
+    .notification-card-bottom{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .notification-actions{
+        width:100%;
+        flex-direction:column;
+    }
+
+    .notification-view-btn,
+    .notification-read-btn,
+    .notification-actions form{
+        width:100%;
+    }
+}
+
+
+/* =========================================================
+   TYPOGRAPHY MATCH - STUDENT APPLICATION PAGES
+   ========================================================= */
+
+.notification-page{
+    font-size:14px;
+}
+
+.notification-page h1,
+.notification-page h2,
+.notification-page h3,
+.notification-page p,
+.notification-page span,
+.notification-page a,
+.notification-page button{
+    font-family:Arial, sans-serif;
+}
+
+.notification-hero h1{
+    font-size:28px !important;
+    font-weight:700 !important;
+}
+
+.notification-hero p{
+    font-size:13px !important;
+}
+
+.notification-panel-header h2{
+    font-size:18px !important;
+    font-weight:700 !important;
+}
+
+.notification-panel-header p{
+    font-size:13px !important;
+}
+
+.notification-card-content h3{
+    font-size:16px !important;
+    font-weight:700 !important;
+}
+
+.notification-card-content p{
+    font-size:13px !important;
+}
+
+.notification-type{
+    font-size:10px !important;
+}
+
+.notification-unread-dot,
+.notification-read-label{
+    font-size:11px !important;
+}
+
+.notification-time{
+    font-size:12px !important;
+}
+
+.notification-view-btn,
+.notification-read-btn{
+    font-size:12px !important;
+}
+
+
+/* =========================================================
+   COMMON STUDENT NAVBAR - KEEP SAME SIZE ON NOTIFICATIONS
+   ========================================================= */
+
+/*
+ * This stylesheet is loaded only on the notification page.
+ * These rules explicitly preserve the shared navbar dimensions
+ * so notification-specific typography cannot make the sidebar
+ * larger than it is on the Application page.
+ */
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:260px;
+    height:100vh;
+
+    margin:0;
+    padding:20px 15px;
+
+    box-sizing:border-box;
+
+    background:#0F172A;
+
+    display:flex;
+    flex-direction:column;
+
+    color:#FFFFFF;
+
+    z-index:1000;
+
+    font-family:Arial, sans-serif;
+    font-size:16px;
+
+    overflow:hidden;
+}
+
+.navbar-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding-bottom:25px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    box-sizing:border-box;
+}
+
+.logo-circle{
+    width:50px;
+    height:50px;
+
+    min-width:50px;
+    min-height:50px;
+
+    border-radius:14px;
+
+    background:#2563EB;
+    color:#FFFFFF;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:22px;
+}
+
+.logo-text h2{
+    margin:0;
+
+    color:#FFFFFF;
+
+    font-size:22px;
+    line-height:1.2;
+}
+
+.navbar-menu{
+    list-style:none;
+
+    margin:25px 0 0;
+    padding:0;
+
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+
+    flex:1;
+}
+
+.navbar-menu li{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+
+.navbar-menu li a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:14px 18px;
+
+    border-radius:12px;
+
+    color:#CBD5E1;
+
+    font-size:16px;
+    font-weight:400;
+    line-height:1.2;
+
+    text-decoration:none;
+
+    transition:.25s;
+}
+
+.navbar-menu li a i{
+    width:18px;
+    min-width:18px;
+
+    text-align:center;
+
+    font-size:16px;
+}
+
+.navbar-menu li a:hover{
+    background:#1E293B;
+    color:#FFFFFF;
+}
+
+.navbar-menu li.active a{
+    background:#2563EB;
+    color:#FFFFFF;
+}
+
+.navbar-menu .logout{
+    margin-top:auto;
+}
+
+.navbar-menu .logout a{
+    color:#CBD5E1;
+}
+
+
+/*
+ * Keep the sidebar responsive in exactly the same way as the
+ * shared navbar stylesheet.
+ */
+
+@media(max-width:900px){
+
+    .navbar{
+        width:230px;
+    }
+
+    .logo-text h2{
+        font-size:20px;
+    }
+
+    .navbar-menu li a{
+        padding:13px 15px;
+    }
+}
+
+@media(max-width:700px){
+
+    .navbar{
+        position:relative;
+        width:100%;
+        height:auto;
+        min-height:auto;
+        padding:15px;
+        overflow:visible;
+    }
+
+    .navbar-logo{
+        padding-bottom:15px;
+    }
+
+    .navbar-menu{
+        margin-top:15px;
+        gap:5px;
+    }
+
+    .navbar-menu .logout{
+        margin-top:10px;
     }
 }
