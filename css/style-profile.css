@@ -33,11 +33,16 @@ body {
    PROFILE CONTAINER
    ========================= */
 
+/*
+ * The common Student navbar is fixed at 260px.
+ * The profile content must therefore stay beside the navbar,
+ * just like the Student Applications page.
+ */
 .profile-container {
-    width: 90%;
-    max-width: 1000px;
+    width: min(1100px, calc(100% - 40px));
+    max-width: 1100px;
 
-    margin: 30px auto;
+    margin: 0 auto 50px;
 }
 
 
@@ -584,4 +589,60 @@ body {
         width: 38px;
     }
 
+}
+
+/* =========================================================
+   COMMON STUDENT PAGE LAYOUT
+   ========================================================= */
+
+/*
+ * Keep the fixed Student sidebar from covering the Profile page.
+ * These dimensions match the common Student Applications layout.
+ */
+.dashboard-layout{
+    display:flex;
+    flex:1;
+    min-height:calc(100vh - 75px);
+}
+
+.dashboard-content{
+    margin-left:260px;
+    width:calc(100% - 260px);
+    padding:90px 20px 30px;
+    box-sizing:border-box;
+}
+
+/*
+ * Keep the shared footer aligned with the content area.
+ */
+.campus-footer{
+    margin-left:260px;
+}
+
+/*
+ * The Profile stylesheet must not change the size of the common
+ * navbar used by Student, Authority or Admin pages.
+ */
+.navbar{
+    width:260px;
+    box-sizing:border-box;
+}
+
+@media (max-width:700px){
+
+    .dashboard-content{
+        margin-left:0;
+        width:100%;
+        padding:85px 15px 25px;
+    }
+
+    .campus-footer{
+        margin-left:0;
+    }
+
+    .profile-container{
+        width:94%;
+        max-width:none;
+        margin:0 auto 35px;
+    }
 }

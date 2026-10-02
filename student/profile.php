@@ -254,11 +254,6 @@ if ($error === "invalid_mobile") {
 
                 <div class="profile-header">
 
-                    <a
-                        href="dashboard.php"
-                        class="back-link">
-                        ← Back to Dashboard
-                    </a>
 
                     <h1>
                         My Profile
