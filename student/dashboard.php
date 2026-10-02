@@ -1,10 +1,40 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+| CAMPUSDESK - STUDENT DASHBOARD
+|--------------------------------------------------------------------------
+| This page keeps the existing student dashboard database logic intact.
+|
+| UI changes only:
+| - Uses the shared CampusDesk navigation/header/footer
+| - Uses a dashboard layout similar to the Authority module
+| - Displays existing student statistics as modern KPI cards
+| - Displays the existing student information in a dashboard card
+| - Keeps all existing links and functionality unchanged
+|--------------------------------------------------------------------------
+*/
+
+
+/* =========================================================
+   AUTHENTICATION
+   ========================================================= */
+
 require_once "../includes/auth.php";
 requireStudent();
 
+
+/* =========================================================
+   DATABASE AND COMMON FUNCTIONS
+   ========================================================= */
+
 require_once "../config/database.php";
 require_once "../includes/functions.php";
+
+
+/* =========================================================
+   GET LOGGED-IN STUDENT
+   ========================================================= */
 
 $user_id = getLoggedInUserId();
 
@@ -18,9 +48,9 @@ if (!$student_id) {
 }
 
 
-/* =========================
+/* =========================================================
    STUDENT INFORMATION
-   ========================= */
+   ========================================================= */
 
 $sql = "SELECT
             full_name,
@@ -49,9 +79,9 @@ $student = pg_fetch_assoc(
 );
 
 
-/* =========================
+/* =========================================================
    COUNTS
-   ========================= */
+   ========================================================= */
 
 $grievance_count = 0;
 $suggestion_count = 0;
@@ -59,9 +89,9 @@ $application_count = 0;
 $notification_count = 0;
 
 
-/* =========================
+/* =========================================================
    GRIEVANCES
-   ========================= */
+   ========================================================= */
 
 $result = pg_query_params(
     $conn,
@@ -82,9 +112,9 @@ if ($result) {
 }
 
 
-/* =========================
+/* =========================================================
    SUGGESTIONS
-   ========================= */
+   ========================================================= */
 
 $result = pg_query_params(
     $conn,
@@ -105,9 +135,9 @@ if ($result) {
 }
 
 
-/* =========================
+/* =========================================================
    APPLICATIONS
-   ========================= */
+   ========================================================= */
 
 $result = pg_query_params(
     $conn,
@@ -128,9 +158,9 @@ if ($result) {
 }
 
 
-/* =========================
+/* =========================================================
    UNREAD NOTIFICATIONS
-   ========================= */
+   ========================================================= */
 
 $result = pg_query_params(
     $conn,
@@ -154,9 +184,14 @@ if ($result) {
 ?>
 
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
+
+    <!-- =====================================================
+         BASIC PAGE SETTINGS
+         ===================================================== -->
 
     <meta charset="UTF-8">
 
@@ -165,204 +200,141 @@ if ($result) {
         content="width=device-width, initial-scale=1.0">
 
     <title>
-        Student Dashboard - CampusDesk
+        CampusDesk | Student Dashboard
     </title>
+
+
+    <!-- =====================================================
+         FONT AWESOME
+         ===================================================== -->
 
     <link
         rel="stylesheet"
-        href="../css/style-student-services.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- =====================================================
+         SHARED CAMPUSDESK CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../css/global.css">
+
+    <link
+        rel="stylesheet"
+        href="../css/header.css">
+
+    <link
+        rel="stylesheet"
+        href="../css/navbar.css">
+
+
+    <!-- =====================================================
+         STUDENT DASHBOARD CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../css/student-dashboard.css">
 
 </head>
 
+
 <body>
 
-    <div class="page-container">
+
+    <!-- =====================================================
+         SHARED NAVBAR
+         ===================================================== -->
+
+    <?php include "../includes/navbar.php"; ?>
 
 
-        <!-- =========================
-         HEADER
-         ========================= -->
+    <!-- =====================================================
+         SHARED HEADER
+         ===================================================== -->
 
-        <div class="page-header">
-
-            <h1 class="page-title">
-                Student Dashboard
-            </h1>
-
-            <p>
-
-                Welcome,
-
-                <?php
-                echo escape(
-                    $student["full_name"]
-                );
-                ?>.
-
-            </p>
-
-        </div>
+    <?php include "../includes/header.php"; ?>
 
 
-        <!-- =========================
-         STUDENT INFORMATION
-         ========================= -->
+    <!-- =====================================================
+         DASHBOARD LAYOUT
+         ===================================================== -->
 
-        <div class="section-box">
+    <div class="dashboard-layout">
 
-            <h2>
-                Student Information
-            </h2>
-
-            <div class="details">
+        <main class="dashboard-content">
 
 
-                <!-- Name -->
+            <!-- =================================================
+                 WELCOME BANNER
+                 ================================================= -->
 
-                <div class="detail-row">
+            <section class="student-welcome-banner">
 
-                    <div class="detail-label">
-                        Name
-                    </div>
+                <div class="student-welcome-content">
 
-                    <div class="detail-value">
+                    <h1>
 
-                        <?php
-                        echo escape(
-                            $student["full_name"]
-                        );
-                        ?>
+                        Welcome,
+                        <?= htmlspecialchars(
+                            $student["full_name"],
+                            ENT_QUOTES,
+                            "UTF-8"
+                        ) ?>
+                        👋
 
-                    </div>
+                    </h1>
+
+                    <p>
+                        Manage your CampusDesk services and track your requests.
+                    </p>
 
                 </div>
 
 
-                <!-- Course -->
+                <div class="student-welcome-date">
 
-                <div class="detail-row">
+                    <i class="fa-solid fa-calendar-days"></i>
 
-                    <div class="detail-label">
-                        Course
-                    </div>
-
-                    <div class="detail-value">
-
-                        <?php
-                        echo escape(
-                            $student["course"]
-                        );
-                        ?>
-
-                    </div>
+                    <?= date("d M Y") ?>
 
                 </div>
 
-
-                <!-- Year -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Year
-                    </div>
-
-                    <div class="detail-value">
-
-                        <?php
-                        echo escape(
-                            $student["year"]
-                        );
-                        ?>
-
-                    </div>
-
-                </div>
+            </section>
 
 
-                <!-- Semester -->
+            <!-- =================================================
+                 STATISTICS
+                 ================================================= -->
 
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Semester
-                    </div>
-
-                    <div class="detail-value">
-
-                        <?php
-                        echo escape(
-                            $student["semester"]
-                        );
-                        ?>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Division -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Division
-                    </div>
-
-                    <div class="detail-value">
-
-                        <?php
-                        echo escape(
-                            $student["division"]
-                        );
-                        ?>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-         STUDENT SERVICES
-         ========================= -->
-
-        <div class="section-box">
-
-            <h2>
-                Student Services
-            </h2>
-
-            <div class="module-options">
+            <section class="student-stats-grid">
 
 
                 <!-- Grievances -->
 
                 <a
                     href="grievances.php"
-                    class="module-option">
+                    class="student-stat-box student-stat-blue">
 
-                    <h2>
-                        Grievances
-                    </h2>
+                    <div class="student-stat-header">
 
-                    <p>
-                        Raise and track your grievances.
-                    </p>
+                        <span>
+                            Grievances
+                        </span>
 
-                    <p>
-                        Total:
+                        <i class="fa-solid fa-circle-exclamation"></i>
 
-                        <?php
-                        echo escape(
-                            $grievance_count
-                        );
-                        ?>
+                    </div>
 
-                    </p>
+                    <strong>
+                        <?= (int) $grievance_count ?>
+                    </strong>
+
+                    <small>
+                        Total submitted
+                    </small>
 
                 </a>
 
@@ -371,26 +343,25 @@ if ($result) {
 
                 <a
                     href="suggestions.php"
-                    class="module-option">
+                    class="student-stat-box student-stat-purple">
 
-                    <h2>
-                        Suggestions
-                    </h2>
+                    <div class="student-stat-header">
 
-                    <p>
-                        Submit and manage your suggestions.
-                    </p>
+                        <span>
+                            Suggestions
+                        </span>
 
-                    <p>
-                        Total:
+                        <i class="fa-solid fa-lightbulb"></i>
 
-                        <?php
-                        echo escape(
-                            $suggestion_count
-                        );
-                        ?>
+                    </div>
 
-                    </p>
+                    <strong>
+                        <?= (int) $suggestion_count ?>
+                    </strong>
+
+                    <small>
+                        Total submitted
+                    </small>
 
                 </a>
 
@@ -399,26 +370,25 @@ if ($result) {
 
                 <a
                     href="applications.php"
-                    class="module-option">
+                    class="student-stat-box student-stat-orange">
 
-                    <h2>
-                        Applications
-                    </h2>
+                    <div class="student-stat-header">
 
-                    <p>
-                        Submit and track your applications.
-                    </p>
+                        <span>
+                            Applications
+                        </span>
 
-                    <p>
-                        Total:
+                        <i class="fa-solid fa-file-lines"></i>
 
-                        <?php
-                        echo escape(
-                            $application_count
-                        );
-                        ?>
+                    </div>
 
-                    </p>
+                    <strong>
+                        <?= (int) $application_count ?>
+                    </strong>
+
+                    <small>
+                        Total submitted
+                    </small>
 
                 </a>
 
@@ -427,100 +397,421 @@ if ($result) {
 
                 <a
                     href="notifications.php"
-                    class="module-option">
+                    class="student-stat-box student-stat-red">
 
-                    <h2>
-                        Notifications
-                    </h2>
+                    <div class="student-stat-header">
 
-                    <p>
-                        View updates from the college authority.
-                    </p>
+                        <span>
+                            Unread Notifications
+                        </span>
 
-                    <p>
+                        <i class="fa-solid fa-bell"></i>
 
-                        Unread:
+                    </div>
 
-                        <?php
-                        echo escape(
-                            $notification_count
-                        );
-                        ?>
+                    <strong>
+                        <?= (int) $notification_count ?>
+                    </strong>
 
-                    </p>
+                    <small>
+                        Need your attention
+                    </small>
 
                 </a>
 
 
-            </div>
-
-        </div>
+            </section>
 
 
-        <!-- =========================
-         QUICK LINKS
-         ========================= -->
+            <!-- =================================================
+                 MAIN DASHBOARD CONTENT
+                 ================================================= -->
 
-        <div class="section-box">
-
-            <h2>
-                Quick Links
-            </h2>
-
-            <div class="button-group">
+            <section class="student-dashboard-grid">
 
 
-                <!-- Raise Grievance -->
+                <!-- =================================================
+                     STUDENT INFORMATION
+                     ================================================= -->
 
-                <a
-                    href="grievances.php?section=raise"
-                    class="button primary-button">
-                    Raise Grievance
-                </a>
+                <div class="student-panel">
 
+                    <div class="student-panel-header">
 
-                <!-- Submit Suggestion -->
+                        <div>
 
-                <a
-                    href="suggestions.php?section=raise"
-                    class="button primary-button">
-                    Submit Suggestion
-                </a>
+                            <h2>
+                                Student Information
+                            </h2>
 
+                            <p>
+                                Your academic profile
+                            </p>
 
-                <!-- Submit Application -->
+                        </div>
 
-                <a
-                    href="applications.php?section=submit"
-                    class="button primary-button">
-                    Submit Application
-                </a>
+                        <div class="student-panel-icon">
 
+                            <i class="fa-solid fa-user-graduate"></i>
 
-                <!-- Notifications -->
+                        </div>
 
-                <a
-                    href="notifications.php"
-                    class="button primary-button">
-                    Notifications
-                </a>
+                    </div>
 
 
-                <!-- My Profile -->
+                    <!-- Name -->
 
-                <a
-                    href="profile.php"
-                    class="button primary-button">
-                    My Profile
-                </a>
+                    <div class="student-info-item">
+
+                        <div class="student-info-icon">
+
+                            <i class="fa-solid fa-user"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Name
+                            </span>
+
+                            <strong>
+
+                                <?= htmlspecialchars(
+                                    $student["full_name"],
+                                    ENT_QUOTES,
+                                    "UTF-8"
+                                ) ?>
+
+                            </strong>
+
+                        </div>
+
+                    </div>
 
 
-            </div>
+                    <!-- Course -->
 
-        </div>
+                    <div class="student-info-item">
 
+                        <div class="student-info-icon">
+
+                            <i class="fa-solid fa-graduation-cap"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Course
+                            </span>
+
+                            <strong>
+
+                                <?= htmlspecialchars(
+                                    $student["course"] ?? "-",
+                                    ENT_QUOTES,
+                                    "UTF-8"
+                                ) ?>
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Year -->
+
+                    <div class="student-info-item">
+
+                        <div class="student-info-icon">
+
+                            <i class="fa-solid fa-calendar"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Year
+                            </span>
+
+                            <strong>
+
+                                <?= htmlspecialchars(
+                                    $student["year"] ?? "-",
+                                    ENT_QUOTES,
+                                    "UTF-8"
+                                ) ?>
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Semester -->
+
+                    <div class="student-info-item">
+
+                        <div class="student-info-icon">
+
+                            <i class="fa-solid fa-book-open"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Semester
+                            </span>
+
+                            <strong>
+
+                                <?= htmlspecialchars(
+                                    $student["semester"] ?? "-",
+                                    ENT_QUOTES,
+                                    "UTF-8"
+                                ) ?>
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Division -->
+
+                    <div class="student-info-item">
+
+                        <div class="student-info-icon">
+
+                            <i class="fa-solid fa-users"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Division
+                            </span>
+
+                            <strong>
+
+                                <?= htmlspecialchars(
+                                    $student["division"] ?? "-",
+                                    ENT_QUOTES,
+                                    "UTF-8"
+                                ) ?>
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     QUICK ACTIONS
+                     ================================================= -->
+
+                <div class="student-panel">
+
+                    <div class="student-panel-header">
+
+                        <div>
+
+                            <h2>
+                                Quick Actions
+                            </h2>
+
+                            <p>
+                                Frequently used services
+                            </p>
+
+                        </div>
+
+                        <div class="student-panel-icon">
+
+                            <i class="fa-solid fa-bolt"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="student-quick-actions">
+
+
+                        <!-- Raise Grievance -->
+
+                        <a
+                            href="grievances.php?section=raise"
+                            class="student-quick-btn">
+
+                            <span class="student-quick-icon">
+
+                                <i class="fa-solid fa-circle-exclamation"></i>
+
+                            </span>
+
+                            <span>
+
+                                <strong>
+                                    Raise Grievance
+                                </strong>
+
+                                <small>
+                                    Report an issue
+                                </small>
+
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+
+                        <!-- Submit Suggestion -->
+
+                        <a
+                            href="suggestions.php?section=raise"
+                            class="student-quick-btn">
+
+                            <span class="student-quick-icon">
+
+                                <i class="fa-solid fa-lightbulb"></i>
+
+                            </span>
+
+                            <span>
+
+                                <strong>
+                                    Submit Suggestion
+                                </strong>
+
+                                <small>
+                                    Share an idea
+                                </small>
+
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+
+                        <!-- Submit Application -->
+
+                        <a
+                            href="applications.php?section=submit"
+                            class="student-quick-btn">
+
+                            <span class="student-quick-icon">
+
+                                <i class="fa-solid fa-file-lines"></i>
+
+                            </span>
+
+                            <span>
+
+                                <strong>
+                                    Submit Application
+                                </strong>
+
+                                <small>
+                                    Create a new application
+                                </small>
+
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+
+                        <!-- Notifications -->
+
+                        <a
+                            href="notifications.php"
+                            class="student-quick-btn">
+
+                            <span class="student-quick-icon">
+
+                                <i class="fa-solid fa-bell"></i>
+
+                            </span>
+
+                            <span>
+
+                                <strong>
+                                    Notifications
+                                </strong>
+
+                                <small>
+                                    View authority updates
+                                </small>
+
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+
+                        <!-- Profile -->
+
+                        <a
+                            href="profile.php"
+                            class="student-quick-btn">
+
+                            <span class="student-quick-icon">
+
+                                <i class="fa-solid fa-user"></i>
+
+                            </span>
+
+                            <span>
+
+                                <strong>
+                                    My Profile
+                                </strong>
+
+                                <small>
+                                    Manage your account
+                                </small>
+
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </main>
 
     </div>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <?php include "../includes/footer.php"; ?>
+
 
 </body>
 

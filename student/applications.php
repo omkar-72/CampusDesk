@@ -179,1045 +179,1015 @@ if ($section === "submit") {
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+        content="width=device-width, initial-scale=1.0">
 
     <title>
         Applications - CampusDesk
     </title>
 
+    <!-- Common CampusDesk styles -->
     <link
         rel="stylesheet"
-        href="../css/style-student-services.css"
-    >
+        href="../css/global.css">
+
+    <link
+        rel="stylesheet"
+        href="../css/header.css">
+
+    <link
+        rel="stylesheet"
+        href="../css/navbar.css">
+
+    <link
+        rel="stylesheet"
+        href="../css/style-student-services.css">
+
+    <!-- Font Awesome icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
 <body>
 
+    <!-- =====================================================
+         COMMON NAVBAR
+         ===================================================== -->
 
-<div class="page-container">
+    <?php include "../includes/navbar.php"; ?>
 
 
-    <?php if ($section === "home"): ?>
+    <!-- =====================================================
+         COMMON HEADER
+         ===================================================== -->
+
+    <?php include "../includes/header.php"; ?>
 
 
-        <!-- =========================
+    <!-- =====================================================
+         STUDENT PAGE LAYOUT
+         ===================================================== -->
+
+    <div class="dashboard-layout">
+
+        <main class="dashboard-content">
+
+
+
+            <div class="page-container">
+
+
+                <?php if ($section === "home"): ?>
+
+
+                    <!-- =========================
              HOME
              ========================= -->
 
-        <div class="page-header">
+                    <div class="page-header">
 
-            <a
-                href="dashboard.php"
-                class="back-link"
-            >
-                ← Back to Dashboard
-            </a>
+                        <a
+                            href="dashboard.php"
+                            class="back-link">
+                            ← Back to Dashboard
+                        </a>
 
-            <h1 class="page-title">
-                Applications
-            </h1>
+                        <h1 class="page-title">
+                            Applications
+                        </h1>
 
-            <p>
-                Submit and manage your college applications.
-            </p>
+                        <p>
+                            Submit and manage your college applications.
+                        </p>
 
-        </div>
-
-
-        <div class="section-box">
-
-            <div class="module-options">
+                    </div>
 
 
-                <!-- Submit Application -->
+                    <div class="section-box">
 
-                <a
-                    href="applications.php?section=submit"
-                    class="module-option"
-                >
-
-                    <h2>
-                        Submit Application
-                    </h2>
-
-                    <p>
-                        Submit a new college application.
-                    </p>
-
-                </a>
+                        <div class="module-options">
 
 
-                <!-- My Applications -->
+                            <!-- Submit Application -->
 
-                <a
-                    href="applications.php?section=my"
-                    class="module-option"
-                >
+                            <a
+                                href="applications.php?section=submit"
+                                class="module-option">
 
-                    <h2>
-                        My Applications
-                    </h2>
+                                <h2>
+                                    Submit Application
+                                </h2>
 
-                    <p>
-                        View your submitted applications.
-                    </p>
+                                <p>
+                                    Submit a new college application.
+                                </p>
 
-                </a>
-
-
-            </div>
-
-        </div>
+                            </a>
 
 
-    <?php elseif ($section === "submit"): ?>
+                            <!-- My Applications -->
+
+                            <a
+                                href="applications.php?section=my"
+                                class="module-option">
+
+                                <h2>
+                                    My Applications
+                                </h2>
+
+                                <p>
+                                    View your submitted applications.
+                                </p>
+
+                            </a>
 
 
-        <!-- =========================
+                        </div>
+
+                    </div>
+
+
+                <?php elseif ($section === "submit"): ?>
+
+
+                    <!-- =========================
              SUBMIT APPLICATION
              ========================= -->
 
-        <div class="page-header">
+                    <div class="page-header">
 
-            <a
-                href="applications.php"
-                class="back-link"
-            >
-                ← Back to Applications
-            </a>
+                        <a
+                            href="applications.php"
+                            class="back-link">
+                            ← Back to Applications
+                        </a>
 
-            <h1 class="page-title">
-                Submit Application
-            </h1>
+                        <h1 class="page-title">
+                            Submit Application
+                        </h1>
 
-        </div>
-
-
-        <div class="section-box">
-
-            <form
-                id="applicationForm"
-                action="../actions/application.php"
-                method="POST"
-                enctype="multipart/form-data"
-            >
+                    </div>
 
 
-                <input
-                    type="hidden"
-                    name="submit_application"
-                    value="1"
-                >
+                    <div class="section-box">
+
+                        <form
+                            id="applicationForm"
+                            action="../actions/application.php"
+                            method="POST"
+                            enctype="multipart/form-data">
 
 
-                <!-- Application Type -->
-
-                <div class="form-group">
-
-                    <label for="application_type_id">
-                        Application Type
-                    </label>
-
-                    <select
-                        id="application_type_id"
-                        name="application_type_id"
-                        required
-                    >
-
-                        <option value="">
-                            Select Application Type
-                        </option>
-
-                        <?php if (!empty($application_types)): ?>
-
-                            <?php foreach ($application_types as $type): ?>
-
-                                <option
-                                    value="<?= escape($type["application_type_id"]) ?>"
-                                >
-                                    <?= escape($type["type_name"]) ?>
-                                </option>
-
-                            <?php endforeach; ?>
-
-                        <?php endif; ?>
-
-                    </select>
-
-                </div>
+                            <input
+                                type="hidden"
+                                name="submit_application"
+                                value="1">
 
 
-                <!-- Subject -->
+                            <!-- Application Type -->
 
-                <div class="form-group">
+                            <div class="form-group">
 
-                    <label for="subject">
-                        Subject
-                    </label>
+                                <label for="application_type_id">
+                                    Application Type
+                                </label>
 
-                    <input
-                        type="text"
-                        id="subject"
-                        name="subject"
-                        maxlength="200"
-                        required
-                    >
+                                <select
+                                    id="application_type_id"
+                                    name="application_type_id"
+                                    required>
 
-                </div>
+                                    <option value="">
+                                        Select Application Type
+                                    </option>
 
+                                    <?php if (!empty($application_types)): ?>
 
-                <!-- Description -->
+                                        <?php foreach ($application_types as $type): ?>
 
-                <div class="form-group">
+                                            <option
+                                                value="<?= escape($type["application_type_id"]) ?>">
+                                                <?= escape($type["type_name"]) ?>
+                                            </option>
 
-                    <label for="description">
-                        Description / Reason
-                    </label>
+                                        <?php endforeach; ?>
 
-                    <textarea
-                        id="description"
-                        name="description"
-                        required
-                    ></textarea>
+                                    <?php endif; ?>
 
-                </div>
+                                </select>
 
-
-                <!-- Attachment -->
-
-                <div class="form-group">
-
-                    <label for="attachment">
-                        Supporting Document
-                    </label>
-
-                    <input
-                        type="file"
-                        id="attachment"
-                        name="attachment"
-                        accept=".jpg,.jpeg,.png,.pdf"
-                        onchange="validateFile(this)"
-                    >
-
-                    <small>
-                        Optional. JPG, PNG or PDF.
-                        Maximum 5 MB.
-                    </small>
-
-                </div>
+                            </div>
 
 
-                <!-- Declaration -->
+                            <!-- Subject -->
 
-                <div class="declaration">
+                            <div class="form-group">
 
-                    <input
-                        type="checkbox"
-                        id="declaration"
-                        name="declaration"
-                        value="1"
-                        required
-                    >
+                                <label for="subject">
+                                    Subject
+                                </label>
 
-                    <label for="declaration">
+                                <input
+                                    type="text"
+                                    id="subject"
+                                    name="subject"
+                                    maxlength="200"
+                                    required>
 
-                        I confirm that the information
-                        provided is correct.
-
-                    </label>
-
-                </div>
+                            </div>
 
 
-                <!-- Buttons -->
+                            <!-- Description -->
 
-                <div class="button-group">
+                            <div class="form-group">
 
-                    <button
-                        type="button"
-                        class="button primary-button"
-                        onclick="
+                                <label for="description">
+                                    Description / Reason
+                                </label>
+
+                                <textarea
+                                    id="description"
+                                    name="description"
+                                    required></textarea>
+
+                            </div>
+
+
+                            <!-- Attachment -->
+
+                            <div class="form-group">
+
+                                <label for="attachment">
+                                    Supporting Document
+                                </label>
+
+                                <input
+                                    type="file"
+                                    id="attachment"
+                                    name="attachment"
+                                    accept=".jpg,.jpeg,.png,.pdf"
+                                    onchange="validateFile(this)">
+
+                                <small>
+                                    Optional. JPG, PNG or PDF.
+                                    Maximum 5 MB.
+                                </small>
+
+                            </div>
+
+
+                            <!-- Declaration -->
+
+                            <div class="declaration">
+
+                                <input
+                                    type="checkbox"
+                                    id="declaration"
+                                    name="declaration"
+                                    value="1"
+                                    required>
+
+                                <label for="declaration">
+
+                                    I confirm that the information
+                                    provided is correct.
+
+                                </label>
+
+                            </div>
+
+
+                            <!-- Buttons -->
+
+                            <div class="button-group">
+
+                                <button
+                                    type="button"
+                                    class="button primary-button"
+                                    onclick="
                             showApplicationConfirmationPopup()
-                        "
-                    >
-                        Submit Application
-                    </button>
+                        ">
+                                    Submit Application
+                                </button>
 
 
-                    <a
-                        href="applications.php"
-                        class="button secondary-button"
-                    >
-                        Cancel
-                    </a>
+                                <a
+                                    href="applications.php"
+                                    class="button secondary-button">
+                                    Cancel
+                                </a>
 
-                </div>
+                            </div>
 
-            </form>
+                        </form>
 
-        </div>
-
-
-        <!-- Confirmation Modal -->
-
-        <div
-            id="applicationConfirmationModal"
-            class="modal"
-        >
-
-            <div class="modal-content">
-
-                <h2>
-                    Confirm Submission
-                </h2>
-
-                <p>
-                    Are you sure you want to submit
-                    this application?
-                </p>
+                    </div>
 
 
-                <div class="modal-buttons">
+                    <!-- Confirmation Modal -->
 
-                    <button
-                        type="button"
-                        class="button primary-button"
-                        onclick="
+                    <div
+                        id="applicationConfirmationModal"
+                        class="modal">
+
+                        <div class="modal-content">
+
+                            <h2>
+                                Confirm Submission
+                            </h2>
+
+                            <p>
+                                Are you sure you want to submit
+                                this application?
+                            </p>
+
+
+                            <div class="modal-buttons">
+
+                                <button
+                                    type="button"
+                                    class="button primary-button"
+                                    onclick="
                             submitApplication()
-                        "
-                    >
-                        Confirm
-                    </button>
+                        ">
+                                    Confirm
+                                </button>
 
 
-                    <button
-                        type="button"
-                        class="button secondary-button"
-                        onclick="
+                                <button
+                                    type="button"
+                                    class="button secondary-button"
+                                    onclick="
                             closeApplicationConfirmationPopup()
-                        "
-                    >
-                        Cancel
-                    </button>
+                        ">
+                                    Cancel
+                                </button>
 
-                </div>
+                            </div>
 
-            </div>
+                        </div>
 
-        </div>
-
-
-    <?php elseif ($section === "my"): ?>
+                    </div>
 
 
-        <!-- =========================
+                <?php elseif ($section === "my"): ?>
+
+
+                    <!-- =========================
              MY APPLICATIONS
              ========================= -->
 
-        <div class="page-header">
+                    <div class="page-header">
 
-            <a
-                href="applications.php"
-                class="back-link"
-            >
-                ← Back to Applications
-            </a>
+                        <a
+                            href="applications.php"
+                            class="back-link">
+                            ← Back to Applications
+                        </a>
 
-            <h1 class="page-title">
-                My Applications
-            </h1>
+                        <h1 class="page-title">
+                            My Applications
+                        </h1>
 
-        </div>
-
-
-        <div class="section-box">
-
-            <?php
-            if (
-                $applications &&
-                pg_num_rows($applications) > 0
-            ):
-            ?>
+                    </div>
 
 
-                <div class="table-container">
+                    <div class="section-box">
 
-                    <table class="data-table">
+                        <?php
+                        if (
+                            $applications &&
+                            pg_num_rows($applications) > 0
+                        ):
+                        ?>
 
-                        <thead>
 
-                            <tr>
+                            <div class="table-container">
 
-                                <th>
+                                <table class="data-table">
+
+                                    <thead>
+
+                                        <tr>
+
+                                            <th>
+                                                Application ID
+                                            </th>
+
+                                            <th>
+                                                Application Type
+                                            </th>
+
+                                            <th>
+                                                Subject
+                                            </th>
+
+                                            <th>
+                                                Status
+                                            </th>
+
+                                            <th>
+                                                Submission Date
+                                            </th>
+
+                                            <th>
+                                                Action
+                                            </th>
+
+                                        </tr>
+
+                                    </thead>
+
+
+                                    <tbody>
+
+
+                                        <?php
+                                        while (
+                                            $row =
+                                            pg_fetch_assoc(
+                                                $applications
+                                            )
+                                        ):
+                                        ?>
+
+                                            <tr>
+
+                                                <td>
+
+                                                    <?php
+                                                    echo escape(
+                                                        formatApplicationId(
+                                                            $row["application_id"]
+                                                        )
+                                                    );
+                                                    ?>
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    <?php
+                                                    echo escape(
+                                                        $row["type_name"]
+                                                    );
+                                                    ?>
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    <?php
+                                                    echo escape(
+                                                        $row["subject"]
+                                                    );
+                                                    ?>
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    <span class="status">
+
+                                                        <?php
+                                                        echo escape(
+                                                            $row["status_name"]
+                                                        );
+                                                        ?>
+
+                                                    </span>
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    <?php
+                                                    echo escape(
+                                                        formatDateTime(
+                                                            $row["submission_date"]
+                                                        )
+                                                    );
+                                                    ?>
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    <div
+                                                        class="action-buttons">
+
+
+                                                        <!-- View -->
+
+                                                        <a
+                                                            href="
+                                                applications.php?section=view&id=<?php
+                                                                                    echo escape(
+                                                                                        $row["application_id"]
+                                                                                    );
+                                                                                    ?>"
+                                                            class="view-button">
+                                                            View
+                                                        </a>
+
+
+                                                        <!-- Delete -->
+
+                                                        <?php
+                                                        if (
+                                                            $row["status_name"] === "New"
+                                                        ):
+                                                        ?>
+
+                                                            <form
+                                                                action="../actions/application.php"
+                                                                method="POST"
+                                                                onsubmit="
+                                                        return confirmApplicationDelete();
+                                                    ">
+
+                                                                <input
+                                                                    type="hidden"
+                                                                    name="delete_application"
+                                                                    value="1">
+
+                                                                <input
+                                                                    type="hidden"
+                                                                    name="application_id"
+                                                                    value="<?php
+                                                                            echo escape(
+                                                                                $row["application_id"]
+                                                                            );
+                                                                            ?>">
+
+                                                                <button
+                                                                    type="submit"
+                                                                    class="delete-button">
+                                                                    Delete
+                                                                </button>
+
+                                                            </form>
+
+                                                        <?php else: ?>
+
+                                                            <button
+                                                                type="button"
+                                                                class="delete-button"
+                                                                onclick="
+                                                        showApplicationDeleteNotPossible(
+                                                            '<?php
+                                                                echo escape(
+                                                                    $row["status_name"]
+                                                                );
+                                                                ?>'
+                                                        )
+                                                    ">
+                                                                Delete
+                                                            </button>
+
+                                                        <?php endif; ?>
+
+
+                                                    </div>
+
+                                                </td>
+
+                                            </tr>
+
+
+                                        <?php endwhile; ?>
+
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+
+                        <?php else: ?>
+
+
+                            <div class="no-data">
+
+                                No applications found.
+
+                            </div>
+
+
+                        <?php endif; ?>
+
+                    </div>
+
+
+                <?php elseif ($section === "view"): ?>
+
+
+                    <!-- =========================
+             VIEW APPLICATION
+             ========================= -->
+
+                    <div class="page-header">
+
+                        <a
+                            href="applications.php?section=my"
+                            class="back-link">
+                            ← Back to My Applications
+                        </a>
+
+                        <h1 class="page-title">
+                            View Application
+                        </h1>
+
+                    </div>
+
+
+                    <div class="section-box">
+
+                        <div class="details">
+
+
+                            <!-- Application ID -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-label">
                                     Application ID
-                                </th>
+                                </div>
 
-                                <th>
+                                <div class="detail-value">
+
+                                    <?php
+                                    echo escape(
+                                        formatApplicationId(
+                                            $application["application_id"]
+                                        )
+                                    );
+                                    ?>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Application Type -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-label">
                                     Application Type
-                                </th>
+                                </div>
 
-                                <th>
+                                <div class="detail-value">
+
+                                    <?php
+                                    echo escape(
+                                        $application["type_name"]
+                                    );
+                                    ?>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Subject -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-label">
                                     Subject
-                                </th>
+                                </div>
 
-                                <th>
+                                <div class="detail-value">
+
+                                    <?php
+                                    echo escape(
+                                        $application["subject"]
+                                    );
+                                    ?>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Description -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-label">
+                                    Description / Reason
+                                </div>
+
+                                <div class="detail-value">
+
+                                    <?php
+                                    echo nl2br(
+                                        escape(
+                                            $application["description"]
+                                        )
+                                    );
+                                    ?>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Status -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-label">
                                     Status
-                                </th>
+                                </div>
 
-                                <th>
+                                <div class="detail-value">
+
+                                    <span class="status">
+
+                                        <?php
+                                        echo escape(
+                                            $application["status_name"]
+                                        );
+                                        ?>
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Submission Date -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-label">
                                     Submission Date
-                                </th>
+                                </div>
 
-                                <th>
-                                    Action
-                                </th>
+                                <div class="detail-value">
 
-                            </tr>
+                                    <?php
+                                    echo escape(
+                                        formatDateTime(
+                                            $application["submission_date"]
+                                        )
+                                    );
+                                    ?>
 
-                        </thead>
+                                </div>
+
+                            </div>
 
 
-                        <tbody>
-
+                            <!-- Review Date -->
 
                             <?php
-                            while (
-                                $row =
-                                pg_fetch_assoc(
-                                    $applications
-                                )
+                            if (
+                                !empty($application["review_date"])
                             ):
                             ?>
 
-                                <tr>
+                                <div class="detail-row">
 
-                                    <td>
+                                    <div class="detail-label">
+                                        Review Date
+                                    </div>
 
-                                        <?php
-                                        echo escape(
-                                            formatApplicationId(
-                                                $row[
-                                                    "application_id"
-                                                ]
-                                            )
-                                        );
-                                        ?>
-
-                                    </td>
-
-
-                                    <td>
-
-                                        <?php
-                                        echo escape(
-                                            $row[
-                                                "type_name"
-                                            ]
-                                        );
-                                        ?>
-
-                                    </td>
-
-
-                                    <td>
-
-                                        <?php
-                                        echo escape(
-                                            $row[
-                                                "subject"
-                                            ]
-                                        );
-                                        ?>
-
-                                    </td>
-
-
-                                    <td>
-
-                                        <span class="status">
-
-                                            <?php
-                                            echo escape(
-                                                $row[
-                                                    "status_name"
-                                                ]
-                                            );
-                                            ?>
-
-                                        </span>
-
-                                    </td>
-
-
-                                    <td>
+                                    <div class="detail-value">
 
                                         <?php
                                         echo escape(
                                             formatDateTime(
-                                                $row[
-                                                    "submission_date"
-                                                ]
+                                                $application["review_date"]
                                             )
                                         );
                                         ?>
 
-                                    </td>
+                                    </div>
 
+                                </div>
 
-                                    <td>
+                            <?php endif; ?>
 
-                                        <div
-                                            class="action-buttons"
-                                        >
 
-
-                                            <!-- View -->
-
-                                            <a
-                                                href="
-                                                applications.php?section=view&id=<?php
-                                                echo escape(
-                                                    $row[
-                                                        "application_id"
-                                                    ]
-                                                );
-                                                ?>"
-                                                class="view-button"
-                                            >
-                                                View
-                                            </a>
-
-
-                                            <!-- Delete -->
-
-                                            <?php
-                                            if (
-                                                $row[
-                                                    "status_name"
-                                                ] === "New"
-                                            ):
-                                            ?>
-
-                                                <form
-                                                    action="../actions/application.php"
-                                                    method="POST"
-                                                    onsubmit="
-                                                        return confirmApplicationDelete();
-                                                    "
-                                                >
-
-                                                    <input
-                                                        type="hidden"
-                                                        name="delete_application"
-                                                        value="1"
-                                                    >
-
-                                                    <input
-                                                        type="hidden"
-                                                        name="application_id"
-                                                        value="<?php
-                                                        echo escape(
-                                                            $row[
-                                                                "application_id"
-                                                            ]
-                                                        );
-                                                        ?>"
-                                                    >
-
-                                                    <button
-                                                        type="submit"
-                                                        class="delete-button"
-                                                    >
-                                                        Delete
-                                                    </button>
-
-                                                </form>
-
-                                            <?php else: ?>
-
-                                                <button
-                                                    type="button"
-                                                    class="delete-button"
-                                                    onclick="
-                                                        showApplicationDeleteNotPossible(
-                                                            '<?php
-                                                            echo escape(
-                                                                $row[
-                                                                    "status_name"
-                                                                ]
-                                                            );
-                                                            ?>'
-                                                        )
-                                                    "
-                                                >
-                                                    Delete
-                                                </button>
-
-                                            <?php endif; ?>
-
-
-                                        </div>
-
-                                    </td>
-
-                                </tr>
-
-
-                            <?php endwhile; ?>
-
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-
-            <?php else: ?>
-
-
-                <div class="no-data">
-
-                    No applications found.
-
-                </div>
-
-
-            <?php endif; ?>
-
-        </div>
-
-
-    <?php elseif ($section === "view"): ?>
-
-
-        <!-- =========================
-             VIEW APPLICATION
-             ========================= -->
-
-        <div class="page-header">
-
-            <a
-                href="applications.php?section=my"
-                class="back-link"
-            >
-                ← Back to My Applications
-            </a>
-
-            <h1 class="page-title">
-                View Application
-            </h1>
-
-        </div>
-
-
-        <div class="section-box">
-
-            <div class="details">
-
-
-                <!-- Application ID -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Application ID
-                    </div>
-
-                    <div class="detail-value">
-
-                        <?php
-                        echo escape(
-                            formatApplicationId(
-                                $application[
-                                    "application_id"
-                                ]
-                            )
-                        );
-                        ?>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Application Type -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Application Type
-                    </div>
-
-                    <div class="detail-value">
-
-                        <?php
-                        echo escape(
-                            $application[
-                                "type_name"
-                            ]
-                        );
-                        ?>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Subject -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Subject
-                    </div>
-
-                    <div class="detail-value">
-
-                        <?php
-                        echo escape(
-                            $application[
-                                "subject"
-                            ]
-                        );
-                        ?>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Description -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Description / Reason
-                    </div>
-
-                    <div class="detail-value">
-
-                        <?php
-                        echo nl2br(
-                            escape(
-                                $application[
-                                    "description"
-                                ]
-                            )
-                        );
-                        ?>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Status -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Status
-                    </div>
-
-                    <div class="detail-value">
-
-                        <span class="status">
+                            <!-- Remarks -->
 
                             <?php
-                            echo escape(
-                                $application[
-                                    "status_name"
-                                ]
-                            );
+                            if (
+                                !empty($application["remarks"])
+                            ):
                             ?>
 
-                        </span>
+                                <div class="detail-row">
 
-                    </div>
+                                    <div class="detail-label">
+                                        Remarks
+                                    </div>
 
-                </div>
+                                    <div class="detail-value">
 
+                                        <?php
+                                        echo nl2br(
+                                            escape(
+                                                $application["remarks"]
+                                            )
+                                        );
+                                        ?>
 
-                <!-- Submission Date -->
+                                    </div>
 
-                <div class="detail-row">
+                                </div>
 
-                    <div class="detail-label">
-                        Submission Date
-                    </div>
+                            <?php endif; ?>
 
-                    <div class="detail-value">
-
-                        <?php
-                        echo escape(
-                            formatDateTime(
-                                $application[
-                                    "submission_date"
-                                ]
-                            )
-                        );
-                        ?>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Review Date -->
-
-                <?php
-                if (
-                    !empty(
-                        $application[
-                            "review_date"
-                        ]
-                    )
-                ):
-                ?>
-
-                    <div class="detail-row">
-
-                        <div class="detail-label">
-                            Review Date
-                        </div>
-
-                        <div class="detail-value">
-
-                            <?php
-                            echo escape(
-                                formatDateTime(
-                                    $application[
-                                        "review_date"
-                                    ]
-                                )
-                            );
-                            ?>
 
                         </div>
 
-                    </div>
 
-                <?php endif; ?>
+                        <!-- Attachment -->
+
+                        <?php if ($attachment): ?>
+
+                            <div class="attachment-box">
+
+                                <strong>
+                                    Supporting Document
+                                </strong>
+
+                                <p>
+
+                                    <?php
+                                    echo escape(
+                                        $attachment["file_name"]
+                                    );
+                                    ?>
+
+                                </p>
 
 
-                <!-- Remarks -->
+                                <a
+                                    href="view-attachment.php?attachment_id=<?php echo escape($attachment["attachment_id"]); ?>"
+                                    class="button secondary-button">
+                                    View Attachment
+                                </a>
 
-                <?php
-                if (
-                    !empty(
-                        $application[
-                            "remarks"
-                        ]
-                    )
-                ):
-                ?>
+                            </div>
 
-                    <div class="detail-row">
+                        <?php endif; ?>
 
-                        <div class="detail-label">
-                            Remarks
-                        </div>
-
-                        <div class="detail-value">
-
-                            <?php
-                            echo nl2br(
-                                escape(
-                                    $application[
-                                        "remarks"
-                                    ]
-                                )
-                            );
-                            ?>
-
-                        </div>
 
                     </div>
 
-                <?php endif; ?>
+
+                <?php elseif ($section === "success"): ?>
 
 
-            </div>
-
-
-            <!-- Attachment -->
-
-            <?php if ($attachment): ?>
-
-                <div class="attachment-box">
-
-                    <strong>
-                        Supporting Document
-                    </strong>
-
-                    <p>
-
-                        <?php
-                        echo escape(
-                            $attachment[
-                                "file_name"
-                            ]
-                        );
-                        ?>
-
-                    </p>
-
-
-                    <a
-                        href="view-attachment.php?attachment_id=<?php echo escape($attachment["attachment_id"]); ?>"
-                        class="button secondary-button"
-                    >
-                        View Attachment
-                    </a>
-
-                </div>
-
-            <?php endif; ?>
-
-
-        </div>
-
-
-    <?php elseif ($section === "success"): ?>
-
-
-        <!-- =========================
+                    <!-- =========================
              SUCCESS
              ========================= -->
 
-        <div class="success-page">
+                    <div class="success-page">
 
-            <div class="success-card">
-
-
-                <a
-                    href="applications.php?section=my"
-                    class="back-link"
-                >
-                    ← Back to My Applications
-                </a>
+                        <div class="success-card">
 
 
-                <div class="success-icon">
-                    ✓
-                </div>
+                            <a
+                                href="applications.php?section=my"
+                                class="back-link">
+                                ← Back to My Applications
+                            </a>
 
 
-                <h1>
-                    Application Submitted!
-                </h1>
+                            <div class="success-icon">
+                                ✓
+                            </div>
 
 
-                <p class="success-text">
-
-                    Your application has been
-                    submitted successfully.
-
-                </p>
+                            <h1>
+                                Application Submitted!
+                            </h1>
 
 
-                <div class="reference-id-box">
+                            <p class="success-text">
 
-                    <span>
-                        Application ID
-                    </span>
+                                Your application has been
+                                submitted successfully.
 
-                    <strong>
-
-                        <?php
-                        echo escape(
-                            formatApplicationId(
-                                $application[
-                                    "application_id"
-                                ]
-                            )
-                        );
-                        ?>
-
-                    </strong>
-
-                </div>
+                            </p>
 
 
-                <div
-                    class="button-group success-buttons"
-                >
+                            <div class="reference-id-box">
 
-                    <a
-                        href="
+                                <span>
+                                    Application ID
+                                </span>
+
+                                <strong>
+
+                                    <?php
+                                    echo escape(
+                                        formatApplicationId(
+                                            $application["application_id"]
+                                        )
+                                    );
+                                    ?>
+
+                                </strong>
+
+                            </div>
+
+
+                            <div
+                                class="button-group success-buttons">
+
+                                <a
+                                    href="
                         applications.php?section=view&id=<?php
-                        echo escape(
-                            $application_id
-                        );
-                        ?>"
-                        class="button primary-button"
-                    >
-                        View Application
-                    </a>
+                                                            echo escape(
+                                                                $application_id
+                                                            );
+                                                            ?>"
+                                    class="button primary-button">
+                                    View Application
+                                </a>
 
 
-                    <a
-                        href="applications.php?section=my"
-                        class="button secondary-button"
-                    >
-                        My Applications
-                    </a>
+                                <a
+                                    href="applications.php?section=my"
+                                    class="button secondary-button">
+                                    My Applications
+                                </a>
 
-                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                <?php endif; ?>
 
 
             </div>
 
-        </div>
 
-    <?php endif; ?>
-
-
-</div>
-
-
-<!-- =========================
+            <!-- =========================
      DELETE NOT POSSIBLE MODAL
      ========================= -->
 
-<div
-    id="applicationDeleteNotPossibleModal"
-    class="modal"
->
+            <div
+                id="applicationDeleteNotPossibleModal"
+                class="modal">
 
-    <div class="modal-content">
+                <div class="modal-content">
 
-        <h2>
-            Delete Not Possible
-        </h2>
+                    <h2>
+                        Delete Not Possible
+                    </h2>
 
-        <p
-            id="applicationDeleteNotPossibleMessage"
-        ></p>
+                    <p
+                        id="applicationDeleteNotPossibleMessage"></p>
 
-        <div class="modal-buttons">
+                    <div class="modal-buttons">
 
-            <button
-                type="button"
-                class="button secondary-button"
-                onclick="
+                        <button
+                            type="button"
+                            class="button secondary-button"
+                            onclick="
                     closeApplicationDeleteNotPossible()
-                "
-            >
-                Close
-            </button>
+                ">
+                            Close
+                        </button>
 
-        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
 
     </div>
 
-</div>
+
+    <!-- =====================================================
+         COMMON FOOTER
+         ===================================================== -->
+
+    <?php include "../includes/footer.php"; ?>
 
 
-<script src="../js/script-student-services.js"></script>
+    <script src="../js/script-student-services.js"></script>
 
 </body>
 

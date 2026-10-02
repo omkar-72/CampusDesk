@@ -177,1029 +177,1007 @@ if ($section === "raise") {
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+        content="width=device-width, initial-scale=1.0">
 
     <title>
         Suggestions - CampusDesk
     </title>
 
+    <!-- Common CampusDesk styles -->
     <link
         rel="stylesheet"
-        href="../css/style-student-services.css"
-    >
+        href="../css/global.css">
+
+    <link
+        rel="stylesheet"
+        href="../css/header.css">
+
+    <link
+        rel="stylesheet"
+        href="../css/navbar.css">
+
+    <link
+        rel="stylesheet"
+        href="../css/style-student-services.css">
+
+    <!-- Font Awesome icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
 <body>
 
+    <!-- =====================================================
+         COMMON NAVBAR
+         ===================================================== -->
 
-<div class="page-container">
+    <?php include "../includes/navbar.php"; ?>
 
 
-    <?php if ($section === "home"): ?>
+    <!-- =====================================================
+         COMMON HEADER
+         ===================================================== -->
+
+    <?php include "../includes/header.php"; ?>
 
 
-        <!-- =========================
+    <!-- =====================================================
+         STUDENT PAGE LAYOUT
+         ===================================================== -->
+
+    <div class="dashboard-layout">
+
+        <main class="dashboard-content">
+
+
+
+            <div class="page-container">
+
+
+                <?php if ($section === "home"): ?>
+
+
+                    <!-- =========================
              HOME
              ========================= -->
 
-        <div class="page-header">
+                    <div class="page-header">
 
-            <a
-                href="dashboard.php"
-                class="back-link"
-            >
-                ← Back to Dashboard
-            </a>
+                        <a
+                            href="dashboard.php"
+                            class="back-link">
+                            ← Back to Dashboard
+                        </a>
 
-            <h1 class="page-title">
-                Suggestions
-            </h1>
+                        <h1 class="page-title">
+                            Suggestions
+                        </h1>
 
-            <p>
-                Submit and manage your suggestions.
-            </p>
+                        <p>
+                            Submit and manage your suggestions.
+                        </p>
 
-        </div>
-
-
-        <div class="section-box">
-
-            <div class="module-options">
+                    </div>
 
 
-                <a
-                    href="suggestions.php?section=raise"
-                    class="module-option"
-                >
+                    <div class="section-box">
 
-                    <h2>
-                        Submit Suggestion
-                    </h2>
-
-                    <p>
-                        Submit a new suggestion to the college.
-                    </p>
-
-                </a>
+                        <div class="module-options">
 
 
-                <a
-                    href="suggestions.php?section=my"
-                    class="module-option"
-                >
+                            <a
+                                href="suggestions.php?section=raise"
+                                class="module-option">
 
-                    <h2>
-                        My Suggestions
-                    </h2>
+                                <h2>
+                                    Submit Suggestion
+                                </h2>
 
-                    <p>
-                        View your submitted suggestions.
-                    </p>
+                                <p>
+                                    Submit a new suggestion to the college.
+                                </p>
 
-                </a>
-
-
-            </div>
-
-        </div>
+                            </a>
 
 
-    <?php elseif ($section === "raise"): ?>
+                            <a
+                                href="suggestions.php?section=my"
+                                class="module-option">
+
+                                <h2>
+                                    My Suggestions
+                                </h2>
+
+                                <p>
+                                    View your submitted suggestions.
+                                </p>
+
+                            </a>
 
 
-        <!-- =========================
+                        </div>
+
+                    </div>
+
+
+                <?php elseif ($section === "raise"): ?>
+
+
+                    <!-- =========================
              RAISE SUGGESTION
              ========================= -->
 
-        <div class="page-header">
+                    <div class="page-header">
 
-            <a
-                href="suggestions.php"
-                class="back-link"
-            >
-                ← Back to Suggestions
-            </a>
+                        <a
+                            href="suggestions.php"
+                            class="back-link">
+                            ← Back to Suggestions
+                        </a>
 
-            <h1 class="page-title">
-                Submit Suggestion
-            </h1>
+                        <h1 class="page-title">
+                            Submit Suggestion
+                        </h1>
 
-        </div>
-
-
-        <div class="section-box">
-
-            <form
-                id="suggestionForm"
-                action="../actions/suggestion.php"
-                method="POST"
-                enctype="multipart/form-data"
-            >
-
-                <input
-                    type="hidden"
-                    name="submit_suggestion"
-                    value="1"
-                >
+                    </div>
 
 
-                <!-- Title -->
+                    <div class="section-box">
 
-                <div class="form-group">
+                        <form
+                            id="suggestionForm"
+                            action="../actions/suggestion.php"
+                            method="POST"
+                            enctype="multipart/form-data">
 
-                    <label for="title">
-                        Title
-                    </label>
-
-                    <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        maxlength="200"
-                        required
-                    >
-
-                </div>
+                            <input
+                                type="hidden"
+                                name="submit_suggestion"
+                                value="1">
 
 
-                <!-- Category -->
+                            <!-- Title -->
 
-                <div class="form-group">
+                            <div class="form-group">
 
-                    <label for="category_id">
-                        Category
-                    </label>
+                                <label for="title">
+                                    Title
+                                </label>
 
-                    <select
-                        id="category_id"
-                        name="category_id"
-                        required
-                    >
+                                <input
+                                    type="text"
+                                    id="title"
+                                    name="title"
+                                    maxlength="200"
+                                    required>
 
-                        <option value="">
-                            Select Category
-                        </option>
-
-                        <?php if (!empty($categories)): ?>
-
-                            <?php foreach ($categories as $category): ?>
-
-                                <option
-                                    value="<?= escape($category["category_id"]) ?>"
-                                >
-                                    <?= escape($category["category_name"]) ?>
-                                </option>
-
-                            <?php endforeach; ?>
-
-                        <?php endif; ?>
-
-                    </select>
-
-                </div>
+                            </div>
 
 
-                <!-- Description -->
+                            <!-- Category -->
 
-                <div class="form-group">
+                            <div class="form-group">
 
-                    <label for="description">
-                        Description
-                    </label>
+                                <label for="category_id">
+                                    Category
+                                </label>
 
-                    <textarea
-                        id="description"
-                        name="description"
-                        required
-                    ></textarea>
+                                <select
+                                    id="category_id"
+                                    name="category_id"
+                                    required>
 
-                </div>
+                                    <option value="">
+                                        Select Category
+                                    </option>
 
+                                    <?php if (!empty($categories)): ?>
 
-                <!-- Attachment -->
+                                        <?php foreach ($categories as $category): ?>
 
-                <div class="form-group">
+                                            <option
+                                                value="<?= escape($category["category_id"]) ?>">
+                                                <?= escape($category["category_name"]) ?>
+                                            </option>
 
-                    <label for="attachment">
-                        Supporting Document
-                    </label>
+                                        <?php endforeach; ?>
 
-                    <input
-                        type="file"
-                        id="attachment"
-                        name="attachment"
-                        accept=".jpg,.jpeg,.png,.pdf"
-                        onchange="validateFile(this)"
-                    >
+                                    <?php endif; ?>
 
-                    <small>
-                        Optional. JPG, PNG or PDF.
-                        Maximum 5 MB.
-                    </small>
+                                </select>
 
-                </div>
+                            </div>
 
 
-                <!-- Declaration -->
+                            <!-- Description -->
 
-                <div class="declaration">
+                            <div class="form-group">
 
-                    <input
-                        type="checkbox"
-                        id="declaration"
-                        name="declaration"
-                        value="1"
-                        required
-                    >
+                                <label for="description">
+                                    Description
+                                </label>
 
-                    <label for="declaration">
+                                <textarea
+                                    id="description"
+                                    name="description"
+                                    required></textarea>
 
-                        I confirm that the information
-                        provided is correct.
-
-                    </label>
-
-                </div>
+                            </div>
 
 
-                <!-- Buttons -->
+                            <!-- Attachment -->
 
-                <div class="button-group">
+                            <div class="form-group">
 
-                    <button
-                        type="button"
-                        class="button primary-button"
-                        onclick="
+                                <label for="attachment">
+                                    Supporting Document
+                                </label>
+
+                                <input
+                                    type="file"
+                                    id="attachment"
+                                    name="attachment"
+                                    accept=".jpg,.jpeg,.png,.pdf"
+                                    onchange="validateFile(this)">
+
+                                <small>
+                                    Optional. JPG, PNG or PDF.
+                                    Maximum 5 MB.
+                                </small>
+
+                            </div>
+
+
+                            <!-- Declaration -->
+
+                            <div class="declaration">
+
+                                <input
+                                    type="checkbox"
+                                    id="declaration"
+                                    name="declaration"
+                                    value="1"
+                                    required>
+
+                                <label for="declaration">
+
+                                    I confirm that the information
+                                    provided is correct.
+
+                                </label>
+
+                            </div>
+
+
+                            <!-- Buttons -->
+
+                            <div class="button-group">
+
+                                <button
+                                    type="button"
+                                    class="button primary-button"
+                                    onclick="
                             showSuggestionConfirmationPopup()
-                        "
-                    >
-                        Submit Suggestion
-                    </button>
+                        ">
+                                    Submit Suggestion
+                                </button>
 
 
-                    <a
-                        href="suggestions.php"
-                        class="button secondary-button"
-                    >
-                        Cancel
-                    </a>
+                                <a
+                                    href="suggestions.php"
+                                    class="button secondary-button">
+                                    Cancel
+                                </a>
 
-                </div>
+                            </div>
 
-            </form>
+                        </form>
 
-        </div>
-
-
-        <!-- Confirmation Modal -->
-
-        <div
-            id="suggestionConfirmationModal"
-            class="modal"
-        >
-
-            <div class="modal-content">
-
-                <h2>
-                    Confirm Submission
-                </h2>
-
-                <p>
-                    Are you sure you want to submit
-                    this suggestion?
-                </p>
+                    </div>
 
 
-                <div class="modal-buttons">
+                    <!-- Confirmation Modal -->
 
-                    <button
-                        type="button"
-                        class="button primary-button"
-                        onclick="submitSuggestion()"
-                    >
-                        Confirm
-                    </button>
+                    <div
+                        id="suggestionConfirmationModal"
+                        class="modal">
+
+                        <div class="modal-content">
+
+                            <h2>
+                                Confirm Submission
+                            </h2>
+
+                            <p>
+                                Are you sure you want to submit
+                                this suggestion?
+                            </p>
 
 
-                    <button
-                        type="button"
-                        class="button secondary-button"
-                        onclick="
+                            <div class="modal-buttons">
+
+                                <button
+                                    type="button"
+                                    class="button primary-button"
+                                    onclick="submitSuggestion()">
+                                    Confirm
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="button secondary-button"
+                                    onclick="
                             closeSuggestionConfirmationPopup()
-                        "
-                    >
-                        Cancel
-                    </button>
+                        ">
+                                    Cancel
+                                </button>
 
-                </div>
+                            </div>
 
-            </div>
+                        </div>
 
-        </div>
-
-
-    <?php elseif ($section === "my"): ?>
+                    </div>
 
 
-        <!-- =========================
+                <?php elseif ($section === "my"): ?>
+
+
+                    <!-- =========================
              MY SUGGESTIONS
              ========================= -->
 
-        <div class="page-header">
+                    <div class="page-header">
 
-            <a
-                href="suggestions.php"
-                class="back-link"
-            >
-                ← Back to Suggestions
-            </a>
+                        <a
+                            href="suggestions.php"
+                            class="back-link">
+                            ← Back to Suggestions
+                        </a>
 
-            <h1 class="page-title">
-                My Suggestions
-            </h1>
+                        <h1 class="page-title">
+                            My Suggestions
+                        </h1>
 
-        </div>
-
-
-        <div class="section-box">
-
-            <?php
-            if (
-                $suggestions &&
-                pg_num_rows($suggestions) > 0
-            ):
-            ?>
+                    </div>
 
 
-                <div class="table-container">
+                    <div class="section-box">
 
-                    <table class="data-table">
+                        <?php
+                        if (
+                            $suggestions &&
+                            pg_num_rows($suggestions) > 0
+                        ):
+                        ?>
 
-                        <thead>
 
-                            <tr>
+                            <div class="table-container">
 
-                                <th>
+                                <table class="data-table">
+
+                                    <thead>
+
+                                        <tr>
+
+                                            <th>
+                                                Suggestion ID
+                                            </th>
+
+                                            <th>
+                                                Title
+                                            </th>
+
+                                            <th>
+                                                Category
+                                            </th>
+
+                                            <th>
+                                                Status
+                                            </th>
+
+                                            <th>
+                                                Submission Date
+                                            </th>
+
+                                            <th>
+                                                Action
+                                            </th>
+
+                                        </tr>
+
+                                    </thead>
+
+
+                                    <tbody>
+
+
+                                        <?php
+                                        while (
+                                            $row =
+                                            pg_fetch_assoc($suggestions)
+                                        ):
+                                        ?>
+
+                                            <tr>
+
+                                                <td>
+
+                                                    <?php
+                                                    echo escape(
+                                                        formatSuggestionId(
+                                                            $row["suggestion_id"]
+                                                        )
+                                                    );
+                                                    ?>
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    <?php
+                                                    echo escape(
+                                                        $row["title"]
+                                                    );
+                                                    ?>
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    <?php
+                                                    echo escape(
+                                                        $row["category_name"]
+                                                    );
+                                                    ?>
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    <span class="status">
+
+                                                        <?php
+                                                        echo escape(
+                                                            $row["status_name"]
+                                                        );
+                                                        ?>
+
+                                                    </span>
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    <?php
+                                                    echo escape(
+                                                        formatDateTime(
+                                                            $row["submission_date"]
+                                                        )
+                                                    );
+                                                    ?>
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    <div
+                                                        class="action-buttons">
+
+
+                                                        <!-- View -->
+
+                                                        <a
+                                                            href="
+                                                suggestions.php?section=view&id=<?php
+                                                                                echo escape(
+                                                                                    $row["suggestion_id"]
+                                                                                );
+                                                                                ?>"
+                                                            class="view-button">
+                                                            View
+                                                        </a>
+
+
+                                                        <!-- Delete -->
+
+                                                        <?php
+                                                        if (
+                                                            $row["status_name"] === "New"
+                                                        ):
+                                                        ?>
+
+                                                            <form
+                                                                action="../actions/suggestion.php"
+                                                                method="POST"
+                                                                onsubmit="
+                                                        return confirmSuggestionDelete();
+                                                    ">
+
+                                                                <input
+                                                                    type="hidden"
+                                                                    name="delete_suggestion"
+                                                                    value="1">
+
+                                                                <input
+                                                                    type="hidden"
+                                                                    name="suggestion_id"
+                                                                    value="<?php
+                                                                            echo escape(
+                                                                                $row["suggestion_id"]
+                                                                            );
+                                                                            ?>">
+
+                                                                <button
+                                                                    type="submit"
+                                                                    class="delete-button">
+                                                                    Delete
+                                                                </button>
+
+                                                            </form>
+
+                                                        <?php else: ?>
+
+                                                            <button
+                                                                type="button"
+                                                                class="delete-button"
+                                                                onclick="
+                                                        showSuggestionDeleteNotPossible(
+                                                            '<?php
+                                                                echo escape(
+                                                                    $row["status_name"]
+                                                                );
+                                                                ?>'
+                                                        )
+                                                    ">
+                                                                Delete
+                                                            </button>
+
+                                                        <?php endif; ?>
+
+
+                                                    </div>
+
+                                                </td>
+
+                                            </tr>
+
+
+                                        <?php endwhile; ?>
+
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+
+                        <?php else: ?>
+
+
+                            <div class="no-data">
+
+                                No suggestions found.
+
+                            </div>
+
+
+                        <?php endif; ?>
+
+                    </div>
+
+
+                <?php elseif ($section === "view"): ?>
+
+
+                    <!-- =========================
+             VIEW SUGGESTION
+             ========================= -->
+
+                    <div class="page-header">
+
+                        <a
+                            href="suggestions.php?section=my"
+                            class="back-link">
+                            ← Back to My Suggestions
+                        </a>
+
+                        <h1 class="page-title">
+                            View Suggestion
+                        </h1>
+
+                    </div>
+
+
+                    <div class="section-box">
+
+                        <div class="details">
+
+
+                            <!-- Suggestion ID -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-label">
                                     Suggestion ID
-                                </th>
+                                </div>
 
-                                <th>
+                                <div class="detail-value">
+
+                                    <?php
+                                    echo escape(
+                                        formatSuggestionId(
+                                            $suggestion["suggestion_id"]
+                                        )
+                                    );
+                                    ?>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Title -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-label">
                                     Title
-                                </th>
+                                </div>
 
-                                <th>
+                                <div class="detail-value">
+
+                                    <?php
+                                    echo escape(
+                                        $suggestion["title"]
+                                    );
+                                    ?>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Category -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-label">
                                     Category
-                                </th>
+                                </div>
 
-                                <th>
+                                <div class="detail-value">
+
+                                    <?php
+                                    echo escape(
+                                        $suggestion["category_name"]
+                                    );
+                                    ?>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Description -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-label">
+                                    Description
+                                </div>
+
+                                <div class="detail-value">
+
+                                    <?php
+                                    echo nl2br(
+                                        escape(
+                                            $suggestion["description"]
+                                        )
+                                    );
+                                    ?>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Status -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-label">
                                     Status
-                                </th>
+                                </div>
 
-                                <th>
+                                <div class="detail-value">
+
+                                    <span class="status">
+
+                                        <?php
+                                        echo escape(
+                                            $suggestion["status_name"]
+                                        );
+                                        ?>
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Submission Date -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-label">
                                     Submission Date
-                                </th>
+                                </div>
 
-                                <th>
-                                    Action
-                                </th>
+                                <div class="detail-value">
 
-                            </tr>
+                                    <?php
+                                    echo escape(
+                                        formatDateTime(
+                                            $suggestion["submission_date"]
+                                        )
+                                    );
+                                    ?>
 
-                        </thead>
+                                </div>
+
+                            </div>
 
 
-                        <tbody>
-
+                            <!-- Decision Date -->
 
                             <?php
-                            while (
-                                $row =
-                                pg_fetch_assoc($suggestions)
+                            if (
+                                !empty($suggestion["decision_date"])
                             ):
                             ?>
 
-                                <tr>
+                                <div class="detail-row">
 
-                                    <td>
+                                    <div class="detail-label">
+                                        Decision Date
+                                    </div>
 
-                                        <?php
-                                        echo escape(
-                                            formatSuggestionId(
-                                                $row[
-                                                    "suggestion_id"
-                                                ]
-                                            )
-                                        );
-                                        ?>
-
-                                    </td>
-
-
-                                    <td>
-
-                                        <?php
-                                        echo escape(
-                                            $row["title"]
-                                        );
-                                        ?>
-
-                                    </td>
-
-
-                                    <td>
-
-                                        <?php
-                                        echo escape(
-                                            $row["category_name"]
-                                        );
-                                        ?>
-
-                                    </td>
-
-
-                                    <td>
-
-                                        <span class="status">
-
-                                            <?php
-                                            echo escape(
-                                                $row["status_name"]
-                                            );
-                                            ?>
-
-                                        </span>
-
-                                    </td>
-
-
-                                    <td>
+                                    <div class="detail-value">
 
                                         <?php
                                         echo escape(
                                             formatDateTime(
-                                                $row[
-                                                    "submission_date"
-                                                ]
+                                                $suggestion["decision_date"]
                                             )
                                         );
                                         ?>
 
-                                    </td>
+                                    </div>
 
+                                </div>
 
-                                    <td>
+                            <?php endif; ?>
 
-                                        <div
-                                            class="action-buttons"
-                                        >
 
-
-                                            <!-- View -->
-
-                                            <a
-                                                href="
-                                                suggestions.php?section=view&id=<?php
-                                                echo escape(
-                                                    $row[
-                                                        "suggestion_id"
-                                                    ]
-                                                );
-                                                ?>"
-                                                class="view-button"
-                                            >
-                                                View
-                                            </a>
-
-
-                                            <!-- Delete -->
-
-                                            <?php
-                                            if (
-                                                $row[
-                                                    "status_name"
-                                                ] === "New"
-                                            ):
-                                            ?>
-
-                                                <form
-                                                    action="../actions/suggestion.php"
-                                                    method="POST"
-                                                    onsubmit="
-                                                        return confirmSuggestionDelete();
-                                                    "
-                                                >
-
-                                                    <input
-                                                        type="hidden"
-                                                        name="delete_suggestion"
-                                                        value="1"
-                                                    >
-
-                                                    <input
-                                                        type="hidden"
-                                                        name="suggestion_id"
-                                                        value="<?php
-                                                        echo escape(
-                                                            $row[
-                                                                "suggestion_id"
-                                                            ]
-                                                        );
-                                                        ?>"
-                                                    >
-
-                                                    <button
-                                                        type="submit"
-                                                        class="delete-button"
-                                                    >
-                                                        Delete
-                                                    </button>
-
-                                                </form>
-
-                                            <?php else: ?>
-
-                                                <button
-                                                    type="button"
-                                                    class="delete-button"
-                                                    onclick="
-                                                        showSuggestionDeleteNotPossible(
-                                                            '<?php
-                                                            echo escape(
-                                                                $row[
-                                                                    "status_name"
-                                                                ]
-                                                            );
-                                                            ?>'
-                                                        )
-                                                    "
-                                                >
-                                                    Delete
-                                                </button>
-
-                                            <?php endif; ?>
-
-
-                                        </div>
-
-                                    </td>
-
-                                </tr>
-
-
-                            <?php endwhile; ?>
-
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-
-            <?php else: ?>
-
-
-                <div class="no-data">
-
-                    No suggestions found.
-
-                </div>
-
-
-            <?php endif; ?>
-
-        </div>
-
-
-    <?php elseif ($section === "view"): ?>
-
-
-        <!-- =========================
-             VIEW SUGGESTION
-             ========================= -->
-
-        <div class="page-header">
-
-            <a
-                href="suggestions.php?section=my"
-                class="back-link"
-            >
-                ← Back to My Suggestions
-            </a>
-
-            <h1 class="page-title">
-                View Suggestion
-            </h1>
-
-        </div>
-
-
-        <div class="section-box">
-
-            <div class="details">
-
-
-                <!-- Suggestion ID -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Suggestion ID
-                    </div>
-
-                    <div class="detail-value">
-
-                        <?php
-                        echo escape(
-                            formatSuggestionId(
-                                $suggestion[
-                                    "suggestion_id"
-                                ]
-                            )
-                        );
-                        ?>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Title -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Title
-                    </div>
-
-                    <div class="detail-value">
-
-                        <?php
-                        echo escape(
-                            $suggestion["title"]
-                        );
-                        ?>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Category -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Category
-                    </div>
-
-                    <div class="detail-value">
-
-                        <?php
-                        echo escape(
-                            $suggestion[
-                                "category_name"
-                            ]
-                        );
-                        ?>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Description -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Description
-                    </div>
-
-                    <div class="detail-value">
-
-                        <?php
-                        echo nl2br(
-                            escape(
-                                $suggestion[
-                                    "description"
-                                ]
-                            )
-                        );
-                        ?>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Status -->
-
-                <div class="detail-row">
-
-                    <div class="detail-label">
-                        Status
-                    </div>
-
-                    <div class="detail-value">
-
-                        <span class="status">
+                            <!-- Remarks -->
 
                             <?php
-                            echo escape(
-                                $suggestion[
-                                    "status_name"
-                                ]
-                            );
+                            if (
+                                !empty($suggestion["remarks"])
+                            ):
                             ?>
 
-                        </span>
+                                <div class="detail-row">
 
-                    </div>
+                                    <div class="detail-label">
+                                        Remarks
+                                    </div>
 
-                </div>
+                                    <div class="detail-value">
 
+                                        <?php
+                                        echo nl2br(
+                                            escape(
+                                                $suggestion["remarks"]
+                                            )
+                                        );
+                                        ?>
 
-                <!-- Submission Date -->
+                                    </div>
 
-                <div class="detail-row">
+                                </div>
 
-                    <div class="detail-label">
-                        Submission Date
-                    </div>
+                            <?php endif; ?>
 
-                    <div class="detail-value">
-
-                        <?php
-                        echo escape(
-                            formatDateTime(
-                                $suggestion[
-                                    "submission_date"
-                                ]
-                            )
-                        );
-                        ?>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Decision Date -->
-
-                <?php
-                if (
-                    !empty(
-                        $suggestion[
-                            "decision_date"
-                        ]
-                    )
-                ):
-                ?>
-
-                    <div class="detail-row">
-
-                        <div class="detail-label">
-                            Decision Date
-                        </div>
-
-                        <div class="detail-value">
-
-                            <?php
-                            echo escape(
-                                formatDateTime(
-                                    $suggestion[
-                                        "decision_date"
-                                    ]
-                                )
-                            );
-                            ?>
 
                         </div>
 
-                    </div>
 
-                <?php endif; ?>
+                        <!-- Attachment -->
+
+                        <?php if ($attachment): ?>
+
+                            <div class="attachment-box">
+
+                                <strong>
+                                    Supporting Document
+                                </strong>
+
+                                <p>
+
+                                    <?php
+                                    echo escape(
+                                        $attachment["file_name"]
+                                    );
+                                    ?>
+
+                                </p>
 
 
-                <!-- Remarks -->
+                                <a
+                                    href="view-attachment.php?attachment_id=<?php echo escape($attachment["attachment_id"]); ?>"
+                                    class="button secondary-button">
+                                    View Attachment
+                                </a>
 
-                <?php
-                if (
-                    !empty(
-                        $suggestion[
-                            "remarks"
-                        ]
-                    )
-                ):
-                ?>
+                            </div>
 
-                    <div class="detail-row">
+                        <?php endif; ?>
 
-                        <div class="detail-label">
-                            Remarks
-                        </div>
-
-                        <div class="detail-value">
-
-                            <?php
-                            echo nl2br(
-                                escape(
-                                    $suggestion[
-                                        "remarks"
-                                    ]
-                                )
-                            );
-                            ?>
-
-                        </div>
 
                     </div>
 
-                <?php endif; ?>
+
+                <?php elseif ($section === "success"): ?>
 
 
-            </div>
-
-
-            <!-- Attachment -->
-
-            <?php if ($attachment): ?>
-
-                <div class="attachment-box">
-
-                    <strong>
-                        Supporting Document
-                    </strong>
-
-                    <p>
-
-                        <?php
-                        echo escape(
-                            $attachment[
-                                "file_name"
-                            ]
-                        );
-                        ?>
-
-                    </p>
-
-
-                    <a
-                        href="view-attachment.php?attachment_id=<?php echo escape($attachment["attachment_id"]); ?>"
-                        class="button secondary-button"
-                    >
-                        View Attachment
-                    </a>
-
-                </div>
-
-            <?php endif; ?>
-
-
-        </div>
-
-
-    <?php elseif ($section === "success"): ?>
-
-
-        <!-- =========================
+                    <!-- =========================
              SUCCESS
              ========================= -->
 
-        <div class="success-page">
+                    <div class="success-page">
 
-            <div class="success-card">
-
-
-                <a
-                    href="suggestions.php?section=my"
-                    class="back-link"
-                >
-                    ← Back to My Suggestions
-                </a>
+                        <div class="success-card">
 
 
-                <div class="success-icon">
-                    ✓
-                </div>
+                            <a
+                                href="suggestions.php?section=my"
+                                class="back-link">
+                                ← Back to My Suggestions
+                            </a>
 
 
-                <h1>
-                    Suggestion Submitted!
-                </h1>
+                            <div class="success-icon">
+                                ✓
+                            </div>
 
 
-                <p class="success-text">
-
-                    Your suggestion has been
-                    submitted successfully.
-
-                </p>
+                            <h1>
+                                Suggestion Submitted!
+                            </h1>
 
 
-                <div class="reference-id-box">
+                            <p class="success-text">
 
-                    <span>
-                        Suggestion ID
-                    </span>
+                                Your suggestion has been
+                                submitted successfully.
 
-                    <strong>
-
-                        <?php
-                        echo escape(
-                            formatSuggestionId(
-                                $suggestion[
-                                    "suggestion_id"
-                                ]
-                            )
-                        );
-                        ?>
-
-                    </strong>
-
-                </div>
+                            </p>
 
 
-                <div
-                    class="button-group success-buttons"
-                >
+                            <div class="reference-id-box">
 
-                    <a
-                        href="
+                                <span>
+                                    Suggestion ID
+                                </span>
+
+                                <strong>
+
+                                    <?php
+                                    echo escape(
+                                        formatSuggestionId(
+                                            $suggestion["suggestion_id"]
+                                        )
+                                    );
+                                    ?>
+
+                                </strong>
+
+                            </div>
+
+
+                            <div
+                                class="button-group success-buttons">
+
+                                <a
+                                    href="
                         suggestions.php?section=view&id=<?php
-                        echo escape(
-                            $suggestion_id
-                        );
-                        ?>"
-                        class="button primary-button"
-                    >
-                        View Suggestion
-                    </a>
+                                                        echo escape(
+                                                            $suggestion_id
+                                                        );
+                                                        ?>"
+                                    class="button primary-button">
+                                    View Suggestion
+                                </a>
 
 
-                    <a
-                        href="suggestions.php?section=my"
-                        class="button secondary-button"
-                    >
-                        My Suggestions
-                    </a>
+                                <a
+                                    href="suggestions.php?section=my"
+                                    class="button secondary-button">
+                                    My Suggestions
+                                </a>
 
-                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                <?php endif; ?>
 
 
             </div>
 
-        </div>
 
-    <?php endif; ?>
-
-
-</div>
-
-
-<!-- =========================
+            <!-- =========================
      DELETE NOT POSSIBLE MODAL
      ========================= -->
 
-<div
-    id="suggestionDeleteNotPossibleModal"
-    class="modal"
->
+            <div
+                id="suggestionDeleteNotPossibleModal"
+                class="modal">
 
-    <div class="modal-content">
+                <div class="modal-content">
 
-        <h2>
-            Delete Not Possible
-        </h2>
+                    <h2>
+                        Delete Not Possible
+                    </h2>
 
-        <p
-            id="suggestionDeleteNotPossibleMessage"
-        ></p>
+                    <p
+                        id="suggestionDeleteNotPossibleMessage"></p>
 
 
-        <div class="modal-buttons">
+                    <div class="modal-buttons">
 
-            <button
-                type="button"
-                class="button secondary-button"
-                onclick="
+                        <button
+                            type="button"
+                            class="button secondary-button"
+                            onclick="
                     closeSuggestionDeleteNotPossible()
-                "
-            >
-                Close
-            </button>
+                ">
+                            Close
+                        </button>
 
-        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
 
     </div>
 
-</div>
+
+    <!-- =====================================================
+         COMMON FOOTER
+         ===================================================== -->
+
+    <?php include "../includes/footer.php"; ?>
 
 
-<script src="../js/script-student-services.js"></script>
+    <script src="../js/script-student-services.js"></script>
 
 </body>
 

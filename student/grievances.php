@@ -179,16 +179,61 @@ if ($section === "success") {
 
     <title>Grievances - CampusDesk</title>
 
+    <!-- Common CampusDesk styles -->
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/header.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/navbar.css"
+    >
+
     <link
         rel="stylesheet"
         href="../css/style-student-services.css"
+    >
+
+    <!-- Font Awesome icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
 </head>
 
 <body>
 
-<div class="page-container">
+    <!-- =====================================================
+         COMMON NAVBAR
+         ===================================================== -->
+
+    <?php include "../includes/navbar.php"; ?>
+
+
+    <!-- =====================================================
+         COMMON HEADER
+         ===================================================== -->
+
+    <?php include "../includes/header.php"; ?>
+
+
+    <!-- =====================================================
+         STUDENT PAGE LAYOUT
+         ===================================================== -->
+
+    <div class="dashboard-layout">
+
+        <main class="dashboard-content">
+
+
+            <div class="page-container">
 
 
     <!-- =========================
@@ -1164,8 +1209,19 @@ if ($section === "success") {
 
 </div>
 
+        </main>
 
-<script src="../js/script-student-services.js"></script>
+    </div>
+
+
+    <!-- =====================================================
+         COMMON FOOTER
+         ===================================================== -->
+
+    <?php include "../includes/footer.php"; ?>
+
+
+    <script src="../js/script-student-services.js"></script>
 
 </body>
 
