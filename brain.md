@@ -59,8 +59,8 @@ VALUES (
 to run forward
 
 in vs terminal
-php -S localhost:80
-http://localhost:80/test_connection.php
+php -S localhost:8000
+http://localhost:8000/test_connection.php
 
 in ngrok terminal
 https://alienate-streak-rush.ngrok-free.dev/
