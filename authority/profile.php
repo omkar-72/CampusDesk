@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | CAMPUSDESK - AUTHORITY PROFILE
@@ -6,11 +7,12 @@
 | This page allows an authenticated authority to:
 |
 | - View profile information
-| - View profile photo
+| - View and update profile photo
+| - View personal information
+| - Update mobile number
+| - Change password
 | - View department and designation
 | - View activity statistics
-| - Update mobile number
-| - View administrator-managed fields
 | - View account information
 | - Logout
 |
@@ -53,32 +55,36 @@ $user_id = getLoggedInUserId();
 
 
 /* =========================================================
-   HANDLE PROFILE UPDATE
+   MESSAGE VARIABLES
    ========================================================= */
 
 $success_message = "";
 $error_message = "";
 
 
-/*
- * Process the form only when it is submitted using POST.
- */
+/* =========================================================
+   HANDLE POST ACTIONS
+   ========================================================= */
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     /*
      * Get the requested action.
+     *
+     * Multiple forms are present on this page, therefore
+     * every form sends a different action value.
      */
     $action = $_POST["action"] ?? "";
 
 
-    /*
-     * Only process the profile update action.
-     */
+    /* =====================================================
+       UPDATE PERSONAL PROFILE
+       ===================================================== */
+
     if ($action === "update_profile") {
 
         /*
-         * Mobile number is the authority-editable field
-         * that is available in the database.
+         * Mobile number is the editable personal field.
          */
         $mobile = trim($_POST["mobile"] ?? "");
 
@@ -97,7 +103,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $mobile
                 )
             ) {
-
                 $error_message =
                     "Please enter a valid mobile number.";
             }
@@ -109,12 +114,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
          */
         if ($error_message === "") {
 
-            /*
-             * Update the mobile number in the users table.
-             *
-             * The authority's name, email, department and
-             * designation are intentionally NOT updated here.
-             */
             $update_query = "
                 UPDATE users
                 SET
@@ -123,29 +122,307 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 WHERE user_id = $2
             ";
 
-
             $update_result = pg_query_params(
                 $conn,
                 $update_query,
                 [
-                    $mobile !== "" ? $mobile : null,
+                    $mobile !== ""
+                        ? $mobile
+                        : null,
                     $user_id
                 ]
             );
 
 
-            /*
-             * Check whether PostgreSQL successfully updated
-             * the record.
-             */
             if ($update_result) {
 
                 $success_message =
-                    "Profile details saved successfully.";
+                    "Profile information saved successfully.";
             } else {
 
                 $error_message =
-                    "Unable to save profile details. Please try again.";
+                    "Unable to save profile information. Please try again.";
+            }
+        }
+    }
+
+
+    /* =====================================================
+       UPDATE PROFILE PHOTO
+       ===================================================== */ elseif ($action === "update_photo") {
+
+        /*
+         * Check whether a file was selected.
+         */
+        if (
+            !isset($_FILES["profile_photo"]) ||
+            $_FILES["profile_photo"]["error"] !== UPLOAD_ERR_OK
+        ) {
+
+            $error_message =
+                "Please select a profile photo.";
+        } else {
+
+            $photo = $_FILES["profile_photo"];
+
+
+            /*
+             * Maximum allowed size:
+             * 5 MB
+             */
+            $max_size = 5 * 1024 * 1024;
+
+
+            /*
+             * Validate file size.
+             */
+            if ($photo["size"] > $max_size) {
+
+                $error_message =
+                    "Profile photo must not exceed 5 MB.";
+            } else {
+
+                /*
+                 * Detect the actual image type.
+                 *
+                 * getimagesize() is used instead of finfo_open()
+                 * because the PHP Fileinfo extension is not
+                 * available in this installation.
+                 */
+                $image_info = @getimagesize(
+                    $photo["tmp_name"]
+                );
+
+                $detected_type =
+                    $image_info["mime"] ?? false;
+
+
+                /*
+                 * Only JPG and PNG are allowed.
+                 */
+                $allowed_types = [
+                    "image/jpeg",
+                    "image/png"
+                ];
+
+
+                if (
+                    !$detected_type ||
+                    !in_array(
+                        $detected_type,
+                        $allowed_types,
+                        true
+                    )
+                ) {
+
+                    $error_message =
+                        "Only JPG or PNG profile photos are allowed.";
+                } else {
+
+                    /*
+                     * Read the uploaded image.
+                     */
+                    $photo_data = file_get_contents(
+                        $photo["tmp_name"]
+                    );
+
+
+                    if ($photo_data === false) {
+
+                        $error_message =
+                            "Unable to read the uploaded photo.";
+                    } else {
+
+                        /*
+                         * Escape BYTEA data before storing it
+                         * in PostgreSQL.
+                         */
+                        $escaped_photo =
+                            pg_escape_bytea(
+                                $conn,
+                                $photo_data
+                            );
+
+
+                        $photo_query = "
+                            UPDATE users
+                            SET
+                                profile_photo = $1,
+                                updated_at = CURRENT_TIMESTAMP
+                            WHERE user_id = $2
+                        ";
+
+
+                        $photo_result = pg_query_params(
+                            $conn,
+                            $photo_query,
+                            [
+                                $escaped_photo,
+                                $user_id
+                            ]
+                        );
+
+
+                        if ($photo_result) {
+
+                            $success_message =
+                                "Profile photo updated successfully.";
+                        } else {
+
+                            $error_message =
+                                "Unable to update profile photo.";
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    /* =====================================================
+       CHANGE PASSWORD
+       ===================================================== */ elseif ($action === "change_password") {
+
+        /*
+         * Get password fields.
+         */
+        $current_password =
+            $_POST["current_password"] ?? "";
+
+        $new_password =
+            $_POST["new_password"] ?? "";
+
+        $confirm_password =
+            $_POST["confirm_password"] ?? "";
+
+
+        /*
+         * Validate required fields.
+         */
+        if (
+            $current_password === "" ||
+            $new_password === "" ||
+            $confirm_password === ""
+        ) {
+
+            $error_message =
+                "Please fill in all password fields.";
+        }
+
+
+        /*
+         * New password must contain at least 8 characters.
+         */ elseif (strlen($new_password) < 8) {
+
+            $error_message =
+                "New password must contain at least 8 characters.";
+        }
+
+
+        /*
+         * Confirm password must match.
+         */ elseif ($new_password !== $confirm_password) {
+
+            $error_message =
+                "New password and confirm password do not match.";
+        }
+
+
+        /*
+         * Continue only when basic validation succeeds.
+         */
+        if ($error_message === "") {
+
+            /*
+             * Get the current password hash.
+             */
+            $password_query = "
+                SELECT password
+                FROM users
+                WHERE user_id = $1
+                LIMIT 1
+            ";
+
+
+            $password_result = pg_query_params(
+                $conn,
+                $password_query,
+                [$user_id]
+            );
+
+
+            if (
+                !$password_result ||
+                pg_num_rows($password_result) === 0
+            ) {
+
+                $error_message =
+                    "Unable to verify your current password.";
+            } else {
+
+                $password_row =
+                    pg_fetch_assoc(
+                        $password_result
+                    );
+
+
+                /*
+                 * Verify the current password.
+                 */
+                if (
+                    !password_verify(
+                        $current_password,
+                        $password_row["password"]
+                    )
+                ) {
+
+                    $error_message =
+                        "Current password is incorrect.";
+                } else {
+
+                    /*
+                     * Hash the new password securely.
+                     */
+                    $new_password_hash =
+                        password_hash(
+                            $new_password,
+                            PASSWORD_DEFAULT
+                        );
+
+
+                    /*
+                     * Update password.
+                     */
+                    $password_update_query = "
+                        UPDATE users
+                        SET
+                            password = $1,
+                            updated_at = CURRENT_TIMESTAMP
+                        WHERE user_id = $2
+                    ";
+
+
+                    $password_update_result =
+                        pg_query_params(
+                            $conn,
+                            $password_update_query,
+                            [
+                                $new_password_hash,
+                                $user_id
+                            ]
+                        );
+
+
+                    if ($password_update_result) {
+
+                        $success_message =
+                            "Password changed successfully.";
+                    } else {
+
+                        $error_message =
+                            "Unable to change password. Please try again.";
+                    }
+                }
             }
         }
     }
@@ -159,8 +436,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 /*
  * Load the authority profile directly.
  *
- * This query also retrieves authorities.status so that
- * Authority Status can correctly show Active or Inactive.
+ * This query retrieves:
+ * - User information
+ * - Profile photo
+ * - Authority information
+ * - Department
+ * - Account information
  */
 $profile_query = "
     SELECT
@@ -213,7 +494,7 @@ if (
 
 
 /*
- * Convert the PostgreSQL result into an associative array.
+ * Convert PostgreSQL result into an associative array.
  */
 $profile = pg_fetch_assoc(
     $profile_result
@@ -271,7 +552,7 @@ if ($profile_photo) {
 
 
             /*
-             * Only allow JPEG and PNG profile photos.
+             * Only allow JPEG and PNG.
              */
             if (
                 in_array(
@@ -317,9 +598,7 @@ $mobile =
    ========================================================= */
 
 /*
- * Count all grievances assigned to the logged-in authority.
- *
- * The grievances table stores the authority ID in assigned_to.
+ * Count grievances assigned to this authority.
  */
 $grievance_query = "
     SELECT COUNT(*) AS total
@@ -340,18 +619,17 @@ $grievance_count = 0;
 
 if ($grievance_result) {
 
-    $grievance_count = (int) pg_fetch_result(
-        $grievance_result,
-        0,
-        "total"
-    );
+    $grievance_count =
+        (int) pg_fetch_result(
+            $grievance_result,
+            0,
+            "total"
+        );
 }
 
 
 /*
- * Count all suggestions reviewed by the logged-in authority.
- *
- * The suggestions table stores the authority ID in reviewed_by.
+ * Count suggestions reviewed by this authority.
  */
 $suggestion_query = "
     SELECT COUNT(*) AS total
@@ -372,18 +650,17 @@ $suggestion_count = 0;
 
 if ($suggestion_result) {
 
-    $suggestion_count = (int) pg_fetch_result(
-        $suggestion_result,
-        0,
-        "total"
-    );
+    $suggestion_count =
+        (int) pg_fetch_result(
+            $suggestion_result,
+            0,
+            "total"
+        );
 }
 
 
 /*
- * Count all applications assigned to the logged-in authority.
- *
- * The applications table stores the authority ID in assigned_to.
+ * Count applications assigned to this authority.
  */
 $application_query = "
     SELECT COUNT(*) AS total
@@ -404,16 +681,17 @@ $application_count = 0;
 
 if ($application_result) {
 
-    $application_count = (int) pg_fetch_result(
-        $application_result,
-        0,
-        "total"
-    );
+    $application_count =
+        (int) pg_fetch_result(
+            $application_result,
+            0,
+            "total"
+        );
 }
 
 
 /*
- * Get the first letter of the authority name.
+ * Get first letter of authority name.
  */
 $avatar_letter = strtoupper(
     substr(
@@ -438,11 +716,6 @@ $account_status =
    AUTHORITY STATUS
    ========================================================= */
 
-/*
- * This value comes directly from authorities.status.
- *
- * If authorities.status is TRUE, the page displays Active.
- */
 $authority_status =
     !empty($profile["authority_status"])
     ? "Active"
@@ -450,7 +723,9 @@ $authority_status =
 
 ?>
 
+
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -540,8 +815,6 @@ $authority_status =
 
                 <div class="profile-page-top">
 
-                    <!-- Back to Dashboard -->
-
                     <a
                         href="dashboard.php"
                         class="profile-back-link">
@@ -552,8 +825,6 @@ $authority_status =
 
                     </a>
 
-
-                    <!-- Logout -->
 
                     <a
                         href="../logout.php"
@@ -646,8 +917,8 @@ $authority_status =
                                                 ENT_QUOTES,
                                                 "UTF-8"
                                             ) ?>;base64,<?= base64_encode(
-                                                $profile_photo_data
-                                            ) ?>"
+                                                            $profile_photo_data
+                                                        ) ?>"
                                 alt="Authority Profile Photo"
                                 class="profile-photo-large">
 
@@ -765,7 +1036,7 @@ $authority_status =
 
 
                 <!-- =================================================
-                     PROFILE INFORMATION
+                     PERSONAL INFORMATION + ACTIVITY
                      ================================================= -->
 
                 <div class="profile-grid">
@@ -890,7 +1161,7 @@ $authority_status =
                         <div class="info-row">
 
                             <span>
-                                Mobile
+                                Mobile Number
                             </span>
 
                             <strong>
@@ -907,7 +1178,6 @@ $authority_status =
                             </strong>
 
                         </div>
-
 
                     </div>
 
@@ -956,7 +1226,7 @@ $authority_status =
                             <div>
 
                                 <strong>
-                                    <?= (int)$grievance_count ?>
+                                    <?= (int) $grievance_count ?>
                                 </strong>
 
                                 <span>
@@ -982,7 +1252,7 @@ $authority_status =
                             <div>
 
                                 <strong>
-                                    <?= (int)$suggestion_count ?>
+                                    <?= (int) $suggestion_count ?>
                                 </strong>
 
                                 <span>
@@ -1008,7 +1278,7 @@ $authority_status =
                             <div>
 
                                 <strong>
-                                    <?= (int)$application_count ?>
+                                    <?= (int) $application_count ?>
                                 </strong>
 
                                 <span>
@@ -1025,7 +1295,7 @@ $authority_status =
 
 
                 <!-- =================================================
-                     EDIT PROFILE
+                     PROFILE PHOTO
                      ================================================= -->
 
                 <div class="profile-card edit-card">
@@ -1035,7 +1305,135 @@ $authority_status =
                         <div>
 
                             <h3>
-                                Edit Profile
+                                Profile Photo
+                            </h3>
+
+                            <p>
+                                Update your CampusDesk profile photo
+                            </p>
+
+                        </div>
+
+
+                        <div class="profile-card-icon">
+
+                            <i class="fa-solid fa-camera"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="profile-photo-update">
+
+
+                        <!-- Current Photo -->
+
+                        <div class="profile-photo-preview">
+
+                            <?php if ($profile_photo_data): ?>
+
+                                <img
+                                    src="data:<?= htmlspecialchars(
+                                                    $profile_photo_type,
+                                                    ENT_QUOTES,
+                                                    "UTF-8"
+                                                ) ?>;base64,<?= base64_encode(
+                                                                $profile_photo_data
+                                                            ) ?>"
+                                    alt="Current Profile Photo"
+                                    class="profile-photo-large">
+
+                            <?php else: ?>
+
+                                <span class="profile-avatar-letter">
+
+                                    <?= htmlspecialchars(
+                                        $avatar_letter,
+                                        ENT_QUOTES,
+                                        "UTF-8"
+                                    ) ?>
+
+                                </span>
+
+                            <?php endif; ?>
+
+                        </div>
+
+
+                        <!-- Photo Upload Form -->
+
+                        <form
+                            action="profile.php"
+                            method="POST"
+                            enctype="multipart/form-data"
+                            class="profile-photo-form">
+
+                            <input
+                                type="hidden"
+                                name="action"
+                                value="update_photo">
+
+
+                            <div class="form-group">
+
+                                <label for="profile_photo">
+
+                                    Select Profile Photo
+
+                                </label>
+
+
+                                <input
+                                    type="file"
+                                    id="profile_photo"
+                                    name="profile_photo"
+                                    accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+                                    required>
+
+
+                                <small class="form-help">
+
+                                    JPG or PNG only. Maximum size: 5 MB.
+
+                                </small>
+
+                            </div>
+
+
+                            <div class="profile-action-row">
+
+                                <button
+                                    type="submit"
+                                    class="save-btn">
+
+                                    <i class="fa-solid fa-camera"></i>
+
+                                    Update Photo
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     EDIT PERSONAL INFORMATION
+                     ================================================= -->
+
+                <div class="profile-card edit-card">
+
+                    <div class="profile-card-header">
+
+                        <div>
+
+                            <h3>
+                                Personal Information
                             </h3>
 
                             <p>
@@ -1047,16 +1445,12 @@ $authority_status =
 
                         <div class="profile-card-icon">
 
-                            <i class="fa-solid fa-pen"></i>
+                            <i class="fa-solid fa-user-pen"></i>
 
                         </div>
 
                     </div>
 
-
-                    <!-- =================================================
-                         PROFILE UPDATE FORM
-                         ================================================= -->
 
                     <form
                         action="profile.php"
@@ -1095,8 +1489,7 @@ $authority_status =
 
                                     <i class="fa-solid fa-lock"></i>
 
-                                    This field is managed by the administrator
-                                    and cannot be changed here.
+                                    Managed by administrator.
 
                                 </small>
 
@@ -1126,8 +1519,7 @@ $authority_status =
 
                                     <i class="fa-solid fa-lock"></i>
 
-                                    This field is managed by the administrator
-                                    and cannot be changed here.
+                                    Managed by administrator.
 
                                 </small>
 
@@ -1157,8 +1549,7 @@ $authority_status =
 
                                     <i class="fa-solid fa-lock"></i>
 
-                                    This field is managed by the administrator
-                                    and cannot be changed here.
+                                    Managed by administrator.
 
                                 </small>
 
@@ -1188,8 +1579,7 @@ $authority_status =
 
                                     <i class="fa-solid fa-lock"></i>
 
-                                    This field is managed by the administrator
-                                    and cannot be changed here.
+                                    Managed by administrator.
 
                                 </small>
 
@@ -1266,7 +1656,198 @@ $authority_status =
 
                                 <i class="fa-solid fa-floppy-disk"></i>
 
-                                Save Changes
+                                Save Information
+
+                            </button>
+
+
+                            <button
+                                type="reset"
+                                class="cancel-btn">
+
+                                Cancel
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <!-- =================================================
+                     SECURITY
+                     ================================================= -->
+
+                <div class="profile-card edit-card">
+
+                    <div class="profile-card-header">
+
+                        <div>
+
+                            <h3>
+                                Security
+                            </h3>
+
+                            <p>
+                                Manage your CampusDesk account password
+                            </p>
+
+                        </div>
+
+
+                        <div class="profile-card-icon">
+
+                            <i class="fa-solid fa-shield-halved"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <form
+                        action="profile.php"
+                        method="POST"
+                        id="passwordForm">
+
+                        <input
+                            type="hidden"
+                            name="action"
+                            value="change_password">
+
+
+                        <!-- Current Password -->
+
+                        <div class="form-group password-group">
+
+                            <label for="current_password">
+
+                                Current Password
+
+                            </label>
+
+
+                            <div class="password-input-wrapper">
+
+                                <input
+                                    type="password"
+                                    id="current_password"
+                                    name="current_password"
+                                    required>
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    onclick="togglePassword('current_password', this)"
+                                    aria-label="Show current password">
+
+                                    <i class="fa-regular fa-eye"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- New Password -->
+
+                        <div class="form-group password-group">
+
+                            <label for="new_password">
+
+                                New Password
+
+                            </label>
+
+
+                            <div class="password-input-wrapper">
+
+                                <input
+                                    type="password"
+                                    id="new_password"
+                                    name="new_password"
+                                    minlength="8"
+                                    required>
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    onclick="togglePassword('new_password', this)"
+                                    aria-label="Show new password">
+
+                                    <i class="fa-regular fa-eye"></i>
+
+                                </button>
+
+                            </div>
+
+
+                            <small class="form-help">
+
+                                Password must contain at least 8 characters.
+
+                            </small>
+
+                        </div>
+
+
+                        <!-- Confirm New Password -->
+
+                        <div class="form-group password-group">
+
+                            <label for="confirm_password">
+
+                                Confirm New Password
+
+                            </label>
+
+
+                            <div class="password-input-wrapper">
+
+                                <input
+                                    type="password"
+                                    id="confirm_password"
+                                    name="confirm_password"
+                                    minlength="8"
+                                    required>
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    onclick="togglePassword('confirm_password', this)"
+                                    aria-label="Show confirm password">
+
+                                    <i class="fa-regular fa-eye"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Security Buttons -->
+
+                        <div class="profile-action-row">
+
+                            <button
+                                type="submit"
+                                class="save-btn">
+
+                                <i class="fa-solid fa-key"></i>
+
+                                Change Password
+
+                            </button>
+
+
+                            <button
+                                type="reset"
+                                class="cancel-btn">
+
+                                Cancel
 
                             </button>
 
@@ -1415,6 +1996,97 @@ $authority_status =
          ===================================================== -->
 
     <?php include "../includes/footer.php"; ?>
+
+
+    <!-- =====================================================
+         PASSWORD SHOW / HIDE SCRIPT
+         ===================================================== -->
+
+    <script>
+        /*
+         * Toggle password visibility.
+         */
+        function togglePassword(fieldId, button) {
+
+            const field =
+                document.getElementById(fieldId);
+
+            const icon =
+                button.querySelector("i");
+
+
+            if (field.type === "password") {
+
+                field.type = "text";
+
+                icon.classList.remove(
+                    "fa-eye"
+                );
+
+                icon.classList.add(
+                    "fa-eye-slash"
+                );
+
+                button.setAttribute(
+                    "aria-label",
+                    "Hide password"
+                );
+
+            } else {
+
+                field.type = "password";
+
+                icon.classList.remove(
+                    "fa-eye-slash"
+                );
+
+                icon.classList.add(
+                    "fa-eye"
+                );
+
+                button.setAttribute(
+                    "aria-label",
+                    "Show password"
+                );
+            }
+        }
+
+
+        /*
+         * Confirm that both new password fields match
+         * before submitting the form.
+         */
+        document
+            .getElementById("passwordForm")
+            .addEventListener(
+                "submit",
+                function(event) {
+
+                    const newPassword =
+                        document.getElementById(
+                            "new_password"
+                        ).value;
+
+                    const confirmPassword =
+                        document.getElementById(
+                            "confirm_password"
+                        ).value;
+
+
+                    if (
+                        newPassword !==
+                        confirmPassword
+                    ) {
+
+                        event.preventDefault();
+
+                        alert(
+                            "New password and confirm password do not match."
+                        );
+                    }
+                }
+            );
+    </script>
 
 
 </body>

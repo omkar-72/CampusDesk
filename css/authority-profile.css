@@ -8,7 +8,22 @@
     gap:24px;
 }
 
-/* Banner */
+
+/* =========================================================
+   TOP ACTION AREA
+   ========================================================= */
+
+.profile-page-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+}
+
+
+/* =========================================================
+   PROFILE BANNER
+   ========================================================= */
 
 .profile-banner{
     background:linear-gradient(135deg,#2563EB,#1D4ED8);
@@ -19,30 +34,127 @@
     align-items:center;
     gap:24px;
     box-shadow:0 15px 35px rgba(37,99,235,.25);
+
+    /*
+     * Prevent the profile photo or other content from
+     * overflowing outside the banner.
+     */
+    overflow:hidden;
 }
+
+
+/* =========================================================
+   PROFILE PHOTO CONTAINER
+   ========================================================= */
 
 .profile-avatar-large{
     width:110px;
     height:110px;
+
+    /*
+     * Prevent the flex container from shrinking the photo.
+     */
+    min-width:110px;
+    min-height:110px;
+    flex-shrink:0;
+
     border-radius:50%;
     background:white;
     color:#2563EB;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
+    font-size:42px;
+    font-weight:700;
+
+    /*
+     * This is important because the uploaded image must
+     * stay inside the circular profile area.
+     */
+    overflow:hidden;
+
+    border:3px solid rgba(255,255,255,.85);
+}
+
+
+/* =========================================================
+   ACTUAL UPLOADED PROFILE IMAGE
+   ========================================================= */
+
+.profile-photo-large{
+    width:100%;
+    height:100%;
+
+    /*
+     * Keep the complete image inside the circular frame.
+     */
+    object-fit:cover;
+
+    /*
+     * Make the image circular.
+     */
+    border-radius:50%;
+
+    /*
+     * Remove unwanted inline-image spacing.
+     */
+    display:block;
+}
+
+
+/* =========================================================
+   DEFAULT PROFILE LETTER
+   ========================================================= */
+
+.profile-avatar-letter{
+    width:100%;
+    height:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
     font-size:42px;
     font-weight:700;
 }
+
+
+/* =========================================================
+   PROFILE DETAILS
+   ========================================================= */
+
+.profile-details{
+    min-width:0;
+    flex:1;
+}
+
 
 .profile-details h2{
     margin:0;
     font-size:30px;
 }
 
+
 .profile-details p{
     margin:8px 0;
     opacity:.95;
 }
+
+
+.profile-designation,
+.profile-email,
+.profile-department{
+    overflow-wrap:anywhere;
+}
+
+
+/* =========================================================
+   ROLE BADGE
+   ========================================================= */
 
 .role-badge{
     display:inline-block;
@@ -54,13 +166,48 @@
     font-weight:600;
 }
 
-/* Grid */
+
+/* =========================================================
+   ACCOUNT STATUS
+   ========================================================= */
+
+.profile-status-box{
+    flex-shrink:0;
+}
+
+
+.account-status{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+}
+
+
+.active-status{
+    color:white;
+}
+
+
+.inactive-status{
+    color:white;
+}
+
+
+/* =========================================================
+   GRID
+   ========================================================= */
 
 .profile-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:20px;
 }
+
+
+/* =========================================================
+   PROFILE CARD
+   ========================================================= */
 
 .profile-card{
     background:white;
@@ -69,30 +216,86 @@
     box-shadow:0 8px 22px rgba(0,0,0,.08);
 }
 
+
 .profile-card h3{
     margin:0 0 20px;
     color:#0F172A;
 }
 
-/* Info */
+
+/* =========================================================
+   PROFILE CARD HEADER
+   ========================================================= */
+
+.profile-card-header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+    margin-bottom:20px;
+}
+
+
+.profile-card-header h3{
+    margin:0 0 6px;
+}
+
+
+.profile-card-header p{
+    margin:0;
+    color:#64748B;
+}
+
+
+.profile-card-icon{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:#EFF6FF;
+    color:#2563EB;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    flex-shrink:0;
+}
+
+
+/* =========================================================
+   INFORMATION ROW
+   ========================================================= */
 
 .info-row{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    gap:20px;
     padding:14px 0;
     border-bottom:1px solid #E5E7EB;
 }
+
 
 .info-row:last-child{
     border-bottom:none;
 }
 
+
 .info-row span{
     color:#64748B;
 }
 
-/* Stats */
+
+.info-row strong{
+    color:#0F172A;
+    text-align:right;
+    overflow-wrap:anywhere;
+}
+
+
+/* =========================================================
+   ACTIVITY STATISTICS
+   ========================================================= */
 
 .stat-mini{
     display:flex;
@@ -104,17 +307,31 @@
     border-radius:14px;
 }
 
+
+.stat-mini:last-child{
+    margin-bottom:0;
+}
+
+
+.stat-mini-icon{
+    flex-shrink:0;
+}
+
+
 .stat-mini i{
     width:48px;
     height:48px;
     border-radius:12px;
     background:#2563EB;
     color:white;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-size:20px;
 }
+
 
 .stat-mini strong{
     display:block;
@@ -122,15 +339,71 @@
     color:#0F172A;
 }
 
+
 .stat-mini span{
     color:#64748B;
 }
 
-/* Form */
+
+/* =========================================================
+   PROFILE PHOTO UPDATE
+   ========================================================= */
+
+.profile-photo-update{
+    display:flex;
+    align-items:center;
+    gap:28px;
+}
+
+
+.profile-photo-preview{
+    width:140px;
+    height:140px;
+
+    min-width:140px;
+    min-height:140px;
+
+    border-radius:50%;
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#F1F5F9;
+
+    border:2px solid #E2E8F0;
+}
+
+
+.profile-photo-preview .profile-photo-large{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+
+.profile-photo-preview .profile-avatar-letter{
+    font-size:48px;
+    background:#F1F5F9;
+    color:#2563EB;
+}
+
+
+.profile-photo-form{
+    flex:1;
+    min-width:0;
+}
+
+
+/* =========================================================
+   FORMS
+   ========================================================= */
 
 .edit-card form{
     margin-top:10px;
 }
+
 
 .form-grid{
     display:grid;
@@ -138,10 +411,12 @@
     gap:18px;
 }
 
+
 .form-group{
     display:flex;
     flex-direction:column;
 }
+
 
 .form-group label{
     margin-bottom:8px;
@@ -149,39 +424,214 @@
     font-weight:500;
 }
 
-.form-group input{
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+    box-sizing:border-box;
+
     padding:12px 14px;
+
     border:1px solid #CBD5E1;
     border-radius:10px;
+
     outline:none;
+
     transition:.25s;
+
+    font:inherit;
 }
 
-.form-group input:focus{
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
     border-color:#2563EB;
     box-shadow:0 0 0 3px rgba(37,99,235,.15);
 }
 
+
+.form-group textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+
+/* =========================================================
+   FILE INPUT
+   ========================================================= */
+
+.form-group input[type="file"]{
+    padding:10px;
+    background:white;
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   ADMIN MANAGED FIELDS
+   ========================================================= */
+
+.admin-managed-field{
+    background:#F8FAFC;
+    color:#64748B;
+    cursor:not-allowed;
+}
+
+
+.form-help{
+    margin-top:7px;
+    color:#64748B;
+    font-size:13px;
+    line-height:1.5;
+}
+
+
+.admin-managed-message{
+    color:#94A3B8;
+}
+
+
+/* =========================================================
+   PROFILE ACTIONS
+   ========================================================= */
+
+.profile-action-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:4px;
+}
+
+
 .save-btn{
     margin-top:24px;
+
     background:#2563EB;
     color:white;
+
     border:none;
+
     padding:14px 24px;
+
     border-radius:12px;
+
     font-weight:600;
+
     display:flex;
     align-items:center;
     gap:10px;
+
     cursor:pointer;
+
     transition:.25s;
 }
+
 
 .save-btn:hover{
     background:#1D4ED8;
 }
 
-/* Responsive */
+
+.cancel-btn{
+    margin-top:24px;
+
+    background:#E2E8F0;
+    color:#334155;
+
+    border:none;
+
+    padding:14px 24px;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+
+.cancel-btn:hover{
+    background:#CBD5E1;
+}
+
+
+/* =========================================================
+   PASSWORD FIELDS
+   ========================================================= */
+
+.password-input-wrapper{
+    position:relative;
+    width:100%;
+}
+
+
+.password-input-wrapper input{
+    padding-right:48px;
+}
+
+
+.password-toggle{
+    position:absolute;
+
+    top:50%;
+    right:12px;
+
+    transform:translateY(-50%);
+
+    background:none;
+    border:none;
+
+    color:#475569;
+
+    cursor:pointer;
+
+    padding:5px;
+
+    font-size:16px;
+}
+
+
+.password-toggle:hover{
+    color:#2563EB;
+}
+
+
+/* =========================================================
+   SUCCESS / ERROR MESSAGES
+   ========================================================= */
+
+.profile-message{
+    padding:12px 16px;
+    border-radius:10px;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:14px;
+}
+
+
+.success-message{
+    background:#EFF6FF;
+    color:#1D4ED8;
+}
+
+
+.error-message{
+    background:#FEF2F2;
+    color:#B91C1C;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 
 @media(max-width:900px){
 
@@ -189,12 +639,80 @@
         grid-template-columns:1fr;
     }
 
+
     .form-grid{
         grid-template-columns:1fr;
     }
 
+
     .profile-banner{
         flex-direction:column;
         text-align:center;
+    }
+
+
+    .profile-details{
+        width:100%;
+    }
+
+
+    .profile-status-box{
+        width:100%;
+    }
+
+
+    .profile-photo-update{
+        flex-direction:column;
+        align-items:center;
+    }
+
+
+    .profile-photo-form{
+        width:100%;
+    }
+}
+
+
+@media(max-width:600px){
+
+    .profile-banner{
+        padding:22px;
+    }
+
+
+    .profile-avatar-large{
+        width:95px;
+        height:95px;
+
+        min-width:95px;
+        min-height:95px;
+    }
+
+
+    .profile-details h2{
+        font-size:24px;
+    }
+
+
+    .info-row{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:6px;
+    }
+
+
+    .info-row strong{
+        text-align:left;
+    }
+
+
+    .profile-page-top{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+
+    .profile-card{
+        padding:18px;
     }
 }

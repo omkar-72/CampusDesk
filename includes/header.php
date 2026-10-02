@@ -1,18 +1,12 @@
 <header class="top-header">
 
     <div class="header-left">
-        <button class="menu-btn">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-
         <h2>CampusDesk</h2>
     </div>
 
     <div class="header-right">
 
-        <button class="icon-btn">
-            <i class="fa-regular fa-bell"></i>
-        </button>
+
 
         <div class="profile-box">
 
