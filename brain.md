@@ -54,3 +54,13 @@ VALUES (
     crypt('admin@123', gen_salt('bf')),
     (SELECT role_id FROM roles WHERE role_name = 'ADMIN')
 );
+
+
+to run forward
+
+in vs terminal
+php -S localhost:80
+http://localhost:80/test_connection.php
+
+in ngrok terminal
+https://alienate-streak-rush.ngrok-free.dev/
