@@ -16,7 +16,7 @@ amod@1234
 ganesh.mane@campusdesk.com
 ganesh@1234
 
-authority@campusdesk.com
+authority1@campusdesk.com
 newpassword
 
 admin@campusdesk.com
