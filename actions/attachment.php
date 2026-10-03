@@ -227,7 +227,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     }
 
 
-    /* Get Attachment */
+    /* Get Attachment
 
     $result = pg_query_params(
         $conn,
@@ -241,6 +241,26 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
          FROM attachments
          WHERE attachment_id = $1
          AND user_id = $2",
+        [
+            $attachment_id,
+            $user_id
+        ]
+    );
+
+    */
+
+    $result = pg_query_params(
+        $conn,
+        "SELECT
+        attachment_id,
+        module_type,
+        reference_id,
+        file_name,
+        file_type,
+        encode(file_data, 'base64') AS file_data_base64
+     FROM attachments
+     WHERE attachment_id = $1
+     AND user_id = $2",
         [
             $attachment_id,
             $user_id
@@ -329,7 +349,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
     exit; */
 
-    /* Display File */
+    /* Display File
 
     $file_data = pg_unescape_bytea(
         $attachment["file_data"]
@@ -356,6 +376,39 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     );
 
     header("Cache-Control: private, max-age=3600");
+
+    echo $file_data;
+
+    exit; */
+
+    /* =========================
+   Display File
+   ========================= */
+
+    $file_data = base64_decode(
+        $attachment["file_data_base64"],
+        true
+    );
+
+    if ($file_data === false) {
+        die("Unable to decode attachment data.");
+    }
+
+    header(
+        "Content-Type: " .
+            $attachment["file_type"]
+    );
+
+    header(
+        "Content-Length: " .
+            strlen($file_data)
+    );
+
+    header(
+        "Content-Disposition: inline; filename=\"" .
+            basename($attachment["file_name"]) .
+            "\""
+    );
 
     echo $file_data;
 
