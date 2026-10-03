@@ -53,14 +53,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 FROM grievances
                 WHERE grievance_id = $1
                 AND student_id = $2";
-
     } elseif ($module_type === "SUGGESTION") {
 
         $sql = "SELECT suggestion_id
                 FROM suggestions
                 WHERE suggestion_id = $1
                 AND student_id = $2";
-
     } else {
 
         $sql = "SELECT application_id
@@ -122,7 +120,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         );
 
         finfo_close($finfo);
-
     } else {
 
         $file_type = $file["type"];
@@ -281,21 +278,18 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
                 FROM grievances
                 WHERE grievance_id = $1
                 AND student_id = $2";
-
     } elseif ($module_type === "SUGGESTION") {
 
         $sql = "SELECT suggestion_id
                 FROM suggestions
                 WHERE suggestion_id = $1
                 AND student_id = $2";
-
     } elseif ($module_type === "APPLICATION") {
 
         $sql = "SELECT application_id
                 FROM applications
                 WHERE application_id = $1
                 AND student_id = $2";
-
     } else {
 
         die("Invalid module.");
@@ -316,7 +310,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     }
 
 
-    /* Display File */
+    /* Display File
 
     header(
         "Content-Type: " .
@@ -333,10 +327,40 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         $attachment["file_data"]
     );
 
+    exit; */
+
+    /* Display File */
+
+    $file_data = pg_unescape_bytea(
+        $attachment["file_data"]
+    );
+
+    if ($file_data === false) {
+        die("Unable to read attachment data.");
+    }
+
+    header(
+        "Content-Type: " .
+            $attachment["file_type"]
+    );
+
+    header(
+        "Content-Length: " .
+            strlen($file_data)
+    );
+
+    header(
+        "Content-Disposition: inline; filename=\"" .
+            basename($attachment["file_name"]) .
+            "\""
+    );
+
+    header("Cache-Control: private, max-age=3600");
+
+    echo $file_data;
+
     exit;
 }
 
 
 die("Invalid request.");
-
-?>
