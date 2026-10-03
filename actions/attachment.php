@@ -383,7 +383,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
     /* =========================
    Display File
-   ========================= */
+   =========================
 
     $file_data = base64_decode(
         $attachment["file_data_base64"],
@@ -412,6 +412,36 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
     echo $file_data;
 
+    exit; */
+
+    /* =========================
+   DISPLAY FILE
+   ========================= */
+
+    $file_data = base64_decode(
+        $attachment["file_data_base64"],
+        true
+    );
+
+    if ($file_data === false) {
+        die("Base64 decode failed.");
+    }
+
+    /*
+ * Remove any accidental output/buffer
+ * before sending binary data.
+ */
+    while (ob_get_level() > 0) {
+        ob_end_clean();
+    }
+
+    header("Content-Type: " . $attachment["file_type"]);
+    header("Content-Length: " . strlen($file_data));
+    header("Content-Disposition: inline; filename=\"" . basename($attachment["file_name"]) . "\"");
+    header("Cache-Control: no-store, no-cache, must-revalidate");
+    header("Pragma: no-cache");
+
+    echo $file_data;
     exit;
 }
 
