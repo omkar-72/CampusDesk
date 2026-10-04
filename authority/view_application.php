@@ -943,17 +943,13 @@ if ($status === "Approved") {
 
                                             </div>
 
-
                                             <a
-                                                href="download_attachment.php?id=<?= (int)$attachment["attachment_id"] ?>"
-                                                target="_blank"
+                                                href="view-attachment.php?attachment_id=<?= (int)$attachment["attachment_id"] ?>&application_id=<?= (int)$row["application_id"] ?>"
                                                 class="authority-btn btn-view">
 
-                                                <i
-                                                    class="fa-solid fa-eye"></i>
+                                                <i class="fa-solid fa-eye"></i>
 
                                                 View
-
                                             </a>
 
 
