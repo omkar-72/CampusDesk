@@ -1,0 +1,31 @@
+Day,Traffic,Source,Time_On_Site,Page
+1,120,Organic,4.2,Home
+2,135,Social Media,3.8,Products
+3,110,Search,5.1,About
+4,145,Organic,4.5,Home
+5,160,Direct,6.0,Products
+6,125,Social Media,3.5,Blog
+7,175,Search,5.6,Home
+8,190,Organic,4.8,Products
+9,155,Direct,6.2,Blog
+10,210,Social Media,3.9,Home
+11,180,Search,5.4,Products
+12,200,Organic,4.7,About
+13,220,Direct,6.5,Home
+14,195,Social Media,4.1,Products
+15,230,Search,5.8,Blog
+16,215,Organic,5.0,Home
+17,240,Direct,6.8,Products
+18,205,Social Media,4.0,About
+19,250,Search,5.9,Home
+20,225,Organic,5.2,Products
+21,260,Direct,7.0,Blog
+22,235,Social Media,4.3,Home
+23,270,Search,6.1,Products
+24,245,Organic,5.4,About
+25,280,Direct,7.2,Home
+26,255,Social Media,4.5,Products
+27,290,Search,6.3,Blog
+28,265,Organic,5.6,Home
+29,300,Direct,7.5,Products
+30,275,Social Media,4.7,About
