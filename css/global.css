@@ -1,8 +1,14 @@
 /* =========================================================
    CAMPUSDESK - GLOBAL DESIGN SYSTEM
+   FRIEND LOGIN / REGISTER UI THEME
    ========================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+/* =========================================================
+   GLOBAL RESET
+   ========================================================= */
 
 *{
     margin:0;
@@ -10,54 +16,75 @@
     box-sizing:border-box;
 }
 
+
+/* =========================================================
+   GLOBAL THEME VARIABLES
+   ========================================================= */
+
 :root{
 
-    --primary:#2563EB;
-    --primary-hover:#1D4ED8;
+    /* ---------- Main friend-theme colors ---------- */
+    --primary:#C8F135;
+    --primary-hover:#B7DF25;
 
-    --sidebar:#0F172A;
-    --sidebar-hover:#1E293B;
+    --ink:#0E1116;
+    --sidebar:#0E1116;
+    --sidebar-hover:#191D23;
 
-    --background:#F8FAFC;
+    --background:#FAFAF7;
     --card:#FFFFFF;
 
-    --text:#1E293B;
-    --text-light:#64748B;
+    --text:#0E1116;
+    --text-light:#5B6169;
 
-    --border:#E2E8F0;
+    --border:#D5D8CC;
+    --dash:#C9CCC2;
 
+    /* ---------- Status colors ---------- */
     --success:#22C55E;
     --warning:#F59E0B;
     --danger:#EF4444;
 
-    --radius:14px;
+    /* ---------- Shape ---------- */
+    --radius:10px;
 
-    --sidebar-width:240px;
-    --header-height:70px;
+    /* ---------- Shared layout dimensions ---------- */
+    --sidebar-width:260px;
+    --header-height:75px;
 }
 
-/* ================= Base ================= */
+
+/* =========================================================
+   BASE
+   ========================================================= */
 
 html{
     height:100%;
 }
 
-body{
 
+body{
     min-height:100vh;
+
     display:flex;
     flex-direction:column;
 
     font-family:'Poppins',sans-serif;
+
     background:var(--background);
     color:var(--text);
 
+    line-height:1.4;
+
+    overflow-x:hidden;
 }
+
 
 a{
     text-decoration:none;
     color:inherit;
 }
+
 
 button{
     font-family:'Poppins',sans-serif;
@@ -65,202 +92,416 @@ button{
     border:none;
 }
 
+
 input,
 select,
 textarea{
-
     font-family:'Poppins',sans-serif;
-    border:1px solid var(--border);
-    border-radius:10px;
-    padding:12px 14px;
-    outline:none;
-    transition:.3s;
 
+    border:1.5px solid var(--border);
+
+    border-radius:8px;
+
+    padding:11px 13px;
+
+    outline:none;
+
+    color:var(--text);
+
+    background:#FCFCF9;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
 }
+
 
 input:focus,
 select:focus,
 textarea:focus{
+    border-color:var(--ink);
 
-    border-color:var(--primary);
-    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+    background:var(--card);
 
+    box-shadow:
+        0 0 0 3px rgba(200,241,53,.35);
 }
 
-/* ================= Dashboard Layout ================= */
+
+input::placeholder,
+textarea::placeholder{
+    color:#858A91;
+}
+
+
+/* =========================================================
+   DASHBOARD LAYOUT
+   ========================================================= */
 
 .dashboard-layout{
     display:flex;
+
     flex:1;
+
     min-height:auto;
+
+    width:100%;
 }
+
 
 .dashboard-content{
-
     flex:1;
-    padding:90px 00px 30px;
-    box-sizing:border-box;
 
+    min-width:0;
+
+    padding:90px 20px 30px;
+
+    box-sizing:border-box;
 }
 
-/* ================= Cards ================= */
+
+/* =========================================================
+   COMMON CARD
+   ========================================================= */
 
 .card{
+    position:relative;
 
     background:var(--card);
-    border-radius:var(--radius);
-    padding:20px;
-    box-shadow:0 8px 24px rgba(15,23,42,.08);
-    transition:.25s;
 
+    border:2px solid var(--ink);
+
+    border-radius:12px;
+
+    padding:20px;
+
+    box-shadow:4px 4px 0 var(--border);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
 }
+
 
 .card:hover{
-    transform:translateY(-4px);
+    transform:translate(-2px,-2px);
+
+    box-shadow:6px 6px 0 var(--ink);
 }
 
-/* ================= Buttons ================= */
+
+/* =========================================================
+   COMMON PRIMARY BUTTON
+   ========================================================= */
 
 .btn-primary{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
 
-    background:var(--primary);
-    color:white;
-    padding:12px 20px;
-    border-radius:10px;
+    gap:8px;
+
+    background:var(--ink);
+
+    color:var(--primary);
+
+    padding:11px 20px;
+
+    border:2px solid var(--ink);
+
+    border-radius:8px;
+
     font-weight:600;
-    transition:.25s;
 
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
 }
+
 
 .btn-primary:hover{
-    background:var(--primary-hover);
+    background:var(--primary);
+
+    color:var(--ink);
+
+    transform:translate(-1px,-2px);
+
+    box-shadow:4px 4px 0 var(--ink);
 }
 
-/* ================= Status Badges ================= */
+
+/* =========================================================
+   STATUS BADGES
+   ========================================================= */
 
 .badge{
-
     display:inline-block;
+
     padding:6px 12px;
+
     border-radius:20px;
-    font-size:13px;
+
+    font-size:12px;
+
     font-weight:600;
 
+    border:1px solid transparent;
 }
+
 
 .badge-pending{
-    background:#FEF3C7;
-    color:#92400E;
+    background:#FFF4CC;
+    color:#765600;
+    border-color:#E9D98B;
 }
+
 
 .badge-progress{
-    background:#DBEAFE;
-    color:#1E40AF;
+    background:#EAF0F5;
+    color:#26343F;
+    border-color:#CAD4DC;
 }
+
 
 .badge-success{
-    background:#DCFCE7;
-    color:#166534;
+    background:#EAF8DD;
+    color:#356300;
+    border-color:#BBD98A;
 }
+
 
 .badge-danger{
-    background:#FEE2E2;
-    color:#991B1B;
+    background:#FDEAEA;
+    color:#8B2020;
+    border-color:#E7BBBB;
 }
+
 
 .badge-review{
-    background:#FDE68A;
-    color:#92400E;
+    background:#FFF1D6;
+    color:#855400;
+    border-color:#E6C98F;
 }
 
-/* ================= Footer ================= */
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
 
 .campus-footer{
-    margin-left:240px;
-    background:#0F172A;
-    color:#E2E8F0;
-    padding:16px 30px;
-    border-top:1px solid rgba(255,255,255,.08);
+    margin-left:var(--sidebar-width);
+
+    background:var(--ink);
+
+    color:#E7EAEF;
+
+    padding:18px 30px;
+
+    border-top:1px solid rgba(255,255,255,.10);
 }
+
 
 .footer-content{
-
     display:flex;
+
     justify-content:space-between;
     align-items:center;
-    flex-wrap:wrap;
-    gap:12px;
 
+    flex-wrap:wrap;
+
+    gap:12px;
 }
+
 
 .footer-left h3{
-
-    color:white;
     margin-bottom:4px;
 
+    color:var(--primary);
+
+    font-size:17px;
 }
+
 
 .footer-left p,
 .footer-right p{
+    font-size:13px;
 
-    font-size:14px;
-    color:#94A3B8;
-
+    color:#AEB4BC;
 }
 
-/* ================= Utilities ================= */
+
+/* =========================================================
+   GENERAL PAGE HEADER
+   ========================================================= */
+
+.page-header{
+    margin-bottom:18px;
+}
+
+
+.page-header h1,
+.page-header h2,
+.page-header h3{
+    color:var(--ink);
+}
+
+
+.page-header p{
+    margin-top:5px;
+
+    color:var(--text-light);
+
+    font-size:14px;
+}
+
+
+/* =========================================================
+   FILTER FORM
+   ========================================================= */
+
+.filter-form{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-bottom:18px;
+}
+
+
+.filter-form input,
+.filter-form select{
+    background:var(--card);
+}
+
+
+/* =========================================================
+   SUMMARY GRID
+   ========================================================= */
+
+.summary-grid{
+    display:grid;
+
+    gap:14px;
+
+    margin:18px 0;
+}
+
+
+/* =========================================================
+   TABLE INFORMATION
+   ========================================================= */
+
+.table-info{
+    margin:14px 0;
+
+    color:var(--text-light);
+
+    font-size:13px;
+
+    font-weight:600;
+}
+
+
+/* =========================================================
+   TABLE CARD
+   ========================================================= */
+
+.table-card{
+    margin-bottom:20px;
+
+    background:var(--card);
+
+    border:2px solid var(--ink);
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    box-shadow:4px 4px 0 var(--border);
+}
+
+
+/* =========================================================
+   UTILITY CLASSES
+   ========================================================= */
 
 .text-muted{
     color:var(--text-light);
 }
 
+
 .shadow{
-    box-shadow:0 8px 24px rgba(15,23,42,.08);
+    box-shadow:4px 4px 0 var(--border);
 }
 
-/* ================= Responsive ================= */
 
-@media(max-width:768px){
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media(max-width:900px){
 
     .dashboard-content{
-
-        margin-left:0;
-        padding:78px 0px 24px;
-
+        padding-left:18px;
+        padding-right:18px;
     }
 
     .campus-footer{
+        margin-left:230px;
+    }
+}
 
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   ========================================================= */
+
+@media(max-width:700px){
+
+    .dashboard-content{
         margin-left:0;
 
+        width:100%;
+
+        padding:20px 16px 24px;
+    }
+
+    .campus-footer{
+        margin-left:0;
+
+        padding:18px 16px;
     }
 
     .footer-content{
-
         flex-direction:column;
-        text-align:center;
 
+        text-align:center;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL DEVICES
+   ========================================================= */
+
+@media(max-width:450px){
+
+    .dashboard-content{
+        padding-left:12px;
+        padding-right:12px;
     }
 
-}
+    .campus-footer{
+        padding-left:12px;
+        padding-right:12px;
+    }
 
-.page-header{
-    margin-bottom:16px;
-}
-
-.filter-form{
-    margin-bottom:16px;
-}
-
-.summary-grid{
-    margin:16px 0;
-    gap:14px;
-}
-
-.table-info{
-    margin:12px 0;
-}
-
-.table-card{
-    margin-bottom:20px;
+    .card{
+        padding:16px;
+    }
 }

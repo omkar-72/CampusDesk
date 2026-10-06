@@ -1,86 +1,381 @@
-/* ================= TOP HEADER ================= */
+/* =========================================================
+   CAMPUSDESK - COMMON TOP HEADER
+   FRIEND LOGIN / REGISTER UI THEME
+   ========================================================= */
+
+
+/* ---------- Theme colors ---------- */
+:root{
+    --header-ink:#0E1116;
+    --header-lime:#C8F135;
+    --header-white:#FFFFFF;
+    --header-page:#FAFAF7;
+    --header-muted:#5B6169;
+    --header-line:#D5D8CC;
+}
+
+
+/* =========================================================
+   TOP HEADER
+   ========================================================= */
 
 .top-header{
-    position: fixed;
-    top: 0;
-    left: 260px;
-    width: calc(100% - 260px);
-    height: 75px;
-    background: white;
+    position:fixed;
+
+    top:0;
+    left:260px;
+
+    width:calc(100% - 260px);
+    height:75px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
+    box-sizing:border-box;
+
     padding:0 25px;
-    border-bottom:1px solid #E2E8F0;
-    box-shadow:0 4px 12px rgba(0,0,0,.06);
+
+    background:var(--header-white);
+
+    border-bottom:2px solid var(--header-ink);
+
+    box-shadow:0 4px 0 rgba(14,17,22,.08);
+
     z-index:999;
 }
+
+
+/* =========================================================
+   HEADER LEFT
+   ========================================================= */
 
 .header-left{
     display:flex;
     align-items:center;
+
     gap:15px;
 }
 
+
 .header-left h2{
     margin:0;
-    font-size:28px;
-    color:#0F172A;
+
+    font-size:27px;
+    line-height:1.2;
+    font-weight:700;
+
+    color:var(--header-ink);
 }
+
+
+/* =========================================================
+   HEADER CENTER / SEARCH
+   ========================================================= */
 
 .header-center{
     flex:1;
+
     display:flex;
     justify-content:center;
+
+    padding:0 25px;
 }
+
 
 .search-box{
     width:420px;
+
     display:flex;
     align-items:center;
+
     gap:10px;
-    background:#F8FAFC;
-    border:1px solid #E2E8F0;
-    border-radius:30px;
+
     padding:10px 16px;
+
+    box-sizing:border-box;
+
+    background:var(--header-page);
+
+    border:1.5px solid var(--header-line);
+    border-radius:8px;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
 }
+
+
+.search-box:focus-within{
+    background:var(--header-white);
+
+    border-color:var(--header-ink);
+
+    box-shadow:
+        0 0 0 3px rgba(200,241,53,.35);
+}
+
+
+.search-box i{
+    flex-shrink:0;
+
+    color:var(--header-muted);
+}
+
 
 .search-box input{
     width:100%;
+
     border:none;
     outline:none;
+
     background:transparent;
+
+    color:var(--header-ink);
+
+    font-family:inherit;
 }
+
+
+.search-box input::placeholder{
+    color:#858A91;
+}
+
+
+/* =========================================================
+   HEADER RIGHT
+   ========================================================= */
 
 .header-right{
     display:flex;
     align-items:center;
+
     gap:18px;
 }
+
+
+/* =========================================================
+   NOTIFICATION BUTTON
+   ========================================================= */
 
 .notification-btn{
     width:42px;
     height:42px;
-    border:none;
-    border-radius:50%;
-    background:#F1F5F9;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:0;
+
+    color:var(--header-ink);
+
+    background:var(--header-white);
+
+    border:1.5px solid var(--header-line);
+    border-radius:8px;
+
     cursor:pointer;
+
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
 }
+
+
+.notification-btn:hover{
+    background:var(--header-lime);
+
+    border-color:var(--header-ink);
+
+    transform:translateY(-2px);
+
+    box-shadow:3px 3px 0 var(--header-ink);
+}
+
+
+/* =========================================================
+   PROFILE
+   ========================================================= */
 
 .profile-box{
     display:flex;
     align-items:center;
-    gap:12px;
+
+    gap:10px;
+
+    text-decoration:none;
+
+    color:var(--header-ink);
 }
+
 
 .profile-avatar{
     width:42px;
     height:42px;
-    border-radius:50%;
-    background:#2563EB;
-    color:white;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    font-weight:bold;
+
+    flex-shrink:0;
+
+    font-size:16px;
+    font-weight:700;
+
+    color:var(--header-ink);
+    background:var(--header-lime);
+
+    border:2px solid var(--header-ink);
+    border-radius:8px;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.profile-box:hover .profile-avatar{
+    transform:translateY(-2px);
+
+    box-shadow:3px 3px 0 var(--header-ink);
+}
+
+
+.profile-text{
+    max-width:180px;
+
+    overflow:hidden;
+
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+
+.profile-text span{
+    font-size:14px;
+    font-weight:600;
+
+    color:var(--header-ink);
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media(max-width:900px){
+
+    .top-header{
+        left:230px;
+        width:calc(100% - 230px);
+
+        padding:0 18px;
+    }
+
+
+    .header-left h2{
+        font-size:23px;
+    }
+
+
+    .header-center{
+        padding:0 15px;
+    }
+
+
+    .search-box{
+        width:320px;
+    }
+
+
+    .profile-text{
+        max-width:130px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   ========================================================= */
+
+@media(max-width:700px){
+
+    .top-header{
+        position:relative;
+
+        left:0;
+
+        width:100%;
+        height:auto;
+
+        min-height:70px;
+
+        padding:12px 15px;
+
+        flex-wrap:wrap;
+
+        gap:10px;
+    }
+
+
+    .header-left{
+        flex:1;
+    }
+
+
+    .header-left h2{
+        font-size:21px;
+    }
+
+
+    .header-center{
+        order:3;
+
+        width:100%;
+
+        padding:0;
+    }
+
+
+    .search-box{
+        width:100%;
+    }
+
+
+    .header-right{
+        gap:10px;
+    }
+
+
+    .profile-text{
+        display:none;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREENS
+   ========================================================= */
+
+@media(max-width:450px){
+
+    .top-header{
+        padding:10px 12px;
+    }
+
+
+    .header-left h2{
+        font-size:19px;
+    }
+
+
+    .notification-btn,
+    .profile-avatar{
+        width:38px;
+        height:38px;
+    }
 }

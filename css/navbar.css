@@ -1,104 +1,260 @@
 /* =========================================================
    CAMPUSDESK COMMON LEFT SIDEBAR
+   FRIEND LOGIN / REGISTER UI THEME
+   ========================================================= */
+
+/* ---------- Theme colors ---------- */
+:root{
+    --nav-ink:#0E1116;
+    --nav-lime:#C8F135;
+    --nav-white:#FFFFFF;
+    --nav-muted:#AEB4BC;
+    --nav-line:rgba(255,255,255,.12);
+    --nav-hover:#191D23;
+}
+
+
+/* =========================================================
+   MAIN SIDEBAR
    ========================================================= */
 
 .navbar{
     position:fixed;
+
     top:0;
     left:0;
+
     width:260px;
     height:100vh;
-    background:#0F172A;
+
     display:flex;
     flex-direction:column;
+
     padding:20px 15px;
-    color:white;
-    z-index:1000;
+
     box-sizing:border-box;
+
+    color:var(--nav-white);
+    background:var(--nav-ink);
+
+    border-right:1px solid var(--nav-line);
+
+    z-index:1000;
 }
+
+
+/* =========================================================
+   LOGO AREA
+   ========================================================= */
 
 .navbar-logo{
     display:flex;
     align-items:center;
+
     gap:12px;
-    padding-bottom:25px;
-    border-bottom:1px solid rgba(255,255,255,.08);
+
+    padding:4px 5px 25px;
+
+    border-bottom:1px solid var(--nav-line);
 }
+
 
 .logo-circle{
     width:50px;
     height:50px;
-    border-radius:14px;
-    background:#2563EB;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    color:white;
-    font-size:22px;
+
     flex-shrink:0;
+
+    font-size:22px;
+
+    color:var(--nav-ink);
+    background:var(--nav-lime);
+
+    border-radius:8px;
+
+    box-shadow:3px 3px 0 rgba(200,241,53,.35);
 }
+
 
 .logo-text h2{
-    color:white;
     margin:0;
+
     font-size:22px;
+    line-height:1.2;
+    font-weight:700;
+
+    color:var(--nav-white);
 }
 
+
 .logo-text span{
-    color:#94A3B8;
+    display:block;
+
+    margin-top:3px;
+
     font-size:12px;
+
+    color:var(--nav-muted);
 }
+
+
+/* =========================================================
+   NAVIGATION MENU
+   ========================================================= */
 
 .navbar-menu{
     list-style:none;
-    margin-top:25px;
+
     display:flex;
     flex-direction:column;
-    gap:8px;
+
+    gap:7px;
+
     flex:1;
+
     padding:0;
-    margin-left:0;
-    margin-right:0;
+    margin:25px 0 0;
 }
+
 
 .navbar-menu li{
     list-style:none;
 }
 
+
+/* ---------- Navigation links ---------- */
+
 .navbar-menu li a{
+    position:relative;
+
     display:flex;
     align-items:center;
+
     gap:12px;
-    padding:14px 18px;
-    border-radius:12px;
-    color:#CBD5E1;
+
+    padding:13px 16px;
+
+    color:#C8CDD4;
+
     text-decoration:none;
-    transition:.25s;
+
+    border:1px solid transparent;
+    border-radius:8px;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
 }
+
 
 .navbar-menu li a:hover{
-    background:#1E293B;
-    color:white;
+    color:var(--nav-white);
+
+    background:var(--nav-hover);
+
+    border-color:rgba(200,241,53,.22);
+
+    transform:translateX(2px);
 }
 
+
+/* =========================================================
+   ACTIVE MENU ITEM
+   ========================================================= */
+
 .navbar-menu li.active a{
-    background:#2563EB;
-    color:white;
+    color:var(--nav-ink);
+
+    background:var(--nav-lime);
+
+    border-color:var(--nav-lime);
+
+    font-weight:700;
+
+    box-shadow:4px 4px 0 rgba(200,241,53,.2);
 }
+
+
+.navbar-menu li.active a:hover{
+    color:var(--nav-ink);
+
+    background:var(--nav-lime);
+
+    transform:translateX(2px);
+}
+
+
+/* ---------- Navigation icons ---------- */
 
 .navbar-menu li a i{
     width:18px;
+
     text-align:center;
+
     flex-shrink:0;
+
+    font-size:15px;
 }
+
+
+/* Lime icon on active menu item */
+.navbar-menu li.active a i{
+    color:var(--nav-ink);
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
 
 .logout{
     margin-top:auto;
 }
 
 
+.logout a{
+    border-top:1px solid var(--nav-line);
+    border-radius:8px;
+}
+
+
+.logout a:hover{
+    color:var(--nav-lime);
+
+    background:#191D23;
+
+    border-color:rgba(200,241,53,.30);
+}
+
+
 /* =========================================================
-   RESPONSIVE
+   SMALL DECORATIVE LINE ABOVE MENU
+   ========================================================= */
+
+.navbar-menu::before{
+    content:"";
+
+    display:block;
+
+    width:45px;
+    height:4px;
+
+    margin:0 0 8px 5px;
+
+    background:var(--nav-lime);
+
+    border-radius:2px;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
    ========================================================= */
 
 @media(max-width:900px){
@@ -111,34 +267,56 @@
         gap:10px;
     }
 
+    .logo-circle{
+        width:45px;
+        height:45px;
+
+        font-size:20px;
+    }
+
     .logo-text h2{
         font-size:20px;
     }
 
     .navbar-menu li a{
-        padding:13px 15px;
+        padding:12px 14px;
     }
 }
 
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   ========================================================= */
 
 @media(max-width:700px){
 
     .navbar{
         position:relative;
+
         width:100%;
         min-height:auto;
         height:auto;
+
         padding:15px;
     }
+
 
     .navbar-logo{
         padding-bottom:15px;
     }
 
+
     .navbar-menu{
         margin-top:15px;
+
         gap:5px;
     }
+
+
+    .navbar-menu::before{
+        margin-bottom:5px;
+    }
+
 
     .logout{
         margin-top:10px;
