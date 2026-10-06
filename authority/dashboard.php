@@ -238,7 +238,7 @@ LIMIT 6
                     </div>
                     <h2><?= $pending ?></h2>
                 </div>
-
+                <!--
                 <div class="stat-box teal">
                     <div class="stat-header">
                         <span>New Grievances</span>
@@ -270,7 +270,7 @@ LIMIT 6
                     </div>
                     <h2><?= $resolvedToday ?></h2>
                 </div>
-
+                -->
             </section>
 
             <!-- Bottom Section -->
