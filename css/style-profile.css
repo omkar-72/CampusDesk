@@ -1,648 +1,775 @@
-/*
- * CampusDesk
- * Student Profile Styles
- */
+/* =========================================================
+   CAMPUSDESK - STUDENT PROFILE
+   FRIEND LOGIN / REGISTER UI THEME
+   UI ONLY - NO LOGIC CHANGES
+   ========================================================= */
 
 
-/* =========================
+/* =========================================================
    BASIC RESET
-   ========================= */
+   ========================================================= */
 
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
 
-/* =========================
+/* =========================================================
    BODY
-   ========================= */
+   ========================================================= */
 
-body {
-    margin: 0;
-    padding: 0;
+body{
+    margin:0;
+    padding:0;
 
-    font-family: Arial, sans-serif;
+    font-family:'Poppins',Arial,sans-serif;
 
-    background-color: #f5f6f8;
+    background:#FAFAF7;
 
-    color: #222;
+    color:#0E1116;
 }
 
-
-/* =========================
-   PROFILE CONTAINER
-   ========================= */
-
-/*
- * The common Student navbar is fixed at 260px.
- * The profile content must therefore stay beside the navbar,
- * just like the Student Applications page.
- */
-.profile-container {
-    width: min(1100px, calc(100% - 40px));
-    max-width: 1100px;
-
-    margin: 0 auto 50px;
-}
-
-
-/* =========================
-   PROFILE HEADER
-   ========================= */
-
-.profile-header {
-    background-color: #ffffff;
-
-    border: 1px solid #ddd;
-    border-radius: 8px;
-
-    padding: 25px;
-
-    margin-bottom: 20px;
-
-    text-align: center;
-}
-
-.profile-header h1 {
-    margin: 0;
-
-    font-size: 30px;
-}
-
-.profile-header p {
-    margin: 8px 0 0;
-
-    color: #666;
-
-    font-size: 16px;
-}
-
-
-/* =========================
-   BACK LINK
-   ========================= */
-
-.back-link {
-    display: block;
-
-    text-align: left;
-
-    margin-bottom: 15px;
-
-    color: #333;
-
-    text-decoration: none;
-
-    font-size: 15px;
-}
-
-.back-link:hover {
-    text-decoration: underline;
-}
-
-
-/* =========================
-   MESSAGES
-   ========================= */
-
-.profile-message {
-    padding: 12px 15px;
-
-    border-radius: 6px;
-
-    margin-bottom: 20px;
-
-    font-size: 14px;
-}
-
-.success-message {
-    background-color: #e8f5e9;
-
-    border: 1px solid #a5d6a7;
-
-    color: #2e7d32;
-}
-
-.error-message {
-    background-color: #ffebee;
-
-    border: 1px solid #ef9a9a;
-
-    color: #c62828;
-}
-
-
-/* =========================
-   PROFILE SECTIONS
-   ========================= */
-
-.profile-section {
-    background-color: #ffffff;
-
-    border: 1px solid #ddd;
-
-    border-radius: 8px;
-
-    padding: 25px;
-
-    margin-bottom: 20px;
-}
-
-.profile-section h2 {
-    margin: 0 0 20px;
-
-    font-size: 21px;
-
-    border-bottom: 1px solid #ddd;
-
-    padding-bottom: 10px;
-}
-
-
-/* =========================
-   PROFILE PHOTO
-   ========================= */
-
-.profile-photo-area {
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    margin-bottom: 20px;
-}
-
-.profile-photo {
-    width: 150px;
-    height: 150px;
-
-    border-radius: 50%;
-
-    object-fit: cover;
-
-    border: 3px solid #ddd;
-
-    display: block;
-}
-
-.default-profile-icon {
-    width: 150px;
-    height: 150px;
-
-    border-radius: 50%;
-
-    background-color: #eee;
-
-    border: 3px solid #ddd;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    font-size: 70px;
-}
-
-
-/* =========================
-   HIDDEN
-   ========================= */
-
-.hidden {
-    display: none !important;
-}
-
-
-/* =========================
-   PROFILE PHOTO FORM
-   ========================= */
-
-.profile-photo-form {
-    max-width: 500px;
-
-    margin: 0 auto;
-}
-
-.remove-photo-form {
-    max-width: 500px;
-
-    margin: 12px auto 0;
-}
-
-
-/* =========================
-   PROFILE GRID
-   ========================= */
-
-.profile-grid {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 18px 20px;
-}
-
-
-/* =========================
-   FULL WIDTH FIELD
-   ========================= */
-
-.profile-full-width {
-    grid-column: 1 / -1;
-}
-
-
-/* =========================
-   PROFILE FIELD
-   ========================= */
-
-.profile-field {
-    margin-bottom: 18px;
-}
-
-.profile-field label {
-    display: block;
-
-    margin-bottom: 7px;
-
-    font-weight: bold;
-
-    font-size: 14px;
-}
-
-
-/* =========================
-   INPUTS
-   ========================= */
-
-.profile-field input,
-.profile-field textarea,
-.profile-field select {
-    width: 100%;
-
-    padding: 11px 12px;
-
-    border: 1px solid #ccc;
-
-    border-radius: 5px;
-
-    font-size: 14px;
-
-    font-family: Arial, sans-serif;
-
-    background-color: #ffffff;
-}
-
-
-/* =========================
-   INPUT FOCUS
-   ========================= */
-
-.profile-field input:focus,
-.profile-field textarea:focus,
-.profile-field select:focus {
-    outline: none;
-
-    border-color: #777;
-}
-
-
-/* =========================
-   READONLY FIELDS
-   ========================= */
-
-.profile-field input[readonly],
-.profile-field textarea[readonly] {
-    background-color: #f1f1f1;
-
-    color: #555;
-
-    cursor: not-allowed;
-}
-
-
-/* =========================
-   EDITABLE FIELDS
-   ========================= */
-
-.profile-field input.editable-field,
-.profile-field textarea.editable-field {
-    background-color: #ffffff;
-
-    color: #222;
-
-    border-color: #777;
-
-    cursor: text;
-}
-
-
-/* =========================
-   TEXTAREA
-   ========================= */
-
-.profile-field textarea {
-    resize: vertical;
-
-    min-height: 100px;
-}
-
-
-/* =========================
-   FILE INPUT
-   ========================= */
-
-.profile-field input[type="file"] {
-    padding: 9px;
-
-    background-color: #ffffff;
-
-    cursor: pointer;
-}
-
-
-/* =========================
-   HELP TEXT
-   ========================= */
-
-.form-help {
-    margin: -5px 0 15px;
-
-    color: #777;
-
-    font-size: 13px;
-}
-
-
-/* =========================
-   PASSWORD BOX
-   ========================= */
-
-.password-box {
-    position: relative;
-
-    width: 100%;
-}
-
-.password-box input {
-    padding-right: 50px;
-}
-
-
-/* =========================
-   PASSWORD TOGGLE
-   ========================= */
-
-.password-toggle {
-    position: absolute;
-
-    right: 8px;
-
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    width: 35px;
-    height: 35px;
-
-    border: none;
-
-    background: transparent;
-
-    cursor: pointer;
-
-    font-size: 18px;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-}
-
-.password-toggle:hover {
-    background-color: #f1f1f1;
-
-    border-radius: 5px;
-}
-
-
-/* =========================
-   BUTTONS
-   ========================= */
-
-.profile-button {
-    display: inline-block;
-
-    padding: 10px 18px;
-
-    border: none;
-
-    border-radius: 5px;
-
-    font-size: 14px;
-
-    font-family: Arial, sans-serif;
-
-    text-decoration: none;
-
-    cursor: pointer;
-
-    margin-right: 8px;
-}
-
-
-/* =========================
-   PRIMARY BUTTON
-   ========================= */
-
-.primary-button {
-    background-color: #333;
-
-    color: #ffffff;
-}
-
-.primary-button:hover {
-    background-color: #222;
-}
-
-
-/* =========================
-   SECONDARY BUTTON
-   ========================= */
-
-.secondary-button {
-    background-color: #e0e0e0;
-
-    color: #333;
-
-    border: 1px solid #ccc;
-}
-
-.secondary-button:hover {
-    background-color: #d5d5d5;
-}
-
-
-/* =========================
-   DANGER BUTTON
-   ========================= */
-
-.danger-button {
-    background-color: #c62828;
-
-    color: #ffffff;
-}
-
-.danger-button:hover {
-    background-color: #a61f1f;
-}
-
-
-/* =========================
-   BUTTON GROUP
-   ========================= */
-
-.button-group {
-    margin-top: 10px;
-}
-
-
-/* =========================
-   LOGOUT SECTION
-   ========================= */
-
-.profile-logout-section {
-    background-color: #ffffff;
-
-    border: 1px solid #ddd;
-
-    border-radius: 8px;
-
-    padding: 20px;
-
-    margin-bottom: 30px;
-
-    text-align: center;
-}
-
-
-/* =========================
-   MOBILE RESPONSIVE
-   ========================= */
-
-@media (max-width: 700px) {
-
-    .profile-container {
-        width: 94%;
-
-        margin: 20px auto;
-    }
-
-
-    .profile-section {
-        padding: 20px;
-    }
-
-
-    .profile-grid {
-        grid-template-columns: 1fr;
-
-        gap: 0;
-    }
-
-
-    .profile-full-width {
-        grid-column: auto;
-    }
-
-
-    .profile-header h1 {
-        font-size: 25px;
-    }
-
-
-    .profile-photo {
-        width: 130px;
-        height: 130px;
-    }
-
-
-    .default-profile-icon {
-        width: 130px;
-        height: 130px;
-
-        font-size: 60px;
-    }
-
-
-    .profile-button {
-        width: 100%;
-
-        margin: 5px 0;
-    }
-
-
-    .password-toggle {
-        width: 38px;
-    }
-
-}
 
 /* =========================================================
    COMMON STUDENT PAGE LAYOUT
    ========================================================= */
 
-/*
- * Keep the fixed Student sidebar from covering the Profile page.
- * These dimensions match the common Student Applications layout.
- */
 .dashboard-layout{
     display:flex;
+
     flex:1;
+
     min-height:calc(100vh - 75px);
 }
 
+
 .dashboard-content{
     margin-left:260px;
+
     width:calc(100% - 260px);
+
     padding:90px 20px 30px;
+
     box-sizing:border-box;
 }
 
-/*
- * Keep the shared footer aligned with the content area.
- */
+
+/* Keep the shared footer aligned with content. */
 .campus-footer{
     margin-left:260px;
 }
 
-/*
- * The Profile stylesheet must not change the size of the common
- * navbar used by Student, Authority or Admin pages.
- */
+
+/* Keep shared navbar dimensions unchanged. */
 .navbar{
     width:260px;
+
     box-sizing:border-box;
 }
 
-@media (max-width:700px){
+
+/* =========================================================
+   PROFILE CONTAINER
+   ========================================================= */
+
+.profile-container{
+    width:min(1100px,calc(100% - 40px));
+
+    max-width:1100px;
+
+    margin:0 auto 50px;
+}
+
+
+/* =========================================================
+   PROFILE HEADER
+   ========================================================= */
+
+.profile-header{
+    position:relative;
+
+    background:#FFFFFF;
+
+    border:2px solid #0E1116;
+
+    border-radius:12px;
+
+    padding:28px;
+
+    margin-bottom:20px;
+
+    text-align:center;
+
+    box-shadow:5px 5px 0 #D5D8CC;
+
+    overflow:hidden;
+}
+
+
+/* Lime accent at the top of the card. */
+.profile-header::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+    right:0;
+
+    height:6px;
+
+    background:#C8F135;
+}
+
+
+.profile-header h1{
+    margin:0;
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:#0E1116;
+}
+
+
+.profile-header p{
+    margin:8px 0 0;
+
+    color:#5B6169;
+
+    font-size:15px;
+}
+
+
+/* =========================================================
+   BACK LINK
+   ========================================================= */
+
+.back-link{
+    display:block;
+
+    text-align:left;
+
+    margin-bottom:15px;
+
+    color:#0E1116;
+
+    text-decoration:none;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    transition:.2s;
+}
+
+
+.back-link:hover{
+    color:#5B6169;
+
+    text-decoration:none;
+
+    transform:translateX(3px);
+}
+
+
+/* =========================================================
+   MESSAGES
+   ========================================================= */
+
+.profile-message{
+    padding:13px 15px;
+
+    border-radius:8px;
+
+    margin-bottom:20px;
+
+    font-size:14px;
+}
+
+
+.success-message{
+    background:#EAF7BE;
+
+    border:1.5px solid #C8F135;
+
+    color:#263600;
+}
+
+
+.error-message{
+    background:#FDEAEA;
+
+    border:1.5px solid #E5B5B5;
+
+    color:#8B2020;
+}
+
+
+/* =========================================================
+   PROFILE SECTIONS
+   ========================================================= */
+
+.profile-section{
+    position:relative;
+
+    background:#FFFFFF;
+
+    border:2px solid #0E1116;
+
+    border-radius:12px;
+
+    padding:25px;
+
+    margin-bottom:20px;
+
+    box-shadow:4px 4px 0 #D5D8CC;
+
+    overflow:hidden;
+}
+
+
+/* Lime top accent. */
+.profile-section::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+    right:0;
+
+    height:5px;
+
+    background:#C8F135;
+}
+
+
+.profile-section h2{
+    margin:0 0 20px;
+
+    padding-bottom:10px;
+
+    font-size:21px;
+
+    color:#0E1116;
+
+    border-bottom:1px dashed #C9CCC2;
+}
+
+
+/* =========================================================
+   PROFILE PHOTO
+   ========================================================= */
+
+.profile-photo-area{
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin-bottom:20px;
+}
+
+
+.profile-photo{
+    width:150px;
+    height:150px;
+
+    border-radius:12px;
+
+    object-fit:cover;
+
+    border:3px solid #0E1116;
+
+    display:block;
+
+    box-shadow:5px 5px 0 #C8F135;
+}
+
+
+.default-profile-icon{
+    width:150px;
+    height:150px;
+
+    border-radius:12px;
+
+    background:#FAFAF7;
+
+    border:3px solid #0E1116;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:70px;
+
+    color:#0E1116;
+
+    box-shadow:5px 5px 0 #C8F135;
+}
+
+
+/* =========================================================
+   HIDDEN
+   ========================================================= */
+
+.hidden{
+    display:none !important;
+}
+
+
+/* =========================================================
+   PROFILE PHOTO FORMS
+   ========================================================= */
+
+.profile-photo-form{
+    max-width:500px;
+
+    margin:0 auto;
+}
+
+
+.remove-photo-form{
+    max-width:500px;
+
+    margin:12px auto 0;
+}
+
+
+/* =========================================================
+   PROFILE GRID
+   ========================================================= */
+
+.profile-grid{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:18px 20px;
+}
+
+
+/* =========================================================
+   FULL WIDTH FIELD
+   ========================================================= */
+
+.profile-full-width{
+    grid-column:1 / -1;
+}
+
+
+/* =========================================================
+   PROFILE FIELD
+   ========================================================= */
+
+.profile-field{
+    margin-bottom:18px;
+}
+
+
+.profile-field label{
+    display:block;
+
+    margin-bottom:7px;
+
+    font-weight:600;
+
+    font-size:13px;
+
+    color:#0E1116;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.profile-field input,
+.profile-field textarea,
+.profile-field select{
+    width:100%;
+
+    padding:11px 12px;
+
+    border:1.5px solid #D5D8CC;
+
+    border-radius:8px;
+
+    font-size:14px;
+
+    font-family:'Poppins',Arial,sans-serif;
+
+    background:#FCFCF9;
+
+    color:#0E1116;
+
+    outline:none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+
+/* =========================================================
+   INPUT FOCUS
+   ========================================================= */
+
+.profile-field input:focus,
+.profile-field textarea:focus,
+.profile-field select:focus{
+    outline:none;
+
+    border-color:#0E1116;
+
+    background:#FFFFFF;
+
+    box-shadow:
+        0 0 0 3px rgba(200,241,53,.35);
+}
+
+
+/* =========================================================
+   READONLY FIELDS
+   ========================================================= */
+
+.profile-field input[readonly],
+.profile-field textarea[readonly]{
+    background:#F0F1EC;
+
+    color:#5B6169;
+
+    cursor:not-allowed;
+
+    border-color:#D5D8CC;
+}
+
+
+/* =========================================================
+   EDITABLE FIELDS
+   ========================================================= */
+
+.profile-field input.editable-field,
+.profile-field textarea.editable-field{
+    background:#FFFFFF;
+
+    color:#0E1116;
+
+    border-color:#AEB3AA;
+
+    cursor:text;
+}
+
+
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
+
+.profile-field textarea{
+    resize:vertical;
+
+    min-height:100px;
+}
+
+
+/* =========================================================
+   FILE INPUT
+   ========================================================= */
+
+.profile-field input[type="file"]{
+    padding:9px;
+
+    background:#FFFFFF;
+
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   HELP TEXT
+   ========================================================= */
+
+.form-help{
+    margin:-5px 0 15px;
+
+    color:#5B6169;
+
+    font-size:12px;
+}
+
+
+/* =========================================================
+   PASSWORD BOX
+   ========================================================= */
+
+.password-box{
+    position:relative;
+
+    width:100%;
+}
+
+
+.password-box input{
+    padding-right:50px;
+}
+
+
+/* =========================================================
+   PASSWORD TOGGLE
+   ========================================================= */
+
+.password-toggle{
+    position:absolute;
+
+    right:8px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:35px;
+    height:35px;
+
+    border:1px solid transparent;
+
+    background:transparent;
+
+    color:#0E1116;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:6px;
+}
+
+
+.password-toggle:hover{
+    background:#C8F135;
+
+    border-color:#0E1116;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.profile-button{
+    display:inline-block;
+
+    padding:10px 18px;
+
+    border:2px solid #0E1116;
+
+    border-radius:8px;
+
+    font-size:14px;
+
+    font-family:'Poppins',Arial,sans-serif;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+    margin-right:8px;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+   ========================================================= */
+
+.primary-button{
+    background:#0E1116;
+
+    color:#C8F135;
+}
+
+
+.primary-button:hover{
+    background:#C8F135;
+
+    color:#0E1116;
+
+    transform:translate(-1px,-2px);
+
+    box-shadow:4px 4px 0 #0E1116;
+}
+
+
+/* =========================================================
+   SECONDARY BUTTON
+   ========================================================= */
+
+.secondary-button{
+    background:#FFFFFF;
+
+    color:#0E1116;
+
+    border-color:#D5D8CC;
+}
+
+
+.secondary-button:hover{
+    background:#FAFAF7;
+
+    border-color:#0E1116;
+
+    transform:translate(-1px,-2px);
+
+    box-shadow:3px 3px 0 #C8F135;
+}
+
+
+/* =========================================================
+   DANGER BUTTON
+   ========================================================= */
+
+.danger-button{
+    background:#0E1116;
+
+    color:#FFFFFF;
+
+    border-color:#0E1116;
+}
+
+
+.danger-button:hover{
+    background:#C62828;
+
+    color:#FFFFFF;
+
+    border-color:#C62828;
+
+    transform:translate(-1px,-2px);
+
+    box-shadow:4px 4px 0 #F2A4A4;
+}
+
+
+/* =========================================================
+   BUTTON GROUP
+   ========================================================= */
+
+.button-group{
+    margin-top:10px;
+}
+
+
+/* =========================================================
+   LOGOUT SECTION
+   ========================================================= */
+
+.profile-logout-section{
+    background:#FFFFFF;
+
+    border:2px solid #0E1116;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    margin-bottom:30px;
+
+    text-align:center;
+
+    box-shadow:4px 4px 0 #D5D8CC;
+}
+
+
+/* =========================================================
+   MOBILE RESPONSIVE
+   ========================================================= */
+
+@media(max-width:700px){
 
     .dashboard-content{
         margin-left:0;
+
         width:100%;
+
         padding:85px 15px 25px;
     }
+
 
     .campus-footer{
         margin-left:0;
     }
 
+
     .profile-container{
         width:94%;
+
         max-width:none;
+
         margin:0 auto 35px;
+    }
+
+
+    .profile-section{
+        padding:20px;
+    }
+
+
+    .profile-grid{
+        grid-template-columns:1fr;
+
+        gap:0;
+    }
+
+
+    .profile-full-width{
+        grid-column:auto;
+    }
+
+
+    .profile-header h1{
+        font-size:25px;
+    }
+
+
+    .profile-photo{
+        width:130px;
+        height:130px;
+    }
+
+
+    .default-profile-icon{
+        width:130px;
+        height:130px;
+
+        font-size:60px;
+    }
+
+
+    .profile-button{
+        width:100%;
+
+        margin:5px 0;
+    }
+
+
+    .password-toggle{
+        width:38px;
     }
 }

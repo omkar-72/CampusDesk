@@ -341,14 +341,6 @@ textarea::placeholder{
     margin-bottom:18px;
 }
 
-
-.page-header h1,
-.page-header h2,
-.page-header h3{
-    color:var(--ink);
-}
-
-
 .page-header p{
     margin-top:5px;
 

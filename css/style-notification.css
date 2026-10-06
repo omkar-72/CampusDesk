@@ -1,19 +1,8 @@
-
 /* =========================================================
    CAMPUSDESK - STUDENT NOTIFICATIONS
-   APPLICATION-STYLE PAGE LAYOUT
+   FRIEND LOGIN / REGISTER UI THEME
    ========================================================= */
 
-/*
- * The application page uses:
- *
- * .dashboard-layout
- *     .dashboard-content
- *         .page-container
- *
- * Notifications uses the same structure, so this page container
- * is deliberately aligned to the same width and spacing.
- */
 
 /* =========================================================
    PAGE CONTAINER
@@ -21,9 +10,14 @@
 
 .notification-page{
     width:min(1120px, calc(100% - 40px));
+
     margin:32px auto 50px;
+
     padding:0;
+
     box-sizing:border-box;
+
+    color:#0E1116;
 }
 
 
@@ -35,24 +29,31 @@
     margin-bottom:18px;
 }
 
+
 .notification-back{
     display:inline-flex;
+
     align-items:center;
+
     gap:8px;
 
-    color:#2563EB;
+    color:#0E1116;
 
     font-size:14px;
-    font-weight:600;
+    font-weight:700;
 
     text-decoration:none;
 
-    transition:.2s ease;
+    transition:
+        color .2s ease,
+        transform .2s ease;
 }
 
+
 .notification-back:hover{
-    color:#1D4ED8;
-    transform:translateX(-2px);
+    color:#0E1116;
+
+    transform:translateX(-3px);
 }
 
 
@@ -62,59 +63,93 @@
 
 .notification-hero{
     position:relative;
+
     overflow:hidden;
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
     gap:24px;
 
-    padding:28px 32px;
+    padding:30px 32px;
 
     margin-bottom:24px;
 
-    border-radius:22px;
-
-    background:linear-gradient(
-        135deg,
-        #2563EB,
-        #1D4ED8
-    );
-
     color:#FFFFFF;
 
-    box-shadow:
-        0 15px 35px rgba(37,99,235,.20);
+    background:#0E1116;
+
+    border:2px solid #0E1116;
+
+    border-radius:12px;
+
+    box-shadow:6px 6px 0 #C8F135;
 }
 
+
+/*
+ * Lime strip matching the Login/Register form cards.
+ */
+.notification-hero::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+    right:0;
+
+    height:6px;
+
+    background:#C8F135;
+}
+
+
+/*
+ * Small decorative dot pattern.
+ */
 .notification-hero::after{
     content:"";
 
     position:absolute;
 
     width:170px;
-    height:170px;
+    height:120px;
 
-    right:-55px;
-    bottom:-90px;
+    right:-35px;
+    bottom:-45px;
 
-    border-radius:50%;
+    opacity:.16;
 
-    background:rgba(255,255,255,.10);
+    background-image:
+        radial-gradient(
+            #C8F135 1px,
+            transparent 1px
+        );
+
+    background-size:10px 10px;
+
+    pointer-events:none;
 }
+
 
 .notification-hero-content{
     position:relative;
+
     z-index:1;
 
     display:flex;
+
     align-items:center;
 
     gap:18px;
 
     min-width:0;
 }
+
 
 .notification-hero-icon{
     width:58px;
@@ -123,43 +158,57 @@
     min-width:58px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    border-radius:16px;
+    border-radius:10px;
 
-    background:rgba(255,255,255,.16);
+    background:#C8F135;
+
+    color:#0E1116;
 
     font-size:24px;
 }
+
 
 .notification-eyebrow{
     display:block;
 
     margin-bottom:4px;
 
-    color:rgba(255,255,255,.70);
+    color:#C8F135;
 
-    font-size:11px;
+    font-size:10px;
+
     font-weight:800;
 
-    letter-spacing:1px;
+    letter-spacing:1.3px;
+
+    text-transform:uppercase;
 }
+
 
 .notification-hero h1{
     margin:0 0 6px;
 
-    font-size:30px;
+    color:#FFFFFF;
+
+    font-size:28px;
+
+    font-weight:700;
 
     line-height:1.2;
 }
 
+
 .notification-hero p{
     margin:0;
 
-    color:rgba(255,255,255,.92);
+    color:#D5D8DD;
 
-    font-size:14px;
+    font-size:13px;
 
     line-height:1.6;
 }
@@ -171,21 +220,24 @@
 
 .notification-summary{
     position:relative;
+
     z-index:1;
 
     display:flex;
+
     align-items:center;
 
     flex-shrink:0;
 
     padding:12px 16px;
 
-    border-radius:14px;
+    border-radius:8px;
 
-    background:rgba(255,255,255,.12);
+    background:#FFFFFF;
 
-    border:1px solid rgba(255,255,255,.16);
+    border:2px solid #C8F135;
 }
+
 
 .summary-item{
     min-width:65px;
@@ -193,38 +245,44 @@
     text-align:center;
 }
 
+
 .summary-item span{
     display:block;
 
     margin-bottom:3px;
 
-    color:rgba(255,255,255,.72);
+    color:#5B6169;
 
-    font-size:11px;
-    font-weight:700;
+    font-size:10px;
+
+    font-weight:800;
 
     text-transform:uppercase;
 
     letter-spacing:.5px;
 }
 
+
 .summary-item strong{
-    color:#FFFFFF;
+    color:#0E1116;
 
     font-size:22px;
 }
 
+
 .summary-item .unread-number{
-    color:#BFDBFE;
+    color:#0E1116;
 }
+
 
 .summary-divider{
     width:1px;
+
     height:34px;
 
     margin:0 11px;
 
-    background:rgba(255,255,255,.20);
+    background:#D5D8CC;
 }
 
 
@@ -233,21 +291,45 @@
    ========================================================= */
 
 .notification-panel{
+    position:relative;
+
     background:#FFFFFF;
 
     padding:28px;
 
-    border:1px solid #E2E8F0;
+    border:2px solid #0E1116;
 
-    border-radius:18px;
+    border-radius:12px;
 
-    box-shadow:
-        0 10px 28px rgba(15,23,42,.08);
+    box-shadow:5px 5px 0 #D5D8CC;
 }
+
+
+/*
+ * Lime top strip.
+ */
+.notification-panel::before{
+    content:"";
+
+    position:absolute;
+
+    top:-2px;
+    left:-2px;
+    right:-2px;
+
+    height:5px;
+
+    background:#C8F135;
+
+    border-radius:10px 10px 0 0;
+}
+
 
 .notification-panel-header{
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
     gap:18px;
@@ -256,24 +338,29 @@
 
     margin-bottom:18px;
 
-    border-bottom:1px solid #E2E8F0;
+    border-bottom:1px dashed #C9CCC2;
 }
+
 
 .notification-panel-header h2{
     margin:0 0 5px;
 
-    color:#0F172A;
+    color:#0E1116;
 
     font-size:18px;
+
+    font-weight:700;
 }
+
 
 .notification-panel-header p{
     margin:0;
 
-    color:#64748B;
+    color:#5B6169;
 
     font-size:13px;
 }
+
 
 .notification-panel-header form{
     margin:0;
@@ -286,31 +373,45 @@
 
 .notification-mark-all{
     display:inline-flex;
+
     align-items:center;
+
     justify-content:center;
 
     gap:8px;
 
     padding:10px 14px;
 
-    border:1px solid #BFDBFE;
-    border-radius:10px;
+    border:2px solid #0E1116;
 
-    background:#EFF6FF;
-    color:#1D4ED8;
+    border-radius:8px;
+
+    background:#0E1116;
+
+    color:#C8F135;
 
     font-size:12px;
+
     font-weight:700;
 
     cursor:pointer;
 
-    transition:.2s ease;
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
 }
 
-.notification-mark-all:hover{
-    background:#DBEAFE;
 
-    transform:translateY(-1px);
+.notification-mark-all:hover{
+    background:#C8F135;
+
+    color:#0E1116;
+
+    transform:translateY(-2px);
+
+    box-shadow:3px 3px 0 #0E1116;
 }
 
 
@@ -342,44 +443,55 @@
 
     padding:18px;
 
-    border:1px solid #E2E8F0;
+    border:1.5px solid #D5D8CC;
 
-    border-radius:15px;
+    border-radius:9px;
 
     background:#FFFFFF;
 
-    transition:.2s ease;
+    transition:
+        border-color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
 }
+
 
 .notification-card:hover{
-    border-color:#BFDBFE;
+    border-color:#0E1116;
 
-    box-shadow:
-        0 8px 20px rgba(37,99,235,.08);
+    background:#FCFCF8;
 
-    transform:translateY(-1px);
+    box-shadow:4px 4px 0 #C8F135;
+
+    transform:translate(-1px,-2px);
 }
 
+
+/*
+ * Unread notification.
+ */
 .notification-card.is-unread{
-    background:#F8FBFF;
+    background:#FBFDEB;
 
-    border-color:#BFDBFE;
+    border-color:#0E1116;
 }
+
 
 .notification-card.is-unread::before{
     content:"";
 
     position:absolute;
 
-    top:16px;
-    bottom:16px;
-    left:-1px;
+    top:12px;
+    bottom:12px;
+    left:-2px;
 
-    width:4px;
+    width:5px;
 
-    border-radius:0 5px 5px 0;
+    border-radius:0 4px 4px 0;
 
-    background:#2563EB;
+    background:#C8F135;
 }
 
 
@@ -392,21 +504,25 @@
     height:50px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    border-radius:14px;
+    border-radius:9px;
 
-    background:#EFF6FF;
+    background:#C8F135;
 
-    color:#2563EB;
+    color:#0E1116;
 
     font-size:18px;
 }
 
+
 .notification-card.is-read .notification-card-icon{
-    background:#F1F5F9;
-    color:#64748B;
+    background:#F1F2EC;
+
+    color:#5B6169;
 }
 
 
@@ -417,6 +533,7 @@
 .notification-card-content{
     min-width:0;
 }
+
 
 .notification-card-meta{
     display:flex;
@@ -430,19 +547,21 @@
     margin-bottom:7px;
 }
 
+
 .notification-type{
     display:inline-flex;
+
     align-items:center;
 
     padding:5px 9px;
 
-    border:1px solid #DBEAFE;
+    border:1px solid #0E1116;
 
     border-radius:999px;
 
-    background:#EFF6FF;
+    background:#0E1116;
 
-    color:#2563EB;
+    color:#C8F135;
 
     font-size:10px;
 
@@ -453,23 +572,30 @@
     text-transform:uppercase;
 }
 
+
 .notification-card.is-read .notification-type{
-    background:#F8FAFC;
-    border-color:#E2E8F0;
-    color:#64748B;
+    background:#F4F5EF;
+
+    border-color:#D5D8CC;
+
+    color:#5B6169;
 }
+
 
 .notification-unread-dot{
     display:inline-flex;
+
     align-items:center;
 
     gap:6px;
 
-    color:#DC2626;
+    color:#0E1116;
 
     font-size:11px;
+
     font-weight:800;
 }
+
 
 .notification-unread-dot span{
     width:7px;
@@ -477,31 +603,38 @@
 
     border-radius:50%;
 
-    background:#EF4444;
+    background:#C8F135;
+
+    border:1px solid #0E1116;
 }
+
 
 .notification-read-label{
-    color:#94A3B8;
+    color:#8A9097;
 
     font-size:11px;
+
     font-weight:700;
 }
+
 
 .notification-card-content h3{
     margin:0 0 5px;
 
-    color:#0F172A;
+    color:#0E1116;
 
     font-size:16px;
+
     font-weight:700;
 
     line-height:1.4;
 }
 
+
 .notification-card-content p{
     margin:0;
 
-    color:#64748B;
+    color:#5B6169;
 
     font-size:13px;
 
@@ -526,24 +659,29 @@
 
     padding-top:13px;
 
-    border-top:1px solid #EDF2F7;
+    border-top:1px dashed #C9CCC2;
 }
+
 
 .notification-time{
     display:inline-flex;
+
     align-items:center;
 
     gap:6px;
 
-    color:#94A3B8;
+    color:#8A9097;
 
     font-size:12px;
+
     font-weight:500;
 }
 
+
 .notification-time i{
-    color:#CBD5E1;
+    color:#5B6169;
 }
+
 
 .notification-actions{
     display:flex;
@@ -557,6 +695,7 @@
     flex-wrap:wrap;
 }
 
+
 .notification-actions form{
     margin:0;
 }
@@ -569,7 +708,9 @@
 .notification-view-btn,
 .notification-read-btn{
     display:inline-flex;
+
     align-items:center;
+
     justify-content:center;
 
     gap:7px;
@@ -578,43 +719,60 @@
 
     padding:8px 12px;
 
-    border-radius:9px;
+    border-radius:8px;
 
     font-size:12px;
+
     font-weight:800;
 
     text-decoration:none;
 
     cursor:pointer;
 
-    transition:.2s ease;
+    transition:
+        background .2s ease,
+        color .2s ease,
+        border-color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
 }
+
 
 .notification-view-btn{
-    background:#0F172A;
-    color:#FFFFFF;
+    background:#0E1116;
+
+    color:#C8F135;
+
+    border:2px solid #0E1116;
 }
+
 
 .notification-view-btn:hover{
-    background:#1E293B;
+    background:#C8F135;
 
-    transform:translateY(-1px);
+    color:#0E1116;
+
+    transform:translateY(-2px);
+
+    box-shadow:3px 3px 0 #0E1116;
 }
 
+
 .notification-read-btn{
-    border:1px solid #CBD5E1;
+    border:1.5px solid #D5D8CC;
 
     background:#FFFFFF;
 
-    color:#475569;
+    color:#0E1116;
 }
 
+
 .notification-read-btn:hover{
-    border-color:#BFDBFE;
+    border-color:#0E1116;
 
-    background:#EFF6FF;
+    background:#F8F9F3;
 
-    color:#1D4ED8;
+    transform:translateY(-1px);
 }
 
 
@@ -628,6 +786,7 @@
     text-align:center;
 }
 
+
 .empty-icon{
     width:72px;
     height:72px;
@@ -635,144 +794,194 @@
     margin:0 auto 17px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
-    border-radius:18px;
+    border-radius:14px;
 
-    background:#EFF6FF;
+    background:#C8F135;
 
-    color:#2563EB;
+    color:#0E1116;
+
+    border:2px solid #0E1116;
 
     font-size:27px;
 }
 
+
 .notification-empty h2{
     margin:0 0 7px;
 
-    color:#0F172A;
+    color:#0E1116;
 
     font-size:22px;
 }
+
 
 .notification-empty p{
     max-width:480px;
 
     margin:0 auto 18px;
 
-    color:#64748B;
+    color:#5B6169;
 
     font-size:13px;
 
     line-height:1.5;
 }
 
+
 .empty-dashboard-btn{
     display:inline-flex;
+
     align-items:center;
 
     gap:8px;
 
     padding:10px 15px;
 
-    border-radius:10px;
+    border:2px solid #0E1116;
 
-    background:#2563EB;
+    border-radius:8px;
 
-    color:#FFFFFF;
+    background:#0E1116;
+
+    color:#C8F135;
 
     font-size:13px;
 
     font-weight:700;
 
     text-decoration:none;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
 }
 
+
 .empty-dashboard-btn:hover{
-    background:#1D4ED8;
+    background:#C8F135;
+
+    color:#0E1116;
+
+    transform:translateY(-2px);
+
+    box-shadow:3px 3px 0 #0E1116;
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   RESPONSIVE - TABLET
    ========================================================= */
 
 @media(max-width:800px){
 
     .notification-page{
         width:min(94%,1120px);
+
         margin:20px auto 35px;
     }
 
+
     .notification-hero{
         flex-direction:column;
+
         align-items:flex-start;
     }
+
 
     .notification-summary{
         align-self:flex-end;
     }
+
 
     .notification-panel{
         padding:20px;
     }
 }
 
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   ========================================================= */
+
 @media(max-width:600px){
 
     .notification-page{
         width:94%;
+
         margin:18px auto 30px;
     }
+
 
     .notification-hero{
         padding:22px;
 
-        border-radius:18px;
+        border-radius:10px;
+
+        box-shadow:4px 4px 0 #C8F135;
     }
+
 
     .notification-hero-content{
         align-items:flex-start;
     }
 
+
     .notification-hero-icon{
         width:50px;
         height:50px;
+
         min-width:50px;
 
-        border-radius:13px;
+        border-radius:9px;
 
         font-size:18px;
     }
+
 
     .notification-hero h1{
         font-size:24px;
     }
 
+
     .notification-hero p{
         font-size:13px;
     }
 
+
     .notification-summary{
         width:100%;
+
         justify-content:center;
+
         align-self:stretch;
     }
+
 
     .notification-panel{
         padding:16px;
 
-        border-radius:15px;
+        border-radius:10px;
     }
+
 
     .notification-panel-header{
         align-items:flex-start;
+
         flex-direction:column;
     }
+
 
     .notification-mark-all{
         width:100%;
     }
+
 
     .notification-card{
         grid-template-columns:42px minmax(0,1fr);
@@ -782,22 +991,28 @@
         padding:15px;
     }
 
+
     .notification-card-icon{
         width:42px;
         height:42px;
 
-        border-radius:12px;
+        border-radius:8px;
     }
+
 
     .notification-card-bottom{
         flex-direction:column;
+
         align-items:stretch;
     }
 
+
     .notification-actions{
         width:100%;
+
         flex-direction:column;
     }
+
 
     .notification-view-btn,
     .notification-read-btn,
@@ -808,12 +1023,13 @@
 
 
 /* =========================================================
-   TYPOGRAPHY MATCH - STUDENT APPLICATION PAGES
+   TYPOGRAPHY
    ========================================================= */
 
 .notification-page{
     font-size:14px;
 }
+
 
 .notification-page h1,
 .notification-page h2,
@@ -822,242 +1038,63 @@
 .notification-page span,
 .notification-page a,
 .notification-page button{
-    font-family:Arial, sans-serif;
+    font-family:'Poppins',sans-serif;
 }
+
 
 .notification-hero h1{
-    font-size:28px !important;
-    font-weight:700 !important;
+    font-size:28px;
+
+    font-weight:700;
 }
+
 
 .notification-hero p{
-    font-size:13px !important;
+    font-size:13px;
 }
+
 
 .notification-panel-header h2{
-    font-size:18px !important;
-    font-weight:700 !important;
+    font-size:18px;
+
+    font-weight:700;
 }
+
 
 .notification-panel-header p{
-    font-size:13px !important;
+    font-size:13px;
 }
+
 
 .notification-card-content h3{
-    font-size:16px !important;
-    font-weight:700 !important;
+    font-size:16px;
+
+    font-weight:700;
 }
+
 
 .notification-card-content p{
-    font-size:13px !important;
+    font-size:13px;
 }
 
+
 .notification-type{
-    font-size:10px !important;
+    font-size:10px;
 }
+
 
 .notification-unread-dot,
 .notification-read-label{
-    font-size:11px !important;
+    font-size:11px;
 }
 
+
 .notification-time{
-    font-size:12px !important;
+    font-size:12px;
 }
+
 
 .notification-view-btn,
 .notification-read-btn{
-    font-size:12px !important;
-}
-
-
-/* =========================================================
-   COMMON STUDENT NAVBAR - KEEP SAME SIZE ON NOTIFICATIONS
-   ========================================================= */
-
-/*
- * This stylesheet is loaded only on the notification page.
- * These rules explicitly preserve the shared navbar dimensions
- * so notification-specific typography cannot make the sidebar
- * larger than it is on the Application page.
- */
-
-.navbar{
-    position:fixed;
-    top:0;
-    left:0;
-
-    width:260px;
-    height:100vh;
-
-    margin:0;
-    padding:20px 15px;
-
-    box-sizing:border-box;
-
-    background:#0F172A;
-
-    display:flex;
-    flex-direction:column;
-
-    color:#FFFFFF;
-
-    z-index:1000;
-
-    font-family:Arial, sans-serif;
-    font-size:16px;
-
-    overflow:hidden;
-}
-
-.navbar-logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-    padding-bottom:25px;
-
-    border-bottom:1px solid rgba(255,255,255,.08);
-
-    box-sizing:border-box;
-}
-
-.logo-circle{
-    width:50px;
-    height:50px;
-
-    min-width:50px;
-    min-height:50px;
-
-    border-radius:14px;
-
-    background:#2563EB;
-    color:#FFFFFF;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:22px;
-}
-
-.logo-text h2{
-    margin:0;
-
-    color:#FFFFFF;
-
-    font-size:22px;
-    line-height:1.2;
-}
-
-.navbar-menu{
-    list-style:none;
-
-    margin:25px 0 0;
-    padding:0;
-
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-
-    flex:1;
-}
-
-.navbar-menu li{
-    list-style:none;
-    margin:0;
-    padding:0;
-}
-
-.navbar-menu li a{
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-    padding:14px 18px;
-
-    border-radius:12px;
-
-    color:#CBD5E1;
-
-    font-size:16px;
-    font-weight:400;
-    line-height:1.2;
-
-    text-decoration:none;
-
-    transition:.25s;
-}
-
-.navbar-menu li a i{
-    width:18px;
-    min-width:18px;
-
-    text-align:center;
-
-    font-size:16px;
-}
-
-.navbar-menu li a:hover{
-    background:#1E293B;
-    color:#FFFFFF;
-}
-
-.navbar-menu li.active a{
-    background:#2563EB;
-    color:#FFFFFF;
-}
-
-.navbar-menu .logout{
-    margin-top:auto;
-}
-
-.navbar-menu .logout a{
-    color:#CBD5E1;
-}
-
-
-/*
- * Keep the sidebar responsive in exactly the same way as the
- * shared navbar stylesheet.
- */
-
-@media(max-width:900px){
-
-    .navbar{
-        width:230px;
-    }
-
-    .logo-text h2{
-        font-size:20px;
-    }
-
-    .navbar-menu li a{
-        padding:13px 15px;
-    }
-}
-
-@media(max-width:700px){
-
-    .navbar{
-        position:relative;
-        width:100%;
-        height:auto;
-        min-height:auto;
-        padding:15px;
-        overflow:visible;
-    }
-
-    .navbar-logo{
-        padding-bottom:15px;
-    }
-
-    .navbar-menu{
-        margin-top:15px;
-        gap:5px;
-    }
-
-    .navbar-menu .logout{
-        margin-top:10px;
-    }
+    font-size:12px;
 }

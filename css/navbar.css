@@ -217,19 +217,28 @@
     margin-top:auto;
 }
 
-
 .logout a{
-    border-top:1px solid var(--nav-line);
+    border-top:1px solid #4A2020;
+
     border-radius:8px;
+
+    color:#FF6B6B;
 }
 
+.logout a i{
+    color:#FF4D4D;
+}
 
 .logout a:hover{
-    color:var(--nav-lime);
+    color:#FFFFFF;
 
-    background:#191D23;
+    background:#7F1D1D;
 
-    border-color:rgba(200,241,53,.30);
+    border-color:#EF4444;
+}
+
+.logout a:hover i{
+    color:#FFFFFF;
 }
 
 
