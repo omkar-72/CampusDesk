@@ -4,13 +4,13 @@
 
 /* ---------- Colors (change here to change the whole theme) ---------- */
 :root {
-    --ink: #0E1116;
-    --lime: #C8F135;
-    --white: #FFFFFF;
-    --page: #FAFAF7;
-    --muted: #5B6169;
-    --line: #D5D8CC;
-    --dash: #C9CCC2;
+    --ink: #0e1116;
+    --lime: #c8f135;
+    --white: #ffffff;
+    --page: #fafaf7;
+    --muted: #5b6169;
+    --line: #d5d8cc;
+    --dash: #c9ccc2;
 }
 
 /* Page is exactly as tall as the screen, so there is no scrolling */
@@ -144,7 +144,7 @@ body {
     z-index: 1;
     width: 180px;
     height: 260px;
-    background-image: radial-gradient(#C3C7BC 2px, transparent 2px);
+    background-image: radial-gradient(#c3c7bc 2px, transparent 2px);
     background-size: 26px 26px;
 }
 
@@ -272,9 +272,9 @@ body {
     padding: 10px 12px;
     font-size: 14px;
     font-weight: 500;
-    color: #9B1C1C;
-    background: #FEECEC;
-    border: 1px solid #F0B8B8;
+    color: #9b1c1c;
+    background: #feecec;
+    border: 1px solid #f0b8b8;
     border-radius: 8px;
     animation: shake 0.45s ease;
 }
@@ -316,14 +316,17 @@ body {
     padding: 0 14px;
     font-size: 15px;
     color: var(--ink);
-    background: #FBFBF9;
+    background: #fbfbf9;
     border: 1.5px solid var(--line);
     border-radius: 8px;
-    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
 }
 
 .login-field input::placeholder {
-    color: #9AA0A6;
+    color: #9aa0a6;
 }
 
 .login-field input:focus {
@@ -346,10 +349,12 @@ body {
     font-size: 14px;
     font-weight: 600;
     color: var(--ink);
-    background: #F1F2EC;
+    background: #f1f2ec;
     border: 1.5px solid var(--line);
     border-radius: 8px;
-    transition: background 0.25s ease, border-color 0.25s ease;
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease;
 }
 
 .login-password-box button:hover {
@@ -371,7 +376,9 @@ body {
     color: var(--lime);
     background: var(--ink);
     border-radius: 8px;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .login-btn i {
@@ -417,7 +424,7 @@ body {
     justify-content: space-between;
     padding: clamp(10px, 1.8vh, 18px) 40px;
     font-size: 14px;
-    color: #C9CDD2;
+    color: #c9cdd2;
     background: var(--ink);
 }
 
@@ -434,7 +441,7 @@ body {
 .footer-line {
     width: 1px;
     height: 16px;
-    background: #5B6169;
+    background: #5b6169;
 }
 
 .footer-right {
@@ -512,4 +519,49 @@ body {
     .login-message {
         animation: none;
     }
+}
+
+/* =========================================================
+   ADMIN LOGIN ADDITIONS
+========================================================= */
+
+.admin-remember-wrapper {
+    margin: -4px 0 18px;
+}
+
+.admin-remember {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.admin-remember input {
+    width: 15px;
+    height: 15px;
+    margin: 0;
+    accent-color: var(--lime);
+    cursor: pointer;
+}
+
+.admin-security-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 18px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--muted);
+}
+
+.admin-security-note i {
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: var(--ink);
+    font-size: 14px;
 }

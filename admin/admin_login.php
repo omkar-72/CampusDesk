@@ -1,13 +1,16 @@
 <?php
+
+session_start();
+
 /*
 |--------------------------------------------------------------------------
 | CampusDesk - Admin Login
 |--------------------------------------------------------------------------
+| Uses the same visual structure as the normal CampusDesk login page.
+| Admin authentication is still handled separately.
+|--------------------------------------------------------------------------
 */
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +27,7 @@ if (
     exit();
 }
 
+
 /*
 |--------------------------------------------------------------------------
 | Login Error
@@ -33,6 +37,7 @@ if (
 $error = $_SESSION["admin_login_error"] ?? "";
 unset($_SESSION["admin_login_error"]);
 
+
 /*
 |--------------------------------------------------------------------------
 | Preserve Email
@@ -41,6 +46,16 @@ unset($_SESSION["admin_login_error"]);
 
 $email = $_SESSION["admin_login_email"] ?? "";
 unset($_SESSION["admin_login_email"]);
+
+
+/*
+|--------------------------------------------------------------------------
+| Safe Email
+|--------------------------------------------------------------------------
+*/
+
+$emailSafe = htmlspecialchars($email, ENT_QUOTES, "UTF-8");
+
 ?>
 
 <!DOCTYPE html>
@@ -58,84 +73,133 @@ unset($_SESSION["admin_login_email"]);
         name="description"
         content="CampusDesk Administration Login">
 
-    <title>Admin Login - CampusDesk</title>
+    <title>CampusDesk | Admin Login</title>
 
-    <!-- Admin Login CSS Only -->
+    <!-- Same CampusDesk login CSS -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/login.css">
+
+    <!-- Tabler Icons -->
     <link
         rel="stylesheet"
-        href="css/admin-login.css">
-
-    <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 
 </head>
 
 <body>
 
-    <main class="admin-login-page">
 
-        <div class="admin-login-container">
+    <!-- =========================================================
+         TOP BAR
+    ========================================================== -->
 
-            <!-- =====================================================
-                 LOGIN CARD
-            ====================================================== -->
+    <header class="navbar">
 
-            <div class="admin-login-card">
+        <div class="brand">
 
-                <!-- =================================================
-                     BRAND
-                ================================================== -->
+            <span class="brand-logo">C</span>
 
-                <div class="admin-login-brand">
+            <span class="brand-name">
+                CampusDesk
+            </span>
 
-                    <div class="admin-login-logo">
-                        <i class="fa-solid fa-building-columns"></i>
-                    </div>
+        </div>
 
-                    <h1>CampusDesk</h1>
 
-                    <p>Administration</p>
+        <div class="status">
+
+            <span class="dot"></span>
+
+            Secure Portal &bull; Online
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================================
+         MAIN PART
+    ========================================================== -->
+
+    <main class="main">
+
+
+        <!-- Dotted decorations -->
+
+        <div class="dots dots-left"></div>
+
+        <div class="dots dots-right"></div>
+
+
+        <!-- Green waves at bottom -->
+
+        <svg
+            class="waves"
+            viewBox="0 0 1440 320"
+            preserveAspectRatio="none">
+
+            <path
+                d="M0,200 C240,100 480,280 720,210 C960,140 1200,100 1440,180 L1440,320 L0,320 Z">
+            </path>
+
+            <path
+                d="M0,250 C300,170 560,300 840,240 C1100,185 1300,170 1440,230 L1440,320 L0,320 Z">
+            </path>
+
+        </svg>
+
+
+
+        <!-- =====================================================
+             LOGIN CONTAINER
+        ====================================================== -->
+
+        <div class="login-container">
+
+
+            <div class="login-box rise">
+
+
+                <!-- Admin Icon -->
+
+                <div class="login-icon">
+
+                    <i class="ti ti-shield-check"></i>
 
                 </div>
 
 
-                <!-- =================================================
-                     HEADING
-                ================================================== -->
+                <!-- CampusDesk -->
 
-                <div class="admin-login-heading">
+                <h1>CampusDesk</h1>
 
-                    <h2>Admin Login</h2>
 
-                    <p>
-                        Sign in to access the CampusDesk
-                        administration panel.
-                    </p>
+                <!-- Login Type -->
 
-                </div>
+                <p>Admin Login</p>
+
+
+                <hr>
+
 
 
                 <!-- =================================================
                      ERROR MESSAGE
                 ================================================== -->
 
-                <?php if (!empty($error)): ?>
+                <?php if ($error != "") { ?>
 
-                    <div class="admin-login-alert admin-login-alert-error">
+                    <div class="login-message">
 
-                        <span class="alert-icon">
-                            <i class="fa-solid fa-circle-exclamation"></i>
-                        </span>
+                        <i class="ti ti-alert-circle"></i>
 
-                        <span class="alert-message">
-                            <?= htmlspecialchars($error) ?>
-                        </span>
+                        <?php echo htmlspecialchars($error); ?>
 
                     </div>
 
-                <?php endif; ?>
+                <?php } ?>
+
 
 
                 <!-- =================================================
@@ -145,51 +209,41 @@ unset($_SESSION["admin_login_email"]);
                 <form
                     action="../admin_actions/admin_login.php"
                     method="POST"
-                    class="admin-login-form"
-                    autocomplete="on">
+                    id="adminLoginForm">
+
 
                     <!-- Email -->
 
-                    <div class="admin-login-form-group">
+                    <div class="login-field">
 
                         <label for="email">
-                            Email Address
+                            Email
                         </label>
 
-                        <div class="admin-login-input-wrapper">
-
-                            <span class="admin-login-input-icon">
-                                <i class="fa-solid fa-envelope"></i>
-                            </span>
-
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value="<?= htmlspecialchars($email) ?>"
-                                placeholder="Enter admin email"
-                                autocomplete="username"
-                                required
-                                autofocus>
-
-                        </div>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value="<?php echo $emailSafe; ?>"
+                            placeholder="Enter your email"
+                            autocomplete="username"
+                            required
+                            autofocus>
 
                     </div>
 
 
+
                     <!-- Password -->
 
-                    <div class="admin-login-form-group">
+                    <div class="login-field">
 
                         <label for="password">
                             Password
                         </label>
 
-                        <div class="admin-login-input-wrapper">
 
-                            <span class="admin-login-input-icon">
-                                <i class="fa-solid fa-lock"></i>
-                            </span>
+                        <div class="login-password-box">
 
                             <input
                                 type="password"
@@ -199,14 +253,14 @@ unset($_SESSION["admin_login_email"]);
                                 autocomplete="current-password"
                                 required>
 
+
                             <button
                                 type="button"
-                                class="admin-password-toggle"
-                                onclick="toggleAdminPassword()"
-                                aria-label="Show password">
-                                <i
-                                    class="fa-solid fa-eye"
-                                    id="passwordToggleIcon"></i>
+                                id="passwordToggle"
+                                onclick="toggleAdminPassword()">
+
+                                Show
+
                             </button>
 
                         </div>
@@ -214,9 +268,10 @@ unset($_SESSION["admin_login_email"]);
                     </div>
 
 
-                    <!-- Login Options -->
 
-                    <div class="admin-login-options">
+                    <!-- Remember Me -->
+
+                    <div class="admin-remember-wrapper">
 
                         <label class="admin-remember">
 
@@ -225,70 +280,65 @@ unset($_SESSION["admin_login_email"]);
                                 name="remember"
                                 value="1">
 
-                            <span>
-                                Remember me
-                            </span>
+                            <span>Remember me</span>
 
                         </label>
 
                     </div>
 
 
+
                     <!-- Login Button -->
 
                     <button
+                        class="login-btn"
                         type="submit"
-                        class="admin-login-button"
                         id="adminLoginButton">
 
-                        <i class="fa-solid fa-right-to-bracket"></i>
+                        Login
 
-                        <span>Login</span>
+                        <i class="ti ti-arrow-right"></i>
 
                     </button>
 
+
                 </form>
+
 
 
                 <!-- =================================================
                      SECURITY INFORMATION
                 ================================================== -->
 
-                <div class="admin-security-info">
+                <div class="admin-security-note">
 
-                    <div class="security-icon">
-                        <i class="fa-solid fa-shield-halved"></i>
-                    </div>
+                    <i class="ti ti-shield-lock"></i>
 
-                    <div class="security-content">
-
-                        <strong>Administration Access</strong>
-
-                        <p>
-                            This area is restricted to authorized
-                            CampusDesk administrators.
-                        </p>
-
-                    </div>
+                    <span>
+                        Administration access is restricted to
+                        authorized CampusDesk administrators.
+                    </span>
 
                 </div>
 
 
+
                 <!-- =================================================
-                     BACK TO HOME
+                     BACK
                 ================================================== -->
 
-                <div class="admin-login-footer">
+                <div class="login-links">
 
                     <a href="../index.php">
 
-                        <i class="fa-solid fa-arrow-left"></i>
+                        <i class="ti ti-arrow-left"></i>
 
-                        Back to CampusDesk
+                        Back
 
                     </a>
 
                 </div>
+
 
             </div>
 
@@ -297,14 +347,50 @@ unset($_SESSION["admin_login_email"]);
     </main>
 
 
+
     <!-- =========================================================
-         ADMIN LOGIN JAVASCRIPT
+         FOOTER
     ========================================================== -->
+
+    <footer class="footer">
+
+
+        <div class="footer-left">
+
+            <strong>CampusDesk</strong>
+
+            <span class="footer-line"></span>
+
+            <span>
+                Student Grievance Management System
+            </span>
+
+        </div>
+
+
+        <div class="footer-right">
+
+            <i class="ti ti-lock"></i>
+
+            Protected &bull; Confidential
+
+        </div>
+
+
+    </footer>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script src="../js/global.js"></script>
 
     <script>
         /*
         |--------------------------------------------------------------------------
-        | Toggle Password Visibility
+        | Toggle Password
         |--------------------------------------------------------------------------
         */
 
@@ -313,45 +399,41 @@ unset($_SESSION["admin_login_email"]);
             const password =
                 document.getElementById("password");
 
-            const icon =
-                document.getElementById("passwordToggleIcon");
-
             const button =
-                document.querySelector(".admin-password-toggle");
+                document.getElementById("passwordToggle");
 
-            if (!password || !icon) {
+
+            if (!password || !button) {
                 return;
             }
+
 
             if (password.type === "password") {
 
                 password.type = "text";
 
-                icon.classList.remove("fa-eye");
-                icon.classList.add("fa-eye-slash");
+                button.textContent = "Hide";
 
-                if (button) {
-                    button.setAttribute(
-                        "aria-label",
-                        "Hide password"
-                    );
-                }
+                button.setAttribute(
+                    "aria-label",
+                    "Hide password"
+                );
 
             } else {
 
                 password.type = "password";
 
-                icon.classList.remove("fa-eye-slash");
-                icon.classList.add("fa-eye");
+                button.textContent = "Show";
 
-                if (button) {
-                    button.setAttribute(
-                        "aria-label",
-                        "Show password"
-                    );
-                }
+                button.setAttribute(
+                    "aria-label",
+                    "Show password"
+                );
+
             }
+
         }
+
 
 
         /*
@@ -360,39 +442,48 @@ unset($_SESSION["admin_login_email"]);
         |--------------------------------------------------------------------------
         */
 
-        document
-            .querySelector(".admin-login-form")
-            .addEventListener("submit", function(event) {
+        const adminLoginForm =
+            document.getElementById("adminLoginForm");
 
-                const button =
-                    document.getElementById(
-                        "adminLoginButton"
-                    );
+        const adminLoginButton =
+            document.getElementById("adminLoginButton");
 
-                if (!button) {
-                    return;
+
+        if (adminLoginForm && adminLoginButton) {
+
+            adminLoginForm.addEventListener(
+                "submit",
+                function(event) {
+
+                    if (
+                        adminLoginButton.dataset.submitted === "true"
+                    ) {
+
+                        event.preventDefault();
+
+                        return;
+
+                    }
+
+
+                    adminLoginButton.dataset.submitted = "true";
+
+                    adminLoginButton.disabled = true;
+
+                    adminLoginButton.innerHTML =
+                        '<i class="ti ti-loader-2"></i>' +
+                        '<span>Signing in...</span>';
+
                 }
+            );
 
-                if (button.dataset.submitted === "true") {
+        }
 
-                    event.preventDefault();
-
-                    return;
-                }
-
-                button.dataset.submitted = "true";
-
-                button.disabled = true;
-
-                button.innerHTML =
-                    '<i class="fa-solid fa-spinner fa-spin"></i>' +
-                    '<span>Signing in...</span>';
-            });
 
 
         /*
         |--------------------------------------------------------------------------
-        | Remove Error Message After User Starts Typing
+        | Remove Error Message When User Starts Typing
         |--------------------------------------------------------------------------
         */
 
@@ -402,30 +493,36 @@ unset($_SESSION["admin_login_email"]);
         const passwordInput =
             document.getElementById("password");
 
+
         function clearLoginError() {
 
             const alert =
-                document.querySelector(
-                    ".admin-login-alert-error"
-                );
+                document.querySelector(".login-message");
+
 
             if (!alert) {
                 return;
             }
+
 
             alert.style.transition =
                 "opacity 0.25s ease";
 
             alert.style.opacity = "0";
 
+
             setTimeout(function() {
 
                 if (alert.parentNode) {
+
                     alert.parentNode.removeChild(alert);
+
                 }
 
             }, 250);
+
         }
+
 
         if (emailInput) {
 
@@ -433,7 +530,9 @@ unset($_SESSION["admin_login_email"]);
                 "input",
                 clearLoginError
             );
+
         }
+
 
         if (passwordInput) {
 
@@ -441,8 +540,10 @@ unset($_SESSION["admin_login_email"]);
                 "input",
                 clearLoginError
             );
+
         }
     </script>
+
 
 </body>
 
