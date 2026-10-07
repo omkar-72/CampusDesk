@@ -719,6 +719,7 @@ if (
 
                             <!-- PRN -->
 
+                            <!-- PRN -->
                             <div class="detail-item">
 
                                 <small>
@@ -727,14 +728,21 @@ if (
 
                                 <strong>
 
-                                    <?= htmlspecialchars(
-                                        $row["prn"] ?? "-"
-                                    ) ?>
+                                    <?php if ($row["anonymous_status"]): ?>
+
+                                        Hidden
+
+                                    <?php else: ?>
+
+                                        <?= htmlspecialchars(
+                                            $row["prn"] ?? "-"
+                                        ) ?>
+
+                                    <?php endif; ?>
 
                                 </strong>
 
                             </div>
-
 
                             <!-- Course -->
 

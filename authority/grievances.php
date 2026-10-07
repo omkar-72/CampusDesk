@@ -68,6 +68,7 @@ SELECT
     g.grievance_id,
     g.student_id,
     st.full_name,
+    g.anonymous_status,
     g.title,
     g.description,
     g.submission_date,
@@ -712,7 +713,11 @@ $totalRows = $result ? pg_num_rows($result) : 0;
                                     </td>
 
                                     <td>
-                                        <?= htmlspecialchars($row['full_name']) ?>
+                                        <?php if (!empty($row['anonymous_status'])): ?>
+                                            Anonymous
+                                        <?php else: ?>
+                                            <?= htmlspecialchars($row['full_name']) ?>
+                                        <?php endif; ?>
                                     </td>
 
                                     <td>
