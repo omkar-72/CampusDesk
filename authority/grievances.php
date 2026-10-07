@@ -67,8 +67,9 @@ $query = "
 SELECT
     g.grievance_id,
     g.student_id,
-    st.full_name,
     g.anonymous_status,
+    st.full_name,
+    st.prn,
     g.title,
     g.description,
     g.submission_date,
@@ -690,6 +691,7 @@ $totalRows = $result ? pg_num_rows($result) : 0;
 
                             <th>ID</th>
                             <th>Student</th>
+                            <th>PRN</th>
                             <th>Category</th>
                             <th>Title</th>
                             <th>Date</th>
@@ -711,12 +713,21 @@ $totalRows = $result ? pg_num_rows($result) : 0;
                                     <td>
                                         GRV<?= str_pad($row['grievance_id'], 3, '0', STR_PAD_LEFT) ?>
                                     </td>
-
+                                    <!-- Student Name -->
                                     <td>
-                                        <?php if (!empty($row['anonymous_status'])): ?>
+                                        <?php if ($row['anonymous_status'] === 't'): ?>
                                             Anonymous
                                         <?php else: ?>
                                             <?= htmlspecialchars($row['full_name']) ?>
+                                        <?php endif; ?>
+                                    </td>
+
+                                    <!-- PRN -->
+                                    <td>
+                                        <?php if ($row['anonymous_status'] === 't'): ?>
+                                            Hidden
+                                        <?php else: ?>
+                                            <?= htmlspecialchars($row['prn'] ?? '-') ?>
                                         <?php endif; ?>
                                     </td>
 
