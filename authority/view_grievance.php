@@ -697,9 +697,7 @@ if (
 
                                 <strong>
 
-                                    <?php if (
-                                        $row["anonymous_status"]
-                                    ): ?>
+                                    <?php if ($row["anonymous_status"] === "t"): ?>
 
                                         Anonymous
 
@@ -711,7 +709,6 @@ if (
                                         ) ?>
 
                                     <?php endif; ?>
-
                                 </strong>
 
                             </div>
@@ -727,8 +724,7 @@ if (
                                 </small>
 
                                 <strong>
-
-                                    <?php if ($row["anonymous_status"]): ?>
+                                    <?php if ($row["anonymous_status"] === "t"): ?>
 
                                         Hidden
 
@@ -739,7 +735,6 @@ if (
                                         ) ?>
 
                                     <?php endif; ?>
-
                                 </strong>
 
                             </div>
