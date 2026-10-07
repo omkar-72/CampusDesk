@@ -1,13 +1,19 @@
 /*
-===========================================================
-CampusDesk - Admin Department Management
-File: admin/css/admin-departments.css
-===========================================================
-*/
+ * ============================================================
+ * CampusDesk - Admin Department Management
+ * File: admin/css/admin-departments.css
+ * ============================================================
+ *
+ * UI ONLY.
+ * Existing selectors, markup and functionality are preserved.
+ * Friend Login/Register visual theme applied.
+ * ============================================================
+ */
+
 
 /* =========================================================
    PAGE HEADER
-========================================================= */
+   ========================================================= */
 
 .department-page-header {
     display: flex;
@@ -29,7 +35,7 @@ File: admin/css/admin-departments.css
 
 .department-title-row h1 {
     margin: 0 0 5px;
-    color: #1f2937;
+    color: #0E1116;
     font-size: 30px;
     font-weight: 700;
     line-height: 1.2;
@@ -37,7 +43,7 @@ File: admin/css/admin-departments.css
 
 .department-title-row p {
     margin: 0;
-    color: #64748b;
+    color: #5B6169;
     font-size: 14px;
     line-height: 1.5;
 }
@@ -49,19 +55,21 @@ File: admin/css/admin-departments.css
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
-    background: #eff6ff;
-    color: #2563eb;
+    border-radius: 10px;
+    background: #0E1116;
+    color: #C8F135;
     font-size: 23px;
+    border: 2px solid #0E1116;
 }
 
 .department-header-actions {
     flex-shrink: 0;
 }
 
+
 /* =========================================================
    STATISTICS
-========================================================= */
+   ========================================================= */
 
 .department-stats-grid {
     display: grid;
@@ -71,15 +79,35 @@ File: admin/css/admin-departments.css
 }
 
 .department-stat-card {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 15px;
     min-height: 105px;
-    padding: 18px 20px;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 11px;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+    padding: 20px;
+    background: #FFFFFF;
+    border: 2px solid #0E1116;
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 #D5D8CC;
+    overflow: hidden;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.department-stat-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: #C8F135;
+}
+
+.department-stat-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #0E1116;
 }
 
 .department-stat-icon {
@@ -89,57 +117,65 @@ File: admin/css/admin-departments.css
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
+    border-radius: 8px;
     font-size: 19px;
 }
 
 .department-stat-icon.total {
-    background: #eff6ff;
-    color: #2563eb;
+    background: #0E1116;
+    color: #C8F135;
 }
 
 .department-stat-icon.active {
-    background: #ecfdf5;
-    color: #059669;
+    background: #C8F135;
+    color: #0E1116;
 }
 
 .department-stat-icon.inactive {
-    background: #fef2f2;
-    color: #dc2626;
+    background: #FDEAEA;
+    color: #B42318;
 }
 
 .department-stat-card span {
     display: block;
     margin-bottom: 3px;
-    color: #64748b;
+    color: #5B6169;
     font-size: 12px;
     font-weight: 600;
 }
 
 .department-stat-card strong {
     display: block;
-    color: #1f2937;
+    color: #0E1116;
     font-size: 25px;
     font-weight: 700;
     line-height: 1.2;
 }
 
+
 /* =========================================================
    FILTER CARD
-========================================================= */
+   ========================================================= */
 
 .department-filter-card {
     margin-bottom: 24px;
     overflow: hidden;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 11px;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+    background: #FFFFFF;
+    border: 2px solid #0E1116;
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 #D5D8CC;
+}
+
+.department-filter-card::before {
+    content: "";
+    display: block;
+    height: 5px;
+    background: #C8F135;
 }
 
 .department-filter-header {
     padding: 20px 22px;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 2px dashed #C9CCC2;
 }
 
 .department-filter-header h2 {
@@ -147,19 +183,19 @@ File: admin/css/admin-departments.css
     align-items: center;
     gap: 8px;
     margin: 0 0 5px;
-    color: #1f2937;
+    color: #0E1116;
     font-size: 18px;
     font-weight: 700;
 }
 
 .department-filter-header h2 i {
-    color: #2563eb;
+    color: #0E1116;
     font-size: 15px;
 }
 
 .department-filter-header p {
     margin: 0;
-    color: #64748b;
+    color: #5B6169;
     font-size: 13px;
 }
 
@@ -169,6 +205,7 @@ File: admin/css/admin-departments.css
     align-items: end;
     gap: 16px;
     padding: 20px 22px;
+    background: #FAFAF7;
 }
 
 .department-filter-group {
@@ -178,7 +215,7 @@ File: admin/css/admin-departments.css
 .department-filter-group label {
     display: block;
     margin-bottom: 7px;
-    color: #374151;
+    color: #0E1116;
     font-size: 13px;
     font-weight: 600;
 }
@@ -192,7 +229,7 @@ File: admin/css/admin-departments.css
     top: 50%;
     left: 13px;
     transform: translateY(-50%);
-    color: #94a3b8;
+    color: #858A91;
     pointer-events: none;
 }
 
@@ -201,18 +238,23 @@ File: admin/css/admin-departments.css
     min-height: 43px;
     padding: 9px 12px 9px 39px;
     box-sizing: border-box;
-    background: #ffffff;
-    border: 1px solid #cbd5e1;
-    border-radius: 7px;
-    color: #1f2937;
+    background: #FCFCF9;
+    border: 1.5px solid #D5D8CC;
+    border-radius: 8px;
+    color: #0E1116;
     font-family: inherit;
     font-size: 14px;
     outline: none;
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
 }
 
 .department-input-wrapper input:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    border-color: #0E1116;
+    background: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(200, 241, 53, .35);
 }
 
 .department-form-control {
@@ -220,18 +262,23 @@ File: admin/css/admin-departments.css
     min-height: 43px;
     padding: 9px 12px;
     box-sizing: border-box;
-    background: #ffffff;
-    border: 1px solid #cbd5e1;
-    border-radius: 7px;
-    color: #1f2937;
+    background: #FCFCF9;
+    border: 1.5px solid #D5D8CC;
+    border-radius: 8px;
+    color: #0E1116;
     font-family: inherit;
     font-size: 14px;
     outline: none;
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
 }
 
 .department-form-control:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    border-color: #0E1116;
+    background: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(200, 241, 53, .35);
 }
 
 .department-filter-actions {
@@ -241,16 +288,25 @@ File: admin/css/admin-departments.css
     white-space: nowrap;
 }
 
+
 /* =========================================================
    TABLE CARD
-========================================================= */
+   ========================================================= */
 
 .department-table-card {
+    position: relative;
     overflow: hidden;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 11px;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+    background: #FFFFFF;
+    border: 2px solid #0E1116;
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 #D5D8CC;
+}
+
+.department-table-card::before {
+    content: "";
+    display: block;
+    height: 5px;
+    background: #C8F135;
 }
 
 .department-table-header {
@@ -259,29 +315,29 @@ File: admin/css/admin-departments.css
     justify-content: space-between;
     gap: 20px;
     padding: 20px 22px;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 2px dashed #C9CCC2;
 }
 
 .department-table-header h2 {
     margin: 0 0 4px;
-    color: #1f2937;
+    color: #0E1116;
     font-size: 19px;
     font-weight: 700;
 }
 
 .department-table-header p {
     margin: 0;
-    color: #64748b;
+    color: #5B6169;
     font-size: 13px;
 }
 
 .department-table-count {
     min-width: 38px;
     padding: 7px 11px;
-    background: #f1f5f9;
-    border: 1px solid #e2e8f0;
+    background: #C8F135;
+    border: 2px solid #0E1116;
     border-radius: 7px;
-    color: #475569;
+    color: #0E1116;
     font-size: 13px;
     font-weight: 700;
     text-align: center;
@@ -301,9 +357,9 @@ File: admin/css/admin-departments.css
 
 .department-table th {
     padding: 13px 18px;
-    background: #f8fafc;
-    border-bottom: 1px solid #e2e8f0;
-    color: #334155;
+    background: #0E1116;
+    border-bottom: 2px solid #0E1116;
+    color: #FFFFFF;
     font-size: 12px;
     font-weight: 700;
     text-align: left;
@@ -328,10 +384,11 @@ File: admin/css/admin-departments.css
 
 .department-table td {
     padding: 16px 18px;
-    border-bottom: 1px solid #eef2f7;
-    color: #475569;
+    border-bottom: 1px solid #D5D8CC;
+    color: #5B6169;
     font-size: 13px;
     vertical-align: middle;
+    background: #FFFFFF;
 }
 
 .department-table tbody tr:last-child td {
@@ -339,34 +396,36 @@ File: admin/css/admin-departments.css
 }
 
 .department-table tbody tr {
-    transition: background-color 0.15s ease;
+    transition: background-color .15s ease;
 }
 
 .department-table tbody tr:hover td {
-    background: #f8fbff;
+    background: #FAFCEB;
 }
+
 
 /* =========================================================
    DEPARTMENT ID
-========================================================= */
+   ========================================================= */
 
 .department-id {
     display: inline-flex;
     align-items: center;
     padding: 6px 9px;
-    background: #f1f5f9;
-    border: 1px solid #e2e8f0;
+    background: #F1F3EC;
+    border: 1px solid #C9CCC2;
     border-radius: 6px;
-    color: #475569;
+    color: #0E1116;
     font-family: "Courier New", monospace;
     font-size: 11px;
     font-weight: 700;
     white-space: nowrap;
 }
 
+
 /* =========================================================
    DEPARTMENT NAME
-========================================================= */
+   ========================================================= */
 
 .department-name-cell {
     display: flex;
@@ -383,14 +442,14 @@ File: admin/css/admin-departments.css
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-    background: #eff6ff;
-    color: #2563eb;
+    background: #0E1116;
+    color: #C8F135;
     font-size: 14px;
 }
 
 .department-name-cell strong {
     overflow: hidden;
-    color: #334155;
+    color: #0E1116;
     font-size: 14px;
     font-weight: 650;
     line-height: 1.4;
@@ -398,9 +457,10 @@ File: admin/css/admin-departments.css
     white-space: nowrap;
 }
 
+
 /* =========================================================
    STATUS
-========================================================= */
+   ========================================================= */
 
 .department-status-badge {
     display: inline-flex;
@@ -420,20 +480,21 @@ File: admin/css/admin-departments.css
 }
 
 .department-status-badge.active {
-    background: #ecfdf5;
-    border-color: #bbf7d0;
-    color: #15803d;
+    background: #F2FBDD;
+    border-color: #C8F135;
+    color: #356300;
 }
 
 .department-status-badge.inactive {
-    background: #fef2f2;
-    border-color: #fecaca;
-    color: #b91c1c;
+    background: #FDEAEA;
+    border-color: #E7BBBB;
+    color: #8B2020;
 }
+
 
 /* =========================================================
    ACTIONS
-========================================================= */
+   ========================================================= */
 
 .department-action-group {
     display: flex;
@@ -454,49 +515,52 @@ File: admin/css/admin-departments.css
     align-items: center;
     justify-content: center;
     padding: 0;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    background: #ffffff;
-    color: #334155;
+    border: 2px solid #0E1116;
+    border-radius: 7px;
+    background: #FFFFFF;
+    color: #0E1116;
     font-size: 13px;
     cursor: pointer;
     transition:
-        background-color 0.18s ease,
-        border-color 0.18s ease,
-        color 0.18s ease,
-        transform 0.18s ease;
+        background-color .2s ease,
+        border-color .2s ease,
+        color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
 }
 
 .department-action-btn:hover {
-    transform: translateY(-1px);
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 #0E1116;
 }
 
 .department-action-btn.edit:hover {
-    background: #eff6ff;
-    border-color: #93c5fd;
-    color: #2563eb;
+    background: #C8F135;
+    border-color: #0E1116;
+    color: #0E1116;
 }
 
 .department-action-btn.activate:hover {
-    background: #ecfdf5;
-    border-color: #86efac;
-    color: #15803d;
+    background: #EAF8DD;
+    border-color: #0E1116;
+    color: #356300;
 }
 
 .department-action-btn.deactivate:hover {
-    background: #fef2f2;
-    border-color: #fca5a5;
-    color: #dc2626;
+    background: #FDEAEA;
+    border-color: #0E1116;
+    color: #8B2020;
 }
 
 .department-action-btn:focus {
-    outline: 2px solid rgba(37, 99, 235, 0.2);
-    outline-offset: 1px;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(200, 241, 53, .35);
 }
+
 
 /* =========================================================
    EMPTY STATE
-========================================================= */
+   ========================================================= */
 
 .department-empty-state {
     display: flex;
@@ -515,29 +579,31 @@ File: admin/css/admin-departments.css
     align-items: center;
     justify-content: center;
     margin-bottom: 14px;
+    border: 2px solid #0E1116;
     border-radius: 50%;
-    background: #f1f5f9;
-    color: #94a3b8;
+    background: #C8F135;
+    color: #0E1116;
     font-size: 23px;
 }
 
 .department-empty-state h3 {
     margin: 0 0 6px;
-    color: #374151;
+    color: #0E1116;
     font-size: 17px;
 }
 
 .department-empty-state p {
     max-width: 430px;
     margin: 0 0 18px;
-    color: #94a3b8;
+    color: #858A91;
     font-size: 13px;
     line-height: 1.5;
 }
 
+
 /* =========================================================
    MODAL
-========================================================= */
+   ========================================================= */
 
 .department-modal {
     position: fixed;
@@ -553,7 +619,7 @@ File: admin/css/admin-departments.css
 .department-modal-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(15, 23, 42, 0.58);
+    background: rgba(14, 17, 22, .72);
     backdrop-filter: blur(2px);
 }
 
@@ -564,16 +630,17 @@ File: admin/css/admin-departments.css
     max-width: 540px;
     margin: 8vh auto 0;
     overflow: hidden;
-    background: #ffffff;
+    background: #FFFFFF;
+    border: 2px solid #0E1116;
     border-radius: 12px;
-    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.2);
-    animation: departmentModalIn 0.18s ease;
+    box-shadow: 7px 7px 0 #C8F135;
+    animation: departmentModalIn .18s ease;
 }
 
 @keyframes departmentModalIn {
     from {
         opacity: 0;
-        transform: translateY(-10px) scale(0.98);
+        transform: translateY(-10px) scale(.98);
     }
 
     to {
@@ -588,19 +655,20 @@ File: admin/css/admin-departments.css
     justify-content: space-between;
     gap: 20px;
     padding: 21px 23px;
-    border-bottom: 1px solid #e5e7eb;
+    background: #0E1116;
+    border-bottom: 2px solid #0E1116;
 }
 
 .department-modal-header h2 {
     margin: 0 0 5px;
-    color: #1f2937;
+    color: #FFFFFF;
     font-size: 19px;
     font-weight: 700;
 }
 
 .department-modal-header p {
     margin: 0;
-    color: #64748b;
+    color: #AEB4BC;
     font-size: 12px;
 }
 
@@ -612,20 +680,22 @@ File: admin/css/admin-departments.css
     align-items: center;
     justify-content: center;
     padding: 0;
-    border: none;
+    border: 1px solid #555B63;
     border-radius: 6px;
-    background: #f8fafc;
-    color: #64748b;
+    background: transparent;
+    color: #FFFFFF;
     cursor: pointer;
 }
 
 .department-modal-close:hover {
-    background: #f1f5f9;
-    color: #1f2937;
+    background: #C8F135;
+    border-color: #C8F135;
+    color: #0E1116;
 }
 
 .department-modal-body {
     padding: 24px;
+    background: #FAFAF7;
 }
 
 .department-form-group {
@@ -639,19 +709,19 @@ File: admin/css/admin-departments.css
 .department-form-group label {
     display: block;
     margin-bottom: 8px;
-    color: #374151;
+    color: #0E1116;
     font-size: 13px;
     font-weight: 600;
 }
 
 .department-form-group label span {
-    color: #dc2626;
+    color: #EF4444;
 }
 
 .department-form-group small {
     display: block;
     margin-top: 6px;
-    color: #94a3b8;
+    color: #858A91;
     font-size: 11px;
     line-height: 1.4;
 }
@@ -662,19 +732,24 @@ File: admin/css/admin-departments.css
     min-height: 43px;
     padding: 9px 12px;
     box-sizing: border-box;
-    border: 1px solid #cbd5e1;
-    border-radius: 7px;
-    background: #ffffff;
-    color: #1f2937;
+    border: 1.5px solid #D5D8CC;
+    border-radius: 8px;
+    background: #FCFCF9;
+    color: #0E1116;
     font-family: inherit;
     font-size: 14px;
     outline: none;
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
 }
 
 .department-form-group input:focus,
 .department-form-group select:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    border-color: #0E1116;
+    background: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(200, 241, 53, .35);
 }
 
 .department-modal-footer {
@@ -683,15 +758,17 @@ File: admin/css/admin-departments.css
     justify-content: flex-end;
     gap: 9px;
     padding: 17px 23px;
-    background: #f8fafc;
-    border-top: 1px solid #e5e7eb;
+    background: #FFFFFF;
+    border-top: 2px dashed #C9CCC2;
 }
+
 
 /* =========================================================
    RESPONSIVE - TABLET
-========================================================= */
+   ========================================================= */
 
 @media (max-width: 1000px) {
+
     .department-stats-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -705,11 +782,13 @@ File: admin/css/admin-departments.css
     }
 }
 
+
 /* =========================================================
    RESPONSIVE - MOBILE
-========================================================= */
+   ========================================================= */
 
 @media (max-width: 768px) {
+
     .department-page-header {
         align-items: flex-start;
         flex-direction: column;
@@ -755,11 +834,13 @@ File: admin/css/admin-departments.css
     }
 }
 
+
 /* =========================================================
    RESPONSIVE - SMALL MOBILE
-========================================================= */
+   ========================================================= */
 
 @media (max-width: 480px) {
+
     .department-title-row {
         align-items: flex-start;
     }
@@ -806,11 +887,13 @@ File: admin/css/admin-departments.css
     }
 }
 
+
 /* =========================================================
    REDUCED MOTION
-========================================================= */
+   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
     .department-modal-dialog,
     .department-action-btn,
     .department-table tbody tr {
