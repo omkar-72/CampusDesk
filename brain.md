@@ -55,7 +55,6 @@ VALUES (
     (SELECT role_id FROM roles WHERE role_name = 'ADMIN')
 );
 
-
 to run forward
 
 in vs terminal

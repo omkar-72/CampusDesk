@@ -83,38 +83,44 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($action === "update_profile") {
 
-        /*
-         * Mobile number is the editable personal field.
-         */
+        $full_name = trim($_POST["full_name"] ?? "");
         $mobile = trim($_POST["mobile"] ?? "");
 
+        /* Validate full name */
+        if ($full_name === "") {
+            $error_message = "Full name is required.";
+        }
 
-        /*
-         * Validate mobile number when supplied.
-         */
-        if ($mobile !== "") {
-
-            /*
-             * Allow digits, spaces, +, -, and brackets.
-             */
-            if (
-                !preg_match(
-                    '/^[0-9+\-\s()]{7,15}$/',
-                    $mobile
-                )
-            ) {
-                $error_message =
-                    "Please enter a valid mobile number.";
+        /* Validate mobile number */
+        if ($error_message === "" && $mobile !== "") {
+            if (!preg_match('/^[0-9+\-\s()]{7,15}$/', $mobile)) {
+                $error_message = "Please enter a valid mobile number.";
             }
         }
 
-
-        /*
-         * Continue only when validation succeeded.
-         */
         if ($error_message === "") {
 
+            /*
+         * Update authority name and user mobile number.
+         */
             $update_query = "
+            UPDATE authorities
+            SET name = $1
+            WHERE user_id = $2
+        ";
+
+            $update_result = pg_query_params(
+                $conn,
+                $update_query,
+                [
+                    $full_name,
+                    $user_id
+                ]
+            );
+
+            if ($update_result) {
+
+                $update_user_query = "
                 UPDATE users
                 SET
                     mobile_number = $1,
@@ -122,24 +128,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 WHERE user_id = $2
             ";
 
-            $update_result = pg_query_params(
-                $conn,
-                $update_query,
-                [
-                    $mobile !== ""
-                        ? $mobile
-                        : null,
-                    $user_id
-                ]
-            );
+                $update_user_result = pg_query_params(
+                    $conn,
+                    $update_user_query,
+                    [
+                        $mobile !== "" ? $mobile : null,
+                        $user_id
+                    ]
+                );
 
-
-            if ($update_result) {
-
-                $success_message =
-                    "Profile information saved successfully.";
+                if ($update_user_result) {
+                    $success_message =
+                        "Profile information saved successfully.";
+                } else {
+                    $error_message =
+                        "Unable to save profile information. Please try again.";
+                }
             } else {
-
                 $error_message =
                     "Unable to save profile information. Please try again.";
             }
@@ -1477,20 +1482,18 @@ $authority_status =
                                 <input
                                     type="text"
                                     id="full_name"
+                                    name="full_name"
                                     value="<?= htmlspecialchars(
                                                 $full_name,
                                                 ENT_QUOTES,
                                                 "UTF-8"
                                             ) ?>"
-                                    readonly
-                                    class="admin-managed-field">
+                                    maxlength="150"
+                                    placeholder="Enter full name"
+                                    required>
 
-                                <small class="form-help admin-managed-message">
-
-                                    <i class="fa-solid fa-lock"></i>
-
-                                    Managed by administrator.
-
+                                <small class="form-help">
+                                    You can update your full name.
                                 </small>
 
                             </div>
@@ -1615,7 +1618,7 @@ $authority_status =
                             </div>
 
 
-                            <!-- Address -->
+                            <!-- Address
 
                             <div class="form-group">
 
@@ -1645,31 +1648,33 @@ $authority_status =
 
                         </div>
 
-
-                        <!-- Save Button -->
-
-                        <div class="profile-action-row">
-
-                            <button
-                                type="submit"
-                                class="save-btn">
-
-                                <i class="fa-solid fa-floppy-disk"></i>
-
-                                Save Information
-
-                            </button>
+                            -->
 
 
-                            <button
-                                type="reset"
-                                class="cancel-btn">
+                            <!-- Save Button -->
 
-                                Cancel
+                            <div class="profile-action-row">
 
-                            </button>
+                                <button
+                                    type="submit"
+                                    class="save-btn">
 
-                        </div>
+                                    <i class="fa-solid fa-floppy-disk"></i>
+
+                                    Save Information
+
+                                </button>
+
+
+                                <button
+                                    type="reset"
+                                    class="cancel-btn">
+
+                                    Cancel
+
+                                </button>
+
+                            </div>
 
                     </form>
 

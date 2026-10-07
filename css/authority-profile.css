@@ -4,826 +4,807 @@
    UI ONLY - NO LOGIC CHANGES
    ========================================================= */
 
-
 /* =========================================================
    PROFILE CONTAINER
    ========================================================= */
 
-.profile-container{
-    display:flex;
-    flex-direction:column;
-    gap:24px;
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
-
 
 /* =========================================================
    TOP ACTION AREA
    ========================================================= */
 
-.profile-page-top{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
+.profile-page-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
 }
-
 
 /* =========================================================
    PROFILE BANNER
    ========================================================= */
 
-.profile-banner{
-    position:relative;
+.profile-banner {
+    position: relative;
 
-    background:#0E1116;
-    color:#FFFFFF;
+    background: #0e1116;
+    color: #ffffff;
 
-    border:2px solid #0E1116;
-    border-radius:12px;
+    border: 2px solid #0e1116;
+    border-radius: 12px;
 
-    padding:30px;
+    padding: 30px;
 
-    display:flex;
-    align-items:center;
-    gap:24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
 
-    box-shadow:6px 6px 0 #C8F135;
+    box-shadow: 6px 6px 0 #c8f135;
 
-    overflow:hidden;
+    overflow: hidden;
 }
 
-.profile-banner::before{
-    content:"";
+.profile-banner::before {
+    content: "";
 
-    position:absolute;
+    position: absolute;
 
-    top:0;
-    left:0;
-    right:0;
+    top: 0;
+    left: 0;
+    right: 0;
 
-    height:6px;
+    height: 6px;
 
-    background:#C8F135;
+    background: #c8f135;
 }
-
 
 /* =========================================================
    PROFILE PHOTO
    ========================================================= */
 
-.profile-avatar-large{
-    width:110px;
-    height:110px;
+.profile-avatar-large {
+    width: 110px;
+    height: 110px;
 
-    min-width:110px;
-    min-height:110px;
+    min-width: 110px;
+    min-height: 110px;
 
-    flex-shrink:0;
+    flex-shrink: 0;
 
-    border-radius:12px;
+    border-radius: 12px;
 
-    background:#C8F135;
-    color:#0E1116;
+    background: #c8f135;
+    color: #0e1116;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    font-size:42px;
-    font-weight:700;
+    font-size: 42px;
+    font-weight: 700;
 
-    overflow:hidden;
+    overflow: hidden;
 
-    border:3px solid #C8F135;
+    border: 3px solid #c8f135;
 
-    box-shadow:4px 4px 0 #FFFFFF;
+    box-shadow: 4px 4px 0 #ffffff;
 }
 
-.profile-photo-large{
-    width:100%;
-    height:100%;
+.profile-photo-large {
+    width: 100%;
+    height: 100%;
 
-    object-fit:cover;
+    object-fit: cover;
 
-    border-radius:9px;
+    border-radius: 9px;
 
-    display:block;
+    display: block;
 }
-
 
 /* =========================================================
    DEFAULT PROFILE LETTER
    ========================================================= */
 
-.profile-avatar-letter{
-    width:100%;
-    height:100%;
+.profile-avatar-letter {
+    width: 100%;
+    height: 100%;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    border-radius:9px;
+    border-radius: 9px;
 
-    font-size:42px;
-    font-weight:700;
+    font-size: 42px;
+    font-weight: 700;
 }
-
 
 /* =========================================================
    PROFILE DETAILS
    ========================================================= */
 
-.profile-details{
-    min-width:0;
-    flex:1;
+.profile-details {
+    min-width: 0;
+    flex: 1;
 }
 
-.profile-details h2{
-    margin:0;
+.profile-details h2 {
+    margin: 0;
 
-    font-size:30px;
+    font-size: 30px;
 
-    color:#FFFFFF;
+    color: #ffffff;
 }
 
-.profile-details p{
-    margin:8px 0;
+.profile-details p {
+    margin: 8px 0;
 
-    color:#D5D8CC;
+    color: #d5d8cc;
 }
 
 .profile-designation,
 .profile-email,
-.profile-department{
-    overflow-wrap:anywhere;
+.profile-department {
+    overflow-wrap: anywhere;
 }
-
 
 /* =========================================================
    ROLE BADGE
    ========================================================= */
 
-.role-badge{
-    display:inline-block;
+.role-badge {
+    display: inline-block;
 
-    margin-top:8px;
+    margin-top: 8px;
 
-    background:#C8F135;
-    color:#0E1116;
+    background: #c8f135;
+    color: #0e1116;
 
-    padding:7px 14px;
+    padding: 7px 14px;
 
-    border:1px solid #0E1116;
+    border: 1px solid #0e1116;
 
-    border-radius:7px;
+    border-radius: 7px;
 
-    font-size:13px;
-    font-weight:700;
+    font-size: 13px;
+    font-weight: 700;
 }
-
 
 /* =========================================================
    ACCOUNT STATUS
    ========================================================= */
 
-.profile-status-box{
-    flex-shrink:0;
+.profile-status-box {
+    flex-shrink: 0;
 }
 
-.account-status{
-    display:inline-flex;
+.account-status {
+    display: inline-flex;
 
-    align-items:center;
+    align-items: center;
 
-    gap:8px;
+    gap: 8px;
 
-    white-space:nowrap;
+    white-space: nowrap;
 
-    padding:9px 14px;
+    padding: 9px 14px;
 
-    border-radius:8px;
+    border-radius: 8px;
 
-    border:1.5px solid #0E1116;
+    border: 1.5px solid #0e1116;
 
-    font-size:13px;
-    font-weight:700;
+    font-size: 13px;
+    font-weight: 700;
 }
 
-.active-status{
-    background:#C8F135;
-    color:#0E1116;
+.active-status {
+    background: #c8f135;
+    color: #0e1116;
 }
 
-.inactive-status{
-    background:#FDEAEA;
-    color:#8B2020;
+.inactive-status {
+    background: #fdeaea;
+    color: #8b2020;
 }
-
 
 /* =========================================================
    GRID
    ========================================================= */
 
-.profile-grid{
-    display:grid;
+.profile-grid {
+    display: grid;
 
-    grid-template-columns:1fr 1fr;
+    grid-template-columns: 1fr 1fr;
 
-    gap:20px;
+    gap: 20px;
 }
-
 
 /* =========================================================
    PROFILE CARD
    ========================================================= */
 
-.profile-card{
-    position:relative;
+.profile-card {
+    position: relative;
 
-    background:#FFFFFF;
+    background: #ffffff;
 
-    border:2px solid #0E1116;
+    border: 2px solid #0e1116;
 
-    border-radius:12px;
+    border-radius: 12px;
 
-    padding:24px;
+    padding: 24px;
 
-    box-shadow:4px 4px 0 #D5D8CC;
+    box-shadow: 4px 4px 0 #d5d8cc;
 
-    overflow:hidden;
+    overflow: hidden;
 }
 
-.profile-card::before{
-    content:"";
+.profile-card::before {
+    content: "";
 
-    position:absolute;
+    position: absolute;
 
-    top:0;
-    left:0;
-    right:0;
+    top: 0;
+    left: 0;
+    right: 0;
 
-    height:5px;
+    height: 5px;
 
-    background:#C8F135;
+    background: #c8f135;
 }
 
-.profile-card h3{
-    margin:0 0 20px;
+.profile-card h3 {
+    margin: 0 0 20px;
 
-    color:#0E1116;
+    color: #0e1116;
 }
-
 
 /* =========================================================
    PROFILE CARD HEADER
    ========================================================= */
 
-.profile-card-header{
-    display:flex;
+.profile-card-header {
+    display: flex;
 
-    align-items:flex-start;
+    align-items: flex-start;
 
-    justify-content:space-between;
+    justify-content: space-between;
 
-    gap:16px;
+    gap: 16px;
 
-    margin-bottom:20px;
+    margin-bottom: 20px;
 }
 
-.profile-card-header h3{
-    margin:0 0 6px;
+.profile-card-header h3 {
+    margin: 0 0 6px;
 }
 
-.profile-card-header p{
-    margin:0;
+.profile-card-header p {
+    margin: 0;
 
-    color:#5B6169;
+    color: #5b6169;
 }
 
-.profile-card-icon{
-    width:42px;
-    height:42px;
+.profile-card-icon {
+    width: 42px;
+    height: 42px;
 
-    border-radius:8px;
+    border-radius: 8px;
 
-    background:#C8F135;
-    color:#0E1116;
+    background: #c8f135;
+    color: #0e1116;
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
-    justify-content:center;
+    align-items: center;
+    justify-content: center;
 
-    flex-shrink:0;
+    flex-shrink: 0;
 
-    border:1.5px solid #0E1116;
+    border: 1.5px solid #0e1116;
 }
-
 
 /* =========================================================
    INFORMATION ROW
    ========================================================= */
 
-.info-row{
-    display:flex;
+.info-row {
+    display: flex;
 
-    justify-content:space-between;
-    align-items:center;
+    justify-content: space-between;
+    align-items: center;
 
-    gap:20px;
+    gap: 20px;
 
-    padding:14px 0;
+    padding: 14px 0;
 
-    border-bottom:1px dashed #C9CCC2;
+    border-bottom: 1px dashed #c9ccc2;
 }
 
-.info-row:last-child{
-    border-bottom:none;
+.info-row:last-child {
+    border-bottom: none;
 }
 
-.info-row span{
-    color:#5B6169;
+.info-row span {
+    color: #5b6169;
 }
 
-.info-row strong{
-    color:#0E1116;
+.info-row strong {
+    color: #0e1116;
 
-    text-align:right;
+    text-align: right;
 
-    overflow-wrap:anywhere;
+    overflow-wrap: anywhere;
 }
-
 
 /* =========================================================
    ACTIVITY STATISTICS
    ========================================================= */
 
-.stat-mini{
-    display:flex;
+.stat-mini {
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    gap:16px;
+    gap: 16px;
 
-    padding:16px;
+    padding: 16px;
 
-    margin-bottom:16px;
+    margin-bottom: 16px;
 
-    background:#FAFAF7;
+    background: #fafaf7;
 
-    border:1.5px solid #D5D8CC;
+    border: 1.5px solid #d5d8cc;
 
-    border-radius:9px;
+    border-radius: 9px;
 }
 
-.stat-mini:last-child{
-    margin-bottom:0;
+.stat-mini:last-child {
+    margin-bottom: 0;
 }
 
-.stat-mini-icon{
-    flex-shrink:0;
+.stat-mini-icon {
+    flex-shrink: 0;
 }
 
-.stat-mini i{
-    width:48px;
-    height:48px;
+.stat-mini i {
+    width: 48px;
+    height: 48px;
 
-    border-radius:8px;
+    border-radius: 8px;
 
-    background:#C8F135;
-    color:#0E1116;
+    background: #c8f135;
+    color: #0e1116;
 
-    border:1.5px solid #0E1116;
+    border: 1.5px solid #0e1116;
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
-    justify-content:center;
+    align-items: center;
+    justify-content: center;
 
-    font-size:20px;
+    font-size: 20px;
 }
 
-.stat-mini strong{
-    display:block;
+.stat-mini strong {
+    display: block;
 
-    font-size:22px;
+    font-size: 22px;
 
-    color:#0E1116;
+    color: #0e1116;
 }
 
-.stat-mini span{
-    color:#5B6169;
+.stat-mini span {
+    color: #5b6169;
 }
-
 
 /* =========================================================
    PROFILE PHOTO UPDATE
    ========================================================= */
 
-.profile-photo-update{
-    display:flex;
+.profile-photo-update {
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    gap:28px;
+    gap: 28px;
 }
 
-.profile-photo-preview{
-    width:140px;
-    height:140px;
+.profile-photo-preview {
+    width: 140px;
+    height: 140px;
 
-    min-width:140px;
-    min-height:140px;
+    min-width: 140px;
+    min-height: 140px;
 
-    border-radius:12px;
+    border-radius: 12px;
 
-    overflow:hidden;
+    overflow: hidden;
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
-    justify-content:center;
+    align-items: center;
+    justify-content: center;
 
-    background:#FAFAF7;
+    background: #fafaf7;
 
-    border:2px solid #0E1116;
+    border: 2px solid #0e1116;
 
-    box-shadow:4px 4px 0 #C8F135;
+    box-shadow: 4px 4px 0 #c8f135;
 }
 
-.profile-photo-preview .profile-photo-large{
-    width:100%;
-    height:100%;
+.profile-photo-preview .profile-photo-large {
+    width: 100%;
+    height: 100%;
 
-    object-fit:cover;
+    object-fit: cover;
 }
 
-.profile-photo-preview .profile-avatar-letter{
-    font-size:48px;
+.profile-photo-preview .profile-avatar-letter {
+    font-size: 48px;
 
-    background:#FAFAF7;
+    background: #fafaf7;
 
-    color:#0E1116;
+    color: #0e1116;
 }
 
-.profile-photo-form{
-    flex:1;
+.profile-photo-form {
+    flex: 1;
 
-    min-width:0;
+    min-width: 0;
 }
-
 
 /* =========================================================
    FORMS
    ========================================================= */
 
-.edit-card form{
-    margin-top:10px;
+.edit-card form {
+    margin-top: 10px;
 }
 
-.form-grid{
-    display:grid;
+.form-grid {
+    display: grid;
 
-    grid-template-columns:1fr 1fr;
+    grid-template-columns: 1fr 1fr;
 
-    gap:18px;
+    gap: 18px;
 }
 
-.form-group{
-    display:flex;
+.form-group {
+    display: flex;
 
-    flex-direction:column;
+    flex-direction: column;
 }
 
-.form-group label{
-    margin-bottom:8px;
+.form-group label {
+    margin-bottom: 8px;
 
-    color:#0E1116;
+    color: #0e1116;
 
-    font-size:13px;
+    font-size: 13px;
 
-    font-weight:600;
+    font-weight: 600;
 }
 
 .form-group input,
 .form-group textarea,
-.form-group select{
-    width:100%;
+.form-group select {
+    width: 100%;
 
-    box-sizing:border-box;
+    box-sizing: border-box;
 
-    padding:12px 14px;
+    padding: 12px 14px;
 
-    border:1.5px solid #D5D8CC;
+    border: 1.5px solid #d5d8cc;
 
-    border-radius:8px;
+    border-radius: 8px;
 
-    outline:none;
+    outline: none;
 
-    transition:.2s;
+    transition: 0.2s;
 
-    font:inherit;
+    font: inherit;
 
-    background:#FCFCF9;
+    background: #fcfcf9;
 
-    color:#0E1116;
+    color: #0e1116;
 }
 
 .form-group input:focus,
 .form-group textarea:focus,
-.form-group select:focus{
-    border-color:#0E1116;
+.form-group select:focus {
+    border-color: #0e1116;
 
-    background:#FFFFFF;
+    background: #ffffff;
 
-    box-shadow:0 0 0 3px rgba(200,241,53,.35);
+    box-shadow: 0 0 0 3px rgba(200, 241, 53, 0.35);
 }
 
-.form-group textarea{
-    min-height:120px;
+.form-group textarea {
+    min-height: 120px;
 
-    resize:vertical;
+    resize: vertical;
 }
-
 
 /* =========================================================
    FILE INPUT
    ========================================================= */
 
-.form-group input[type="file"]{
-    padding:10px;
+.form-group input[type="file"] {
+    padding: 10px;
 
-    background:#FFFFFF;
+    background: #ffffff;
 
-    cursor:pointer;
+    cursor: pointer;
 }
-
 
 /* =========================================================
    ADMIN MANAGED FIELDS
    ========================================================= */
 
-.admin-managed-field{
-    background:#F0F1EC;
+.admin-managed-field {
+    background: #f0f1ec;
 
-    color:#5B6169;
+    color: #5b6169;
 
-    cursor:not-allowed;
+    cursor: not-allowed;
 }
 
-.form-help{
-    margin-top:7px;
+.form-help {
+    margin-top: 7px;
 
-    color:#5B6169;
+    color: #5b6169;
 
-    font-size:13px;
+    font-size: 13px;
 
-    line-height:1.5;
+    line-height: 1.5;
 }
 
-.admin-managed-message{
-    color:#8A8F87;
+.admin-managed-message {
+    color: #8a8f87;
 }
-
 
 /* =========================================================
    PROFILE ACTIONS
    ========================================================= */
 
-.profile-action-row{
-    display:flex;
+.profile-action-row {
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    gap:12px;
+    gap: 12px;
 
-    flex-wrap:wrap;
+    flex-wrap: wrap;
 
-    margin-top:4px;
+    margin-top: 4px;
 }
 
-.save-btn{
-    margin-top:24px;
+.save-btn {
+    margin-top: 24px;
 
-    background:#0E1116;
+    background: #0e1116;
 
-    color:#C8F135;
+    color: #c8f135;
 
-    border:2px solid #0E1116;
+    border: 2px solid #0e1116;
 
-    padding:12px 22px;
+    padding: 12px 22px;
 
-    border-radius:8px;
+    border-radius: 8px;
 
-    font-weight:600;
+    font-weight: 600;
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    gap:10px;
+    gap: 10px;
 
-    cursor:pointer;
+    cursor: pointer;
 
-    transition:.2s;
+    transition: 0.2s;
 }
 
-.save-btn:hover{
-    background:#C8F135;
+.save-btn:hover {
+    background: #c8f135;
 
-    color:#0E1116;
+    color: #0e1116;
 
-    box-shadow:4px 4px 0 #0E1116;
+    box-shadow: 4px 4px 0 #0e1116;
 
-    transform:translate(-1px,-2px);
+    transform: translate(-1px, -2px);
 }
 
-.cancel-btn{
-    margin-top:24px;
+.cancel-btn {
+    margin-top: 24px;
 
-    background:#FFFFFF;
+    background: #ffffff;
 
-    color:#0E1116;
+    color: #0e1116;
 
-    border:2px solid #D5D8CC;
+    border: 2px solid #d5d8cc;
 
-    padding:12px 22px;
+    padding: 12px 22px;
 
-    border-radius:8px;
+    border-radius: 8px;
 
-    font-weight:600;
+    font-weight: 600;
 
-    cursor:pointer;
+    cursor: pointer;
 
-    transition:.2s;
+    transition: 0.2s;
 }
 
-.cancel-btn:hover{
-    background:#FAFAF7;
+.cancel-btn:hover {
+    background: #fafaf7;
 
-    border-color:#0E1116;
+    border-color: #0e1116;
 
-    box-shadow:3px 3px 0 #C8F135;
+    box-shadow: 3px 3px 0 #c8f135;
 }
-
 
 /* =========================================================
    PASSWORD FIELDS
    ========================================================= */
 
-.password-input-wrapper{
-    position:relative;
+.password-input-wrapper {
+    position: relative;
 
-    width:100%;
+    width: 100%;
 }
 
-.password-input-wrapper input{
-    padding-right:48px;
+.password-input-wrapper input {
+    padding-right: 48px;
 }
 
-.password-toggle{
-    position:absolute;
+.password-toggle {
+    position: absolute;
 
-    top:50%;
-    right:12px;
+    top: 50%;
+    right: 12px;
 
-    transform:translateY(-50%);
+    transform: translateY(-50%);
 
-    background:none;
+    background: none;
 
-    border:none;
+    border: none;
 
-    color:#0E1116;
+    color: #0e1116;
 
-    cursor:pointer;
+    cursor: pointer;
 
-    padding:5px;
+    padding: 5px;
 
-    font-size:16px;
+    font-size: 16px;
 }
 
-.password-toggle:hover{
-    color:#0E1116;
+.password-toggle:hover {
+    color: #0e1116;
 
-    background:#C8F135;
+    background: #c8f135;
 
-    border-radius:5px;
+    border-radius: 5px;
 }
-
 
 /* =========================================================
    SUCCESS / ERROR MESSAGES
    ========================================================= */
 
-.profile-message{
-    padding:12px 16px;
+.profile-message {
+    padding: 12px 16px;
 
-    border-radius:8px;
+    border-radius: 8px;
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    gap:10px;
+    gap: 10px;
 
-    font-size:14px;
+    font-size: 14px;
 }
 
-.success-message{
-    background:#EAF7BE;
+.success-message {
+    background: #eaf7be;
 
-    border:1.5px solid #C8F135;
+    border: 1.5px solid #c8f135;
 
-    color:#263600;
+    color: #263600;
 }
 
-.error-message{
-    background:#FDEAEA;
+.error-message {
+    background: #fdeaea;
 
-    border:1.5px solid #E5B5B5;
+    border: 1.5px solid #e5b5b5;
 
-    color:#8B2020;
+    color: #8b2020;
 }
-
 
 /* =========================================================
    RESPONSIVE
    ========================================================= */
 
-@media(max-width:900px){
-
-    .profile-grid{
-        grid-template-columns:1fr;
+@media (max-width: 900px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
     }
 
-    .form-grid{
-        grid-template-columns:1fr;
+    .form-grid {
+        grid-template-columns: 1fr;
     }
 
-    .profile-banner{
-        flex-direction:column;
+    .profile-banner {
+        flex-direction: column;
 
-        text-align:center;
+        text-align: center;
     }
 
-    .profile-details{
-        width:100%;
+    .profile-details {
+        width: 100%;
     }
 
-    .profile-status-box{
-        width:100%;
+    .profile-status-box {
+        width: 100%;
     }
 
-    .profile-photo-update{
-        flex-direction:column;
+    .profile-photo-update {
+        flex-direction: column;
 
-        align-items:center;
+        align-items: center;
     }
 
-    .profile-photo-form{
-        width:100%;
+    .profile-photo-form {
+        width: 100%;
     }
 }
 
-
-@media(max-width:600px){
-
-    .profile-banner{
-        padding:22px;
+@media (max-width: 600px) {
+    .profile-banner {
+        padding: 22px;
     }
 
-    .profile-avatar-large{
-        width:95px;
-        height:95px;
+    .profile-avatar-large {
+        width: 95px;
+        height: 95px;
 
-        min-width:95px;
-        min-height:95px;
+        min-width: 95px;
+        min-height: 95px;
     }
 
-    .profile-details h2{
-        font-size:24px;
+    .profile-details h2 {
+        font-size: 24px;
     }
 
-    .info-row{
-        flex-direction:column;
+    .info-row {
+        flex-direction: column;
 
-        align-items:flex-start;
+        align-items: flex-start;
 
-        gap:6px;
+        gap: 6px;
     }
 
-    .info-row strong{
-        text-align:left;
+    .info-row strong {
+        text-align: left;
     }
 
-    .profile-page-top{
-        flex-direction:column;
+    .profile-page-top {
+        flex-direction: column;
 
-        align-items:flex-start;
+        align-items: flex-start;
     }
 
-    .profile-card{
-        padding:18px;
+    .profile-card {
+        padding: 18px;
     }
+}
+
+/* Adjust Personal Information action buttons */
+#authorityProfileForm .profile-action-row {
+    transform: translateY(-12px);
 }
