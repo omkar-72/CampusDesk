@@ -1,180 +1,307 @@
+ /* =========================================================
+    CAMPUSDESK - AUTHORITY DASHBOARD
+    FRIEND LOGIN / REGISTER UI THEME
+    UI ONLY - NO LOGIC CHANGES
+    ========================================================= */
 /* =========================================================
-   CAMPUSDESK - AUTHORITY DASHBOARD
+   DASHBOARD LAYOUT
+   Fixes horizontal overflow caused by double sidebar offset.
    ========================================================= */
 
 .dashboard-layout{
-    margin-left:260px;
+    margin-left:0;
+
+    width:100%;
+
     min-height:100vh;
+
+    display:flex;
 }
 
 .dashboard-content{
+    margin-left:260px;
+
+    width:calc(100% - 260px);
+
     padding:100px 30px 30px;
-    background:#F4F7FC;
+
+    background:#FAFAF7;
+
     min-height:100vh;
+
+    box-sizing:border-box;
+
+    overflow-x:hidden;
 }
 
-/* ================= Welcome Banner ================= */
+/* =========================================================
+   WELCOME BANNER
+   ========================================================= */
 
 .welcome-banner{
-    background:linear-gradient(135deg,#2563EB,#1D4ED8);
-    color:#fff;
-    border-radius:20px;
+    position:relative;
+
+    background:#0E1116;
+    color:#FFFFFF;
+
+    border:2px solid #0E1116;
+    border-radius:12px;
+
     padding:28px 32px;
+
     display:flex;
     justify-content:space-between;
     align-items:center;
+
     margin-bottom:25px;
-    box-shadow:0 12px 30px rgba(37,99,235,.25);
+
+    box-shadow:6px 6px 0 #C8F135;
+
+    overflow:hidden;
+}
+
+
+/* Lime top accent */
+.welcome-banner::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+    right:0;
+
+    height:6px;
+
+    background:#C8F135;
 }
 
 .welcome-banner h2{
     margin:0;
+
     font-size:32px;
+
+    color:#FFFFFF;
 }
 
 .welcome-banner p{
     margin-top:6px;
-    opacity:.9;
+
+    color:#D5D8CC;
 }
 
 .welcome-date{
-    background:rgba(255,255,255,.18);
-    padding:14px 22px;
-    border-radius:12px;
+    background:#C8F135;
+
+    color:#0E1116;
+
+    padding:12px 20px;
+
+    border:2px solid #0E1116;
+
+    border-radius:8px;
+
     font-weight:600;
 }
 
-/* ================= KPI CARDS ================= */
+
+/* =========================================================
+   KPI CARDS
+   ========================================================= */
 
 .stats-grid{
     display:grid;
+
     grid-template-columns:repeat(4,1fr);
+
     gap:15px;
+
     margin-bottom:30px;
 }
 
 .stat-box{
     position:relative;
+
     overflow:hidden;
-    border-radius:16px;
+
+    border:2px solid #0E1116;
+    border-radius:10px;
+
     padding:16px;
+
     min-height:110px;
-    color:#fff;
-    box-shadow:0 10px 24px rgba(0,0,0,.15);
-    transition:.25s;
+
+    color:#0E1116;
+
+    background:#FFFFFF;
+
+    box-shadow:4px 4px 0 #D5D8CC;
+
+    transition:.2s;
 }
 
 .stat-box:hover{
-    transform:translateY(-5px);
+    transform:translate(-2px,-3px);
+
+    box-shadow:6px 6px 0 #C8F135;
 }
 
 .stat-header{
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
 }
 
 .stat-header span{
     font-size:13px;
-    font-weight:500;
+
+    font-weight:600;
 }
 
 .stat-header i{
     font-size:20px;
+
+    color:#0E1116;
+
+    background:#C8F135;
+
+    padding:8px;
+
+    border-radius:7px;
 }
 
 .stat-box h2{
     margin-top:18px;
+
     font-size:34px;
+
     font-weight:700;
+
+    color:#0E1116;
 }
 
 .stat-box::after{
     content:"";
+
     position:absolute;
-    width:90px;
-    height:90px;
+
+    width:70px;
+    height:70px;
+
     border-radius:50%;
-    background:rgba(255,255,255,.12);
+
+    background:rgba(200,241,53,.18);
+
     right:-20px;
     bottom:-20px;
 }
 
-/* Card Colors */
 
-.stat-box.blue{
-    background:linear-gradient(135deg,#2563EB,#1D4ED8);
-}
+/* =========================================================
+   ALL STAT CARD VARIANTS
+   ========================================================= */
 
-.stat-box.purple{
-    background:linear-gradient(135deg,#7C3AED,#6D28D9);
-}
-
-.stat-box.orange{
-    background:linear-gradient(135deg,#F59E0B,#EA580C);
-}
-
-.stat-box.red{
-    background:linear-gradient(135deg,#EF4444,#DC2626);
-}
-
-.stat-box.teal{
-    background:linear-gradient(135deg,#0EA5A4,#0F766E);
-}
-
-.stat-box.green{
-    background:linear-gradient(135deg,#22C55E,#15803D);
-}
-
-.stat-box.cyan{
-    background:linear-gradient(135deg,#06B6D4,#0284C7);
-}
-
+.stat-box.blue,
+.stat-box.purple,
+.stat-box.orange,
+.stat-box.red,
+.stat-box.teal,
+.stat-box.green,
+.stat-box.cyan,
 .stat-box.success{
-    background:linear-gradient(135deg,#16A34A,#166534);
+    background:#FFFFFF;
 }
 
-/* ================= Bottom Section ================= */
+
+/* =========================================================
+   BOTTOM SECTION
+   ========================================================= */
 
 .bottom-grid{
     display:grid;
+
     grid-template-columns:2fr 1fr;
+
     gap:20px;
 }
 
 .panel{
-    background:#fff;
-    border-radius:18px;
+    position:relative;
+
+    background:#FFFFFF;
+
+    border:2px solid #0E1116;
+
+    border-radius:12px;
+
     padding:24px;
-    box-shadow:0 8px 24px rgba(0,0,0,.08);
+
+    box-shadow:4px 4px 0 #D5D8CC;
+
+    overflow:hidden;
+}
+
+
+/* Lime panel accent */
+.panel::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+    right:0;
+
+    height:5px;
+
+    background:#C8F135;
 }
 
 .panel-header{
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
     margin-bottom:18px;
 }
 
 .panel-header h3{
     margin:0;
-    color:#0F172A;
+
+    color:#0E1116;
 }
 
 .panel-header a{
-    color:#2563EB;
+    color:#0E1116;
+
     text-decoration:none;
+
     font-weight:600;
 }
 
-/* Activity */
+.panel-header a:hover{
+    color:#5B6169;
+}
+
+
+/* =========================================================
+   ACTIVITY
+   ========================================================= */
 
 .activity-item{
     display:flex;
+
     align-items:center;
+
     gap:15px;
+
     padding:16px 0;
-    border-bottom:1px solid #E5E7EB;
+
+    border-bottom:1px dashed #C9CCC2;
 }
 
 .activity-item:last-child{
@@ -184,50 +311,87 @@
 .activity-icon{
     width:46px;
     height:46px;
-    border-radius:50%;
-    background:#EFF6FF;
-    color:#2563EB;
+
+    flex-shrink:0;
+
+    border-radius:9px;
+
+    background:#C8F135;
+
+    color:#0E1116;
+
+    border:1.5px solid #0E1116;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     font-size:18px;
 }
 
 .activity-item strong{
-    color:#0F172A;
+    color:#0E1116;
 }
 
 .activity-item p{
-    color:#64748B;
+    color:#5B6169;
+
     margin:4px 0 0;
 }
 
-/* Quick Actions */
+
+/* =========================================================
+   QUICK ACTIONS
+   ========================================================= */
 
 .quick-actions{
     display:flex;
+
     flex-direction:column;
+
     gap:12px;
 }
 
 .quick-btn{
-    background:#2563EB;
-    color:#fff;
+    background:#0E1116;
+
+    color:#C8F135;
+
     text-decoration:none;
+
     padding:14px 16px;
-    border-radius:10px;
+
+    border:2px solid #0E1116;
+
+    border-radius:8px;
+
     font-weight:600;
+
     display:flex;
+
     align-items:center;
+
     gap:10px;
-    transition:.25s;
+
+    transition:.2s;
 }
 
 .quick-btn:hover{
-    background:#1D4ED8;
+    background:#C8F135;
+
+    color:#0E1116;
+
+    transform:translate(-1px,-2px);
+
+    box-shadow:4px 4px 0 #0E1116;
 }
 
-/* ================= Responsive ================= */
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 
 @media(max-width:992px){
 
@@ -240,6 +404,7 @@
     }
 }
 
+
 @media(max-width:600px){
 
     .dashboard-layout{
@@ -248,6 +413,24 @@
 
     .dashboard-content{
         padding:90px 20px 20px;
+    }
+
+    .welcome-banner{
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:18px;
+    }
+
+    .welcome-banner h2{
+        font-size:26px;
+    }
+
+    .welcome-date{
+        width:100%;
+
+        text-align:center;
     }
 
     .stats-grid{

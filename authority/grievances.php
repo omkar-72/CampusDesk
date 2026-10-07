@@ -1,6 +1,15 @@
 <?php
 session_start();
 
+/*
+|--------------------------------------------------------------------------
+| Authority Grievances Page
+|--------------------------------------------------------------------------
+| UI has been updated to match the CampusDesk Friend Login/Register theme.
+| Backend logic, database queries, filters and functionality are unchanged.
+|--------------------------------------------------------------------------
+*/
+
 if (!isset($_SESSION['role_name'])) {
     $_SESSION['role_name'] = 'AUTHORITY';
 }
@@ -117,113 +126,432 @@ $totalRows = $result ? pg_num_rows($result) : 0;
 
     <title>CampusDesk | Authority Grievances</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+    <!-- Common CampusDesk styles -->
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/authority-dashboard.css">
     <link rel="stylesheet" href="../css/authority-table.css">
 
+    <!-- Friend Login/Register theme for this page -->
     <style>
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
-            margin: 22px 0;
+        /* =========================================================
+           AUTHORITY GRIEVANCES
+           FRIEND LOGIN / REGISTER UI THEME
+           ========================================================= */
+
+        .dashboard-content {
+            padding-top: 100px;
+            padding-bottom: 40px;
         }
 
-        .summary-card {
-            background: #fff;
-            border-radius: 18px;
-            padding: 20px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
-            border-top: 4px solid #2563EB;
-            transition: .3s;
+        /* ---------------- Page Header ---------------- */
+
+        .page-header {
+            position: relative;
+            background: var(--ink);
+            color: #fff;
+            border: 2px solid var(--ink);
+            border-radius: 12px;
+            padding: 22px 24px;
+            margin-bottom: 20px;
+            box-shadow: 5px 5px 0 var(--primary);
+            overflow: hidden;
         }
 
-        .summary-card:hover {
-            transform: translateY(-4px);
+        .page-header::after {
+            content: "";
+            position: absolute;
+            right: -25px;
+            top: -35px;
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            transform: rotate(45deg);
+            opacity: .9;
         }
 
-        .summary-card h3 {
+        .page-header h2 {
+            position: relative;
+            z-index: 2;
             margin: 0;
-            font-size: 30px;
+            font-size: 25px;
+            font-weight: 700;
+            letter-spacing: -.3px;
         }
 
-        .summary-card p {
-            margin-top: 8px;
-            color: #64748B;
+        .page-header p {
+            position: relative;
+            z-index: 2;
+            margin: 6px 0 0;
+            color: #C9CED5;
+            font-size: 13px;
         }
+
+        /* ---------------- Filter Form ---------------- */
 
         .filter-form {
             display: flex;
-            gap: 12px;
+            align-items: center;
             flex-wrap: wrap;
+            gap: 10px;
+            background: var(--card);
+            border: 2px solid var(--ink);
+            border-radius: 12px;
+            padding: 16px;
             margin-bottom: 20px;
+            box-shadow: 4px 4px 0 var(--border);
         }
 
         .filter-form input,
         .filter-form select {
-            padding: 10px 14px;
-            border: 1px solid #CBD5E1;
-            border-radius: 10px;
-            background: white;
+            min-height: 44px;
+            padding: 10px 13px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            background: #FCFCF9;
+            color: var(--ink);
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            outline: none;
+            transition: .2s ease;
         }
+
+        .filter-form input {
+            min-width: 160px;
+        }
+
+        .filter-form select {
+            min-width: 145px;
+        }
+
+        .filter-form input:focus,
+        .filter-form select:focus {
+            border-color: var(--ink);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(200, 241, 53, .35);
+        }
+
+        /* ---------------- Search Button ---------------- */
 
         .search-btn {
-            background: #2563EB;
-            color: white;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
             padding: 10px 18px;
-            border-radius: 10px;
+            background: var(--ink);
+            color: var(--primary);
+            border: 2px solid var(--ink);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .2s ease;
         }
+
+        .search-btn:hover {
+            background: var(--primary);
+            color: var(--ink);
+            transform: translate(-1px, -2px);
+            box-shadow: 4px 4px 0 var(--ink);
+        }
+
+        /* ---------------- Reset Button ---------------- */
 
         .reset-btn {
-            background: #64748B;
-            color: white;
+            min-height: 44px;
             padding: 10px 18px;
-            border-radius: 10px;
+            background: #fff;
+            color: var(--ink);
+            border: 2px solid var(--ink);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .2s ease;
         }
 
-        .table-info {
-            margin: 16px 0;
-            font-weight: 600;
-            color: #334155;
+        .reset-btn:hover {
+            background: #F1F2EC;
+            transform: translate(-1px, -2px);
+            box-shadow: 3px 3px 0 var(--ink);
         }
+
+        /* ---------------- Summary Cards ---------------- */
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+            margin: 20px 0;
+        }
+
+        .summary-card {
+            position: relative;
+            background: var(--card);
+            border: 2px solid var(--ink);
+            border-radius: 12px;
+            padding: 18px;
+            min-height: 115px;
+            overflow: hidden;
+            box-shadow: 4px 4px 0 var(--border);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .summary-card::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--primary);
+        }
+
+        .summary-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--ink);
+        }
+
+        .summary-card h3 {
+            margin: 8px 0 0;
+            font-size: 30px;
+            line-height: 1;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .summary-card p {
+            margin: 9px 0 0;
+            color: var(--text-light);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* Different visual accent for each summary card */
+        .summary-card:nth-child(1)::before {
+            background: var(--primary);
+        }
+
+        .summary-card:nth-child(2)::before {
+            background: #F59E0B;
+        }
+
+        .summary-card:nth-child(3)::before {
+            background: #22C55E;
+        }
+
+        .summary-card:nth-child(4)::before {
+            background: #EF4444;
+        }
+
+        /* ---------------- Table Information ---------------- */
+
+        .table-info {
+            margin: 18px 0 12px;
+            padding-left: 2px;
+            color: var(--text-light);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* ---------------- Table Card ---------------- */
+
+        .table-card {
+            background: var(--card);
+            border: 2px solid var(--ink);
+            border-radius: 12px;
+            overflow-x: auto;
+            box-shadow: 5px 5px 0 var(--border);
+        }
+
+        .table-card table {
+            width: 100%;
+            min-width: 760px;
+            border-collapse: collapse;
+        }
+
+        .table-card thead {
+            background: var(--ink);
+            color: #fff;
+        }
+
+        .table-card thead th {
+            padding: 14px 15px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .3px;
+            white-space: nowrap;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .table-card tbody td {
+            padding: 14px 15px;
+            border-bottom: 1px solid #E4E6DF;
+            color: var(--text);
+            font-size: 13px;
+            vertical-align: middle;
+        }
+
+        .table-card tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-card tbody tr {
+            transition: background .15s ease;
+        }
+
+        .table-card tbody tr:hover {
+            background: #FAFCEF;
+        }
+
+        /* ---------------- Status Badges ---------------- */
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            border: 1px solid transparent;
+            white-space: nowrap;
+        }
+
+        .badge-pending {
+            background: #EEF1F5;
+            color: #26313B;
+            border-color: #CDD3DA;
+        }
+
+        .badge-review {
+            background: #FFF3D5;
+            color: #7A5700;
+            border-color: #E8D08A;
+        }
+
+        .badge-success {
+            background: #EAF8DD;
+            color: #356300;
+            border-color: #BBD98A;
+        }
+
+        .badge-danger {
+            background: #FDEAEA;
+            color: #8B2020;
+            border-color: #E7BBBB;
+        }
+
+        /* ---------------- Action Button ---------------- */
 
         .action-btn {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 8px 14px;
-            background: #2563EB;
-            color: white;
+            justify-content: center;
+            gap: 7px;
+            padding: 8px 13px;
+            background: var(--ink);
+            color: var(--primary);
+            border: 2px solid var(--ink);
             border-radius: 8px;
             text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: .2s ease;
         }
 
         .action-btn:hover {
-            background: #1D4ED8;
+            background: var(--primary);
+            color: var(--ink);
+            transform: translate(-1px, -2px);
+            box-shadow: 3px 3px 0 var(--ink);
         }
 
-        .badge-review {
-            background: #F59E0B;
-            color: white;
+        /* ---------------- Empty State ---------------- */
+
+        .table-card tbody td[colspan="7"] {
+            padding: 45px 20px !important;
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: 500;
         }
 
-        .badge-success {
-            background: #16A34A;
-            color: white;
+        /* ---------------- Responsive ---------------- */
+
+        @media (max-width: 1000px) {
+
+            .summary-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .filter-form input {
+                min-width: 140px;
+            }
+
         }
 
-        .badge-danger {
-            background: #DC2626;
-            color: white;
+        @media (max-width: 700px) {
+
+            .dashboard-content {
+                padding-top: 25px;
+            }
+
+            .page-header {
+                padding: 18px;
+            }
+
+            .page-header h2 {
+                font-size: 21px;
+            }
+
+            .filter-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-form input,
+            .filter-form select,
+            .search-btn,
+            .reset-btn {
+                width: 100%;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .summary-card {
+                padding: 15px;
+            }
+
         }
 
-        .badge-pending {
-            background: #2563EB;
-            color: white;
+        @media (max-width: 450px) {
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-card {
+                min-height: 100px;
+            }
+
+            .table-card {
+                border-radius: 10px;
+            }
+
         }
     </style>
 
@@ -231,25 +559,27 @@ $totalRows = $result ? pg_num_rows($result) : 0;
 
 <body>
 
+    <!-- Common CampusDesk Navbar -->
     <?php include '../includes/navbar.php'; ?>
+
+    <!-- Common CampusDesk Header -->
     <?php include '../includes/header.php'; ?>
 
     <div class="dashboard-layout">
 
         <main class="dashboard-content">
 
+            <!-- Page Header -->
             <div class="page-header">
 
                 <div>
-
                     <h2>Grievance Management</h2>
-
                     <p>Review and manage student grievances.</p>
-
                 </div>
 
             </div>
 
+            <!-- Grievance Filters -->
             <form method="GET" class="filter-form">
 
                 <input
@@ -286,7 +616,9 @@ $totalRows = $result ? pg_num_rows($result) : 0;
 
                     <option value="">All Dates</option>
 
-                    <option value="today" <?= $dateFilter == 'today' ? 'selected' : '' ?>>
+                    <option
+                        value="today"
+                        <?= $dateFilter == 'today' ? 'selected' : '' ?>>
 
                         Today
 
@@ -294,68 +626,59 @@ $totalRows = $result ? pg_num_rows($result) : 0;
 
                 </select>
 
+                <!-- Search -->
                 <button type="submit" class="search-btn">
 
                     <i class="fa-solid fa-magnifying-glass"></i>
-
                     Search
 
                 </button>
 
+                <!-- Reset -->
                 <a href="grievances.php">
 
                     <button type="button" class="reset-btn">
-
                         Reset
-
                     </button>
 
                 </a>
 
             </form>
 
+            <!-- Summary Cards -->
             <div class="summary-grid">
 
-                <div class="summary-card" style="border-color:#2563EB;">
-
+                <div class="summary-card">
                     <h3><?= $newCount ?></h3>
-
                     <p>New</p>
-
                 </div>
 
-                <div class="summary-card" style="border-color:#F59E0B;">
-
+                <div class="summary-card">
                     <h3><?= $reviewCount ?></h3>
-
                     <p>Review</p>
-
                 </div>
 
-                <div class="summary-card" style="border-color:#16A34A;">
-
+                <div class="summary-card">
                     <h3><?= $resolvedCount ?></h3>
-
                     <p>Resolved</p>
-
                 </div>
 
-                <div class="summary-card" style="border-color:#DC2626;">
-
+                <div class="summary-card">
                     <h3><?= $rejectedCount ?></h3>
-
                     <p>Rejected</p>
-
                 </div>
 
             </div>
 
+            <!-- Table Result Count -->
             <div class="table-info">
 
-                Showing <?= $totalRows > 0 ? 1 : 0 ?>–<?= $totalRows ?> of <?= $totalRows ?>
+                Showing <?= $totalRows > 0 ? 1 : 0 ?>–<?= $totalRows ?>
+                of <?= $totalRows ?>
 
             </div>
 
+            <!-- Grievance Table -->
             <div class="table-card">
 
                 <table>
@@ -385,33 +708,23 @@ $totalRows = $result ? pg_num_rows($result) : 0;
                                 <tr>
 
                                     <td>
-
                                         GRV<?= str_pad($row['grievance_id'], 3, '0', STR_PAD_LEFT) ?>
-
                                     </td>
 
                                     <td>
-
                                         <?= htmlspecialchars($row['full_name']) ?>
-
                                     </td>
 
                                     <td>
-
                                         <?= htmlspecialchars($row['category_name']) ?>
-
                                     </td>
 
                                     <td>
-
                                         <?= htmlspecialchars($row['title']) ?>
-
                                     </td>
 
                                     <td>
-
                                         <?= date('d M Y', strtotime($row['submission_date'])) ?>
-
                                     </td>
 
                                     <td>
@@ -422,19 +735,23 @@ $totalRows = $result ? pg_num_rows($result) : 0;
                                         $class = 'badge-pending';
 
                                         if ($status == 'Resolved') {
+
                                             $class = 'badge-success';
                                         } elseif ($status == 'Rejected') {
+
                                             $class = 'badge-danger';
-                                        } elseif ($status == 'Under Review' || $status == 'In Progress') {
+                                        } elseif (
+                                            $status == 'Under Review' ||
+                                            $status == 'In Progress'
+                                        ) {
+
                                             $class = 'badge-review';
                                         }
 
                                         ?>
 
                                         <span class="badge <?= $class ?>">
-
                                             <?= htmlspecialchars($status) ?>
-
                                         </span>
 
                                     </td>
@@ -446,7 +763,6 @@ $totalRows = $result ? pg_num_rows($result) : 0;
                                             class="action-btn">
 
                                             <i class="fa-solid fa-eye"></i>
-
                                             View
 
                                         </a>
@@ -461,7 +777,7 @@ $totalRows = $result ? pg_num_rows($result) : 0;
 
                             <tr>
 
-                                <td colspan="7" style="text-align:center;padding:35px;">
+                                <td colspan="7">
 
                                     No grievances found.
 
@@ -481,6 +797,7 @@ $totalRows = $result ? pg_num_rows($result) : 0;
 
     </div>
 
+    <!-- Common CampusDesk Footer -->
     <?php include '../includes/footer.php'; ?>
 
 </body>

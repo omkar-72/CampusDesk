@@ -5,6 +5,7 @@
 |--------------------------------------------------------------------------
 | This page displays student applications for authority users.
 | The Action column intentionally contains ONLY the View button.
+| UI updated to match the CampusDesk Friend Login/Register theme.
 |--------------------------------------------------------------------------
 */
 
@@ -212,13 +213,472 @@ $totalRows = $result ? pg_num_rows($result) : 0;
         rel="stylesheet"
         href="../css/authority-table.css">
 
+
+    <!-- Friend Login/Register UI Theme -->
+    <style>
+        /* =========================================================
+           AUTHORITY APPLICATIONS
+           FRIEND LOGIN / REGISTER UI THEME
+           ========================================================= */
+
+        .dashboard-content {
+            padding-top: 100px;
+            padding-bottom: 40px;
+        }
+
+
+        /* ---------------------------------------------------------
+           PAGE HEADER
+           --------------------------------------------------------- */
+
+        .page-header {
+            position: relative;
+            background: var(--ink);
+            color: #fff;
+            border: 2px solid var(--ink);
+            border-radius: 12px;
+            padding: 22px 24px;
+            margin-bottom: 20px;
+            box-shadow: 5px 5px 0 var(--primary);
+            overflow: hidden;
+        }
+
+        .page-header::after {
+            content: "";
+            position: absolute;
+            right: -25px;
+            top: -35px;
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            transform: rotate(45deg);
+            opacity: .9;
+        }
+
+        .page-header h2 {
+            position: relative;
+            z-index: 2;
+            margin: 0;
+            font-size: 25px;
+            font-weight: 700;
+            letter-spacing: -.3px;
+        }
+
+        .page-header p {
+            position: relative;
+            z-index: 2;
+            margin: 6px 0 0;
+            color: #C9CED5;
+            font-size: 13px;
+        }
+
+
+        /* ---------------------------------------------------------
+           FILTER FORM
+           --------------------------------------------------------- */
+
+        .filter-form {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            background: var(--card);
+            border: 2px solid var(--ink);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 4px 4px 0 var(--border);
+        }
+
+        .filter-form input,
+        .filter-form select {
+            min-height: 44px;
+            padding: 10px 13px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            background: #FCFCF9;
+            color: var(--ink);
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            outline: none;
+            transition: .2s ease;
+        }
+
+        .filter-form input {
+            min-width: 160px;
+        }
+
+        .filter-form select {
+            min-width: 145px;
+        }
+
+        .filter-form input:focus,
+        .filter-form select:focus {
+            border-color: var(--ink);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(200, 241, 53, .35);
+        }
+
+
+        /* ---------------------------------------------------------
+           SEARCH BUTTON
+           --------------------------------------------------------- */
+
+        .filter-form button[type="submit"] {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 10px 18px;
+            background: var(--ink);
+            color: var(--primary);
+            border: 2px solid var(--ink);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .filter-form button[type="submit"]:hover {
+            background: var(--primary);
+            color: var(--ink);
+            transform: translate(-1px, -2px);
+            box-shadow: 4px 4px 0 var(--ink);
+        }
+
+
+        /* ---------------------------------------------------------
+           RESET BUTTON
+           --------------------------------------------------------- */
+
+        .reset-btn {
+            min-height: 44px;
+            padding: 10px 18px;
+            background: #fff;
+            color: var(--ink);
+            border: 2px solid var(--ink);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .reset-btn:hover {
+            background: #F1F2EC;
+            transform: translate(-1px, -2px);
+            box-shadow: 3px 3px 0 var(--ink);
+        }
+
+
+        /* ---------------------------------------------------------
+           SUMMARY CARDS
+           --------------------------------------------------------- */
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+            margin: 20px 0;
+        }
+
+        .summary-card {
+            position: relative;
+            background: var(--card);
+            border: 2px solid var(--ink) !important;
+            border-radius: 12px;
+            padding: 18px;
+            min-height: 115px;
+            overflow: hidden;
+            box-shadow: 4px 4px 0 var(--border);
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
+
+        .summary-card::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--primary);
+        }
+
+        .summary-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--ink);
+        }
+
+        .summary-card h3 {
+            margin: 8px 0 0;
+            font-size: 30px;
+            line-height: 1;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .summary-card p {
+            margin: 9px 0 0;
+            color: var(--text-light);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+
+        /* Different accent strips */
+        .summary-card:nth-child(1)::before {
+            background: var(--primary);
+        }
+
+        .summary-card:nth-child(2)::before {
+            background: #F59E0B;
+        }
+
+        .summary-card:nth-child(3)::before {
+            background: #22C55E;
+        }
+
+        .summary-card:nth-child(4)::before {
+            background: #EF4444;
+        }
+
+
+        /* ---------------------------------------------------------
+           TABLE INFORMATION
+           --------------------------------------------------------- */
+
+        .table-info {
+            margin: 18px 0 12px;
+            padding-left: 2px;
+            color: var(--text-light);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+
+        /* ---------------------------------------------------------
+           TABLE CARD
+           --------------------------------------------------------- */
+
+        .table-card {
+            background: var(--card);
+            border: 2px solid var(--ink);
+            border-radius: 12px;
+            overflow-x: auto;
+            box-shadow: 5px 5px 0 var(--border);
+        }
+
+        .table-card table {
+            width: 100%;
+            min-width: 800px;
+            border-collapse: collapse;
+        }
+
+        .table-card thead {
+            background: var(--ink);
+            color: #fff;
+        }
+
+        .table-card thead th {
+            padding: 14px 15px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .3px;
+            white-space: nowrap;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .table-card tbody td {
+            padding: 14px 15px;
+            border-bottom: 1px solid #E4E6DF;
+            color: var(--text);
+            font-size: 13px;
+            vertical-align: middle;
+        }
+
+        .table-card tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-card tbody tr {
+            transition: background .15s ease;
+        }
+
+        .table-card tbody tr:hover {
+            background: #FAFCEF;
+        }
+
+
+        /* ---------------------------------------------------------
+           STATUS BADGES
+           --------------------------------------------------------- */
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            border: 1px solid transparent;
+            white-space: nowrap;
+        }
+
+        .badge-pending {
+            background: #EEF1F5;
+            color: #26313B;
+            border-color: #CDD3DA;
+        }
+
+        .badge-review {
+            background: #FFF3D5;
+            color: #7A5700;
+            border-color: #E8D08A;
+        }
+
+        .badge-success {
+            background: #EAF8DD;
+            color: #356300;
+            border-color: #BBD98A;
+        }
+
+        .badge-danger {
+            background: #FDEAEA;
+            color: #8B2020;
+            border-color: #E7BBBB;
+        }
+
+
+        /* ---------------------------------------------------------
+           VIEW ACTION BUTTON
+           --------------------------------------------------------- */
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 8px 13px;
+            background: var(--ink);
+            color: var(--primary);
+            border: 2px solid var(--ink);
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: .2s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            color: var(--ink);
+            transform: translate(-1px, -2px);
+            box-shadow: 3px 3px 0 var(--ink);
+        }
+
+
+        /* ---------------------------------------------------------
+           EMPTY STATE
+           --------------------------------------------------------- */
+
+        .table-card tbody td[colspan="7"] {
+            padding: 45px 20px !important;
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+
+        /* ---------------------------------------------------------
+           RESPONSIVE
+           --------------------------------------------------------- */
+
+        @media (max-width: 1000px) {
+
+            .summary-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .filter-form input {
+                min-width: 140px;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .dashboard-content {
+                padding-top: 25px;
+            }
+
+            .page-header {
+                padding: 18px;
+            }
+
+            .page-header h2 {
+                font-size: 21px;
+            }
+
+            .filter-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-form input,
+            .filter-form select,
+            .filter-form button[type="submit"],
+            .reset-btn {
+                width: 100%;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .summary-card {
+                padding: 15px;
+            }
+
+        }
+
+
+        @media (max-width: 450px) {
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-card {
+                min-height: 100px;
+            }
+
+            .table-card {
+                border-radius: 10px;
+            }
+
+        }
+    </style>
+
 </head>
 
 
 <body>
 
+    <!-- Common CampusDesk Navbar -->
     <?php include "../includes/navbar.php"; ?>
 
+    <!-- Common CampusDesk Header -->
     <?php include "../includes/header.php"; ?>
 
 
@@ -334,7 +794,9 @@ $totalRows = $result ? pg_num_rows($result) : 0;
                     <option
                         value="today"
                         <?= $dateFilter == "today" ? "selected" : "" ?>>
+
                         Today
+
                     </option>
 
                 </select>
@@ -342,7 +804,10 @@ $totalRows = $result ? pg_num_rows($result) : 0;
 
                 <!-- Search -->
                 <button type="submit">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
                     Search
+
                 </button>
 
 
@@ -352,7 +817,9 @@ $totalRows = $result ? pg_num_rows($result) : 0;
                     <button
                         type="button"
                         class="reset-btn">
+
                         Reset
+
                     </button>
 
                 </a>
@@ -368,9 +835,7 @@ $totalRows = $result ? pg_num_rows($result) : 0;
 
 
                 <!-- New -->
-                <div
-                    class="summary-card"
-                    style="border-color:#2563EB;">
+                <div class="summary-card">
 
                     <h3>
                         <?= $newCount ?>
@@ -384,9 +849,7 @@ $totalRows = $result ? pg_num_rows($result) : 0;
 
 
                 <!-- Processing -->
-                <div
-                    class="summary-card"
-                    style="border-color:#F59E0B;">
+                <div class="summary-card">
 
                     <h3>
                         <?= $processingCount ?>
@@ -400,9 +863,7 @@ $totalRows = $result ? pg_num_rows($result) : 0;
 
 
                 <!-- Approved -->
-                <div
-                    class="summary-card"
-                    style="border-color:#16A34A;">
+                <div class="summary-card">
 
                     <h3>
                         <?= $approvedCount ?>
@@ -416,9 +877,7 @@ $totalRows = $result ? pg_num_rows($result) : 0;
 
 
                 <!-- Rejected -->
-                <div
-                    class="summary-card"
-                    style="border-color:#DC2626;">
+                <div class="summary-card">
 
                     <h3>
                         <?= $rejectedCount ?>
@@ -439,7 +898,7 @@ $totalRows = $result ? pg_num_rows($result) : 0;
 
             <div class="table-info">
 
-                Showing 1–<?= $totalRows ?>
+                Showing <?= $totalRows > 0 ? 1 : 0 ?>–<?= $totalRows ?>
                 of <?= $totalRows ?>
 
             </div>
@@ -658,6 +1117,7 @@ $totalRows = $result ? pg_num_rows($result) : 0;
     </div>
 
 
+    <!-- Common CampusDesk Footer -->
     <?php include "../includes/footer.php"; ?>
 
 
