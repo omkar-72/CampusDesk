@@ -268,8 +268,8 @@ $emailSafe = htmlspecialchars($email, ENT_QUOTES, "UTF-8");
                     </div>
 
 
-
-                    <!-- Remember Me -->
+                    <!--
+                     Remember Me
 
                     <div class="admin-remember-wrapper">
 
@@ -285,7 +285,7 @@ $emailSafe = htmlspecialchars($email, ENT_QUOTES, "UTF-8");
                         </label>
 
                     </div>
-
+                    -->
 
 
                     <!-- Login Button -->
