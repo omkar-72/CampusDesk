@@ -31,6 +31,12 @@
                 ABOUT US
             </a>
 
+
+            <a href="contact.php" class="about-link">
+                <i class="fa-solid fa-circle-info"></i>
+                Contact US
+            </a>
+
             <!-- Admin Login -->
             <a href="admin/admin_login.php" class="admin-link">
                 <i class="ti ti-user-shield"></i> Admin Login
