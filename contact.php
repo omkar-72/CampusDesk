@@ -145,11 +145,11 @@
                             <use href="#pin" />
                         </svg></div>
                     <h3>CampusDesk Help Desk</h3>
-                    <p>Admin Building, Ground Floor<br>Your college name, city, PIN code</p>
+                    <p>Admin Building, Ground Floor<br>Fergusson College, Pune, 411004</p>
                     <div class="open"><svg class="i" style="width:14px;height:14px">
                             <use href="#clock" />
                         </svg>Open today, 9:00 AM to 5:00 PM</div>
-                    <div class="btns">
+                    <!-- <div class="btns">
                         <a class="btn p" href="#"><svg class="i" style="width:14px;height:14px">
                                 <use href="#nav" />
                             </svg>Directions</a>
@@ -157,7 +157,7 @@
                                 style="width:14px;height:14px">
                                 <use href="#copy" />
                             </svg>Copy address</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
