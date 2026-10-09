@@ -205,25 +205,11 @@
             <div class="team-grid">
 
                 <div class="member">
-                    <div class="member-top"><span>OG</span></div>
-                    <div class="member-body">
-                        <h3>Omkar Gavane</h3>
-                        <p class="member-role">Your role here</p>
-                        <p>Write one or two lines about what Omkar worked on in this project.</p>
-                        <div class="socials">
-                            <a href="#"><i class="fa-brands fa-github"></i></a>
-                            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fa-solid fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="member">
                     <div class="member-top"><span>AN</span></div>
                     <div class="member-body">
                         <h3>Amod Naikare</h3>
-                        <p class="member-role">UI and Design</p>
-                        <p>Designed the look and feel of CampusDesk, from the home page to the dashboards.</p>
+                        <p class="member-role">Frontend Developer & UI Designer</p>
+                        <p>Developed and designed the frontend of CampusDesk, including the homepage, dashboards, layouts, and overall user interface.</p>
                         <div class="socials">
                             <a href="#"><i class="fa-brands fa-github"></i></a>
                             <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
@@ -236,8 +222,22 @@
                     <div class="member-top"><span>GM</span></div>
                     <div class="member-body">
                         <h3>Ganesh Mane</h3>
-                        <p class="member-role">Your role here</p>
-                        <p>Write one or two lines about what Ganesh worked on in this project.</p>
+                        <p class="member-role">Lead Developer</p>
+                        <p>Worked on the Student and Admin Modules, implementing their functionality and integrating them with the system.</p>
+                        <div class="socials">
+                            <a href="#"><i class="fa-brands fa-github"></i></a>
+                            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fa-solid fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="member">
+                    <div class="member-top"><span>OG</span></div>
+                    <div class="member-body">
+                        <h3>Omkar Gavane</h3>
+                        <p class="member-role">Backedend & Module Devloper</p>
+                        <p>Worked on backend development, database integration and the Authority Module.</p>
                         <div class="socials">
                             <a href="#"><i class="fa-brands fa-github"></i></a>
                             <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>

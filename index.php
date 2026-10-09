@@ -28,13 +28,13 @@
 
             <a href="about.php" class="about-link">
                 <i class="fa-solid fa-circle-info"></i>
-                ABOUT US
+                About Us
             </a>
 
 
             <a href="contact.php" class="about-link">
                 <i class="fa-solid fa-circle-info"></i>
-                Contact US
+                Contact Us
             </a>
 
             <!-- Admin Login -->
