@@ -236,7 +236,7 @@
                     <div class="member-top"><span>OG</span></div>
                     <div class="member-body">
                         <h3>Omkar Gavane</h3>
-                        <p class="member-role">Backedend & Module Devloper</p>
+                        <p class="member-role">Backedend & Module Developer</p>
                         <p>Worked on backend development, database integration and the Authority Module.</p>
                         <div class="socials">
                             <a href="#"><i class="fa-brands fa-github"></i></a>
