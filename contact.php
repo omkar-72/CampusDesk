@@ -218,17 +218,17 @@
                     <ul>
                         <li><a href="index.php">Home</a></li>
                         <li><a href="about.php">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="contact.php">Contact</a></li>
                     </ul>
                 </div>
-                <div>
+                <!--<div>
                     <h4>Portal</h4>
                     <ul>
-                        <li><a href="#">Student login</a></li>
+                        <li><a href="login.php">Student login</a></li>
                         <li><a href="#">Authority login</a></li>
                         <li><a href="#">Register</a></li>
                     </ul>
-                </div>
+                </div> -->
                 <div>
                     <h4>Contact</h4>
                     <ul>
