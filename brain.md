@@ -16,12 +16,11 @@ amod@1234
 ganesh.mane@campusdesk.com
 ganesh@1234
 
-authority1@campusdesk.com
-newpassword
+authority@campusdesk.com
+authority@1234
 
-admin@campusdesk.com
-
-admin@123
+admin2.0@campusdesk.com
+admin2.0@123
 
 // done by ganesh
 login@gmail.com
